@@ -1,5 +1,5 @@
 //
-//  Location.swift
+//  LocationRequester.swift
 //  Carrot
 //
 //  Created by Gonzalo Nunez on 10/13/17.
@@ -9,56 +9,35 @@
 import Foundation
 import CoreLocation
 
-// MARK: - Location Options
+// MARK: - LocationRequestOptions
 
-public struct LocationOptions {
-  let desiredAccuracy = kCLLocationAccuracyBest
+public struct LocationRequestOptions {
+  public let desiredAccuracy: CLLocationAccuracy
+  
+  public init(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
+    self.desiredAccuracy = desiredAccuracy
+  }
 }
 
-// MARK: - Location
-
-public final class Location {
-  
-  // MARK: Lifecycle
-  
-  init(
-    options: LocationOptions = LocationOptions(),
-    resultHandler: ((Result<CLLocation>) -> Void)? = nil)
-  {
-    self.options = options
-    if let resultHandler = resultHandler {
-      fetch(with: resultHandler)
-    }
-  }
-  
-  // MARK: Private
-  
-  private let options: LocationOptions
-  
-  public func fetch(with resultHandler: @escaping (Result<CLLocation>) -> Void) {
-    LocationRequester.shared.fetch(
-      with: options,
-      resultHandler: resultHandler)
-  }
+extension LocationRequestOptions {
+  public static var `default` = LocationRequestOptions()
 }
 
 // MARK: - LocationRequesterError
 
-enum LocationRequesterError: Error {
+public enum LocationRequesterError: Error {
   case locationServicesNotAvailable
   case noLocationsFound
 }
 
 // MARK: - LocationRequester
 
-private final class LocationRequester: NSObject, CLLocationManagerDelegate {
+public final class LocationRequester: NSObject, CLLocationManagerDelegate {
   
-  // MARK: Internal
+  // MARK: Public
   
-  static let shared = LocationRequester()
-  
-  func fetch(
-    with options: LocationOptions,
+  public func fetch(
+    with options: LocationRequestOptions = .default,
     resultHandler: @escaping (Result<CLLocation>) -> Void)
   {
     guard CLLocationManager.locationServicesEnabled() else {
@@ -83,7 +62,10 @@ private final class LocationRequester: NSObject, CLLocationManagerDelegate {
   
   // MARK: CLLocationManagerDelegate
   
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  public func locationManager(
+    _ manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation])
+  {
     guard let location = locations.first else {
       resultHandler?(.error(LocationRequesterError.noLocationsFound))
       return
@@ -91,7 +73,10 @@ private final class LocationRequester: NSObject, CLLocationManagerDelegate {
     resultHandler?(.success(location))
   }
   
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+  public func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error)
+  {
     resultHandler?(.error(error))
   }
 }

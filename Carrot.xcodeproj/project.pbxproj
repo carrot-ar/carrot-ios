@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		A48FF78881B50B4110C19DBE /* Pods_Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB7931D71F9112E900F17E85 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D61F9112E900F17E85 /* Location.swift */; };
+		AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D61F9112E900F17E85 /* LocationRequester.swift */; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
+		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,8 +19,9 @@
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB7931D61F9112E900F17E85 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		AB7931D61F9112E900F17E85 /* LocationRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequester.swift; sourceTree = "<group>"; };
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		ABBD13CB4CDD1BF57831A2CC /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,12 +76,37 @@
 		AB7931CD1F91101900F17E85 /* Carrot */ = {
 			isa = PBXGroup;
 			children = (
+				AB7931DC1F91364300F17E85 /* Networking */,
+				AB7931DA1F91361700F17E85 /* Location */,
+				AB7931DB1F91363200F17E85 /* Utils */,
 				AB7931CE1F91101900F17E85 /* Carrot.h */,
 				AB7931CF1F91101900F17E85 /* Info.plist */,
-				AB7931D61F9112E900F17E85 /* Location.swift */,
-				AB7931D81F91265B00F17E85 /* Utils.swift */,
 			);
 			path = Carrot;
+			sourceTree = "<group>";
+		};
+		AB7931DA1F91361700F17E85 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				AB7931D61F9112E900F17E85 /* LocationRequester.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		AB7931DB1F91363200F17E85 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AB7931D81F91265B00F17E85 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		AB7931DC1F91364300F17E85 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AB7931DD1F913E9E00F17E85 /* Socket.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,8 +227,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB7931D71F9112E900F17E85 /* Location.swift in Sources */,
+				AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
+				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

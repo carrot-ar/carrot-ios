@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.platform           = :ios, '11.0'
   s.source             = { :git => 'https://github.com/senior-buddy/carrot-ios.git', :tag => s.version.to_s }
 
-  s.source_files       = "Carrot"
+  s.source_files       = "Carrot/**/*.swift"
 
   s.dependency "SocketRocket"
 

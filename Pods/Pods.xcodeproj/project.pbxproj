@@ -9,15 +9,15 @@
 /* Begin PBXBuildFile section */
 		19E1473D9C25CEB4D59EF7A8DFFD453F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A847C3B26F9C9E99A5ACEACF501F86DD /* CFNetwork.framework */; };
 		2B2B515F902461EA3E21304A8F07BF93 /* Pods-Carrot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEE8193B5B3317026922198177FF5A /* Pods-Carrot-dummy.m */; };
-		3EE95C8FB3475B7B98EC08463E88BB72 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898C057D730CBD238D8673C57F96246 /* SRWebSocket.m */; };
 		4708B0BCF32D331FAB232F24D72E6E8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3725257C79D0C80F87B9E2B291C17A /* Foundation.framework */; };
 		69B0E3B6E08337F3B23FC73DA47660DE /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = BD74F82EA2CCB617119AE5011205E40C /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A16DDB1ECADD3AB967DDE036DF1492F /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E9850CAF51231F87401C9D5963EE39 /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BE5DF75B6285352CF7D819C7C8A5AB5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F6DD994291AA39A94BEECAFAF0D785 /* Security.framework */; };
 		6FB5924182761729A82ACC142F3A4055 /* Pods-Carrot-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21C01EE510837E71D955461083F64B2B /* Pods-Carrot-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7EBE50B88FC56E3DCDB5B45FEA3D6760 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6006CA1202529404CCB0FA1975B10213 /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		97F1875CFF6BFE9966619E5801AA3205 /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932176CAC4E66CD1DF6CF8B352798BC /* SocketRocket-dummy.m */; };
 		A50D578F2C9B99BAFA5F997AAE950B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3725257C79D0C80F87B9E2B291C17A /* Foundation.framework */; };
+		CA0E8CD840DC8048807DA7A2A1A247C9 /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7932176CAC4E66CD1DF6CF8B352798BC /* SocketRocket-dummy.m */; };
+		ED6EC456A5FCE2066D66CD7FEFAEEF66 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0898C057D730CBD238D8673C57F96246 /* SRWebSocket.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,7 +222,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 82E56971CB93F32E0ECA74EAF2F0C479 /* Build configuration list for PBXNativeTarget "SocketRocket" */;
 			buildPhases = (
-				C5F9272D58398C52C50113CE9DB9192E /* Sources */,
+				3EB36E1BED1BF14478C7AAF88192F560 /* Sources */,
 				D72789A29F21C53B6F6150DC127D1133 /* Frameworks */,
 				63A0FA5015C9B8A8CCA037CFF62ABD51 /* Headers */,
 			);
@@ -263,20 +263,20 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3EB36E1BED1BF14478C7AAF88192F560 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA0E8CD840DC8048807DA7A2A1A247C9 /* SocketRocket-dummy.m in Sources */,
+				ED6EC456A5FCE2066D66CD7FEFAEEF66 /* SRWebSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9AF0A9A1A004DEC32749FA998DAA7E08 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2B2B515F902461EA3E21304A8F07BF93 /* Pods-Carrot-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C5F9272D58398C52C50113CE9DB9192E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				97F1875CFF6BFE9966619E5801AA3205 /* SocketRocket-dummy.m in Sources */,
-				3EE95C8FB3475B7B98EC08463E88BB72 /* SRWebSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -66,11 +66,10 @@ public final class CarrotSession: SocketDelegate {
           self?.state = .failed(self?.state, error)
         }
       }
-    case let .didFetchLocation(token, location):
+    case let .didFetchLocation(_, location):
       do {
         let data = try location.data()
         try socket.send(data: data)
-        state = .authenticated(token, location)
       } catch {
         state = .failed(state, error)
       }
@@ -78,7 +77,7 @@ public final class CarrotSession: SocketDelegate {
       //FIXME: handle error here and attempt to recover based on previous state?
       // For example, if we failed to fetch a location we can retry.
       break
-    case .pendingToken, .fetchingLocation, .authenticated:
+    case .pendingToken, .fetchingLocation, .pendingLocationConfirmation, .authenticated:
       break
     }
   }
@@ -103,6 +102,10 @@ public final class CarrotSession: SocketDelegate {
       if let token = String(data: data, encoding: .utf8) {
         state = .receivedToken(token)
       }
+    case let .pendingLocationConfirmation(token, location):
+      if let message = String(data: data, encoding: .utf8), message.hasPrefix("Authenticated"), message.contains(token) {
+        state = .authenticated(token, location)
+      }
     case .authenticated:
       do {
         //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
@@ -124,6 +127,7 @@ public enum CarrotSessionState {
   case receivedToken(SessionToken)
   case fetchingLocation(SessionToken)
   case didFetchLocation(SessionToken, CLLocation)
+  case pendingLocationConfirmation(SessionToken, CLLocation)
   case authenticated(SessionToken, CLLocation)
   indirect case failed(CarrotSessionState?, Error)
   
@@ -136,6 +140,8 @@ public enum CarrotSessionState {
     case let .fetchingLocation(token):
       return token
     case let .didFetchLocation(token, _):
+      return token
+    case let .pendingLocationConfirmation(token, _):
       return token
     case let .authenticated(token, _):
       return token

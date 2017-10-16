@@ -50,7 +50,7 @@ public struct Message {
 }
 
 public protocol JSONConvertible: class {
- init?(json: JSONDict)
+  init?(json: JSONDict)
   func makeJSON() -> JSONDict
 }
 

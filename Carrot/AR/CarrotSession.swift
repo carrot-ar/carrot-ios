@@ -76,6 +76,7 @@ public final class CarrotSession: SocketDelegate {
       }
     case let .failed(previous, error):
       //FIXME: handle error here and attempt to recover based on previous state?
+      // For example, if we failed to fetch a location we can retry.
       break
     case .pendingToken, .fetchingLocation, .authenticated:
       break
@@ -85,11 +86,15 @@ public final class CarrotSession: SocketDelegate {
   // MARK: SocketDelegate
   
   public func socketDidOpen() {
-  
+    // NOOP for now
   }
   
-  public func socketDidClose() {
+  public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
+    // NOOP for now
+  }
   
+  public func socketDidFail(with error: Error?) {
+    // NOOP for now
   }
   
   public func socketDidReceive(data: Data) {
@@ -100,6 +105,7 @@ public final class CarrotSession: SocketDelegate {
       }
     case .authenticated:
       do {
+        //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
         let message = try Message(data: data)
         messageHandler(.success(message))
       } catch {

@@ -6,6 +6,7 @@ A `CarrotSession` is initialized with something that conforms to the `Socket` pr
 
 ```swift
 // MARK: - Socket
+
 public protocol Socket: class {
   weak var eventDelegate: SocketDelegate? { get set }
   func open()
@@ -14,6 +15,7 @@ public protocol Socket: class {
 }
 
 // MARK: - SocketDelegate
+
 public protocol SocketDelegate: class {
   func socketDidOpen()
   func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?)

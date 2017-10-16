@@ -1,10 +1,42 @@
 # Examples
 
-### Using a `CarrotSession`
+### Providing `CarrotSession` with a `Socket`
 
-A `CarrotSession` is initialized with something that conforms to the `Socket` protocol. This is just a simple abstraction of what a typical WebSocket interface might look like, and is used in order to allow you to use whatever WebSocket implementation you'd like to use under-the-hood.
+A `CarrotSession` is initialized with something that conforms to the `Socket` protocol:
 
-Let's say you'd like to use Facebook's [SocketRocket](https://github.com/facebook/SocketRocket) as your WebSocket client implementation. In order to use it with a `CarrotSession`, you'd do something like this:
+```swift
+// MARK: - Socket
+public protocol Socket: class {
+  weak var eventDelegate: SocketDelegate? { get set }
+  func open()
+  func close()
+  func send(data: Data) throws
+}
+
+// MARK: - SocketDelegate
+public protocol SocketDelegate: class {
+  func socketDidOpen()
+  func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?)
+  func socketDidFail(with error: Error?)
+  func socketDidReceive(data: Data)
+}
+``` 
+
+This protocol allows you to use whatever implemention of a WebSocket that you'd like. All you have to do is conform the underlying implementation to the `Socket` protocol. The easiest way to do this is probably to wrap it within a new type that conforms to the `Socket` protocol.
+
+### Using Facebook's [SocketRocket](https://github.com/facebook/SocketRocket)
+
+Using the `CarrotSocket` as implemented below would allow you to do create a `CarrotSession` like this:
+
+```swift
+let carrotSocket = CarrotSocket(webSocket: SRWebSocket(url: URL(string: "http://78.125.0.209:8080/ws")))
+let session = CarrotSession(socket: carrotSocket) { result in
+  // handle stream messages received here
+}
+session.start()
+```
+
+#### `CarrotSocket`
 
 ```swift
 import Foundation
@@ -20,8 +52,8 @@ public class CarrotSocket: NSObject, Socket {
     socket.delegate = self
   }
   
-  // MARK: Internal
-  
+  // MARK: Socket
+    
   public weak var eventDelegate: SocketDelegate?
   
   public func open() {

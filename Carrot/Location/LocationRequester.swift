@@ -80,3 +80,18 @@ public final class LocationRequester: NSObject, CLLocationManagerDelegate {
     resultHandler?(.error(error))
   }
 }
+
+extension CLLocation {
+  public convenience init?(json: JSONDict) {
+    guard let lat = json["lat"] as? CLLocationDegrees, let lon = json["lon"] as? CLLocationDegrees else {
+      return nil
+    }
+    self.init(latitude: lat, longitude: lon)
+  }
+  
+  public func data() throws -> Data {
+    let json = ["lat": coordinate.latitude,
+                "lon": coordinate.longitude]
+    return try JSONSerialization.data(withJSONObject: json, options: [])
+  }
+}

@@ -8,6 +8,15 @@
 
 import Foundation
 
-public final class Socket {
-  
+public protocol SocketDelegate: class {
+  func socketDidOpen()
+  func socketDidClose()
+  func socketDidReceive(data: Data)
+}
+
+public protocol Socket: class {
+  weak var eventDelegate: SocketDelegate? { get set }
+  func open()
+  func close()
+  func send(data: Data) throws
 }

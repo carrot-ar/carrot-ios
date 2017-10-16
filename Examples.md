@@ -1,6 +1,6 @@
 # Examples
 
-## Using a `CarrotSession`
+### Using a `CarrotSession`
 
 A `CarrotSession` is initialized with something that conforms to the `Socket` protocol. This is just a simple abstraction of what a typical WebSocket interface might look like, and is used in order to allow you to use whatever WebSocket implementation you'd like to use under-the-hood.
 

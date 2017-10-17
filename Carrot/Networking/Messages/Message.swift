@@ -8,10 +8,14 @@
 
 import Foundation
 
+// MARK: - Message
+
 public enum Message<T: Codable> {
   case event(EventMessage<T>)
   case stream(StreamMessage<T>)
 }
+
+// MARK: - Codable
 
 extension Message: Codable {
   

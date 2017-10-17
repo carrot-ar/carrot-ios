@@ -8,10 +8,14 @@
 
 import Foundation
 
+// MARK: - CarrotMessage
+
 enum CarrotMessage<T: Codable> {
   case event(CarrotEventMessage<T>)
   case stream(CarrotStreamMessage<T>)
 }
+
+// MARK: - Codable
 
 extension CarrotMessage: Codable {
   

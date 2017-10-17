@@ -14,7 +14,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
   
-  init(socket: Socket, messageHandler: @escaping (Result<Message<T>>) -> Void) {
+  public init(socket: Socket, messageHandler: @escaping (Result<Message<T>>) -> Void) {
     self.socket = socket
     self.messageHandler = messageHandler
   }
@@ -31,16 +31,16 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     return state.token
   }
   
-  func start() {
+  public func start() {
     socket.eventDelegate = self
     state = .opening
   }
   
-  func end() {
+  public func end() {
     state = .closed
   }
   
-  func send(message: Message<T>) throws {
+  public func send(message: Message<T>) throws {
     
     switch state {
     case let .authenticated(token, location):

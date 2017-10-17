@@ -18,6 +18,7 @@
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
 		AB7931E01F940E4800F17E85 /* EventMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DF1F940E4800F17E85 /* EventMessage.swift */; };
+		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		AB7931DF1F940E4800F17E85 /* EventMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMessage.swift; sourceTree = "<group>"; };
+		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 		AB7931DA1F91361700F17E85 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
 				AB7931D61F9112E900F17E85 /* LocationRequester.swift */,
 			);
 			path = Location;
@@ -121,13 +124,21 @@
 		AB7931DC1F91364300F17E85 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CC71F96A6B90071B69F /* Event */,
-				AB4E9CC61F96A6B20071B69F /* Stream */,
-				AB4E9CBE1F96A4530071B69F /* Message.swift */,
-				AB4E9CC81F96A7BA0071B69F /* CarrotMessage.swift */,
+				ABC28A0C1F96AB100014FEE9 /* Messages */,
 				AB7931DD1F913E9E00F17E85 /* Socket.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		ABC28A0C1F96AB100014FEE9 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				AB4E9CBE1F96A4530071B69F /* Message.swift */,
+				AB4E9CC81F96A7BA0071B69F /* CarrotMessage.swift */,
+				AB4E9CC61F96A6B20071B69F /* Stream */,
+				AB4E9CC71F96A6B90071B69F /* Event */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
+				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
 				AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */,
 				AB4E9CBD1F969ACE0071B69F /* CarrotEventMessage.swift in Sources */,
 				AB4E9CC51F96A6AC0071B69F /* CarrotStreamMessage.swift in Sources */,

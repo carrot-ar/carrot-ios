@@ -41,9 +41,34 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   func send(message: Message<T>) throws {
-    //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
-    //let data = try message.data()
-    //try socket.send(data: data)
+    
+    switch state {
+    case let .authenticated(token, location):
+      
+      let carrotMessage: CarrotMessage<T>
+      
+      switch message {
+      case let .event(eventMessage):
+        let carrotEventMessage = CarrotEventMessage(from: eventMessage, token: token, origin: location)
+        carrotMessage = .event(carrotEventMessage)
+      case let .stream(streamMessage):
+        fatalError("Stream messages are not yet implemented.")
+      }
+      
+      let encoder = JSONEncoder()
+      let data = try encoder.encode(carrotMessage)
+      try socket.send(data: data)
+      
+    case .closed,
+         .opening,
+         .pendingToken,
+         .receivedToken,
+         .fetchingLocation,
+         .didFetchLocation,
+         .pendingLocationConfirmation,
+         .failed:
+      throw CarrotSessionError.notAuthorized
+    }
   }
   
   // MARK: Private
@@ -104,8 +129,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   public func socketDidReceive(data: Data) {
     switch state {
     case .pendingToken:
-      //TODO: actually verify that this is a token
-      if let token = String(data: data, encoding: .utf8) {
+      //TODO: actually verify that this is a token?
+      if let token = String(data: data, encoding: .utf8), token.hasSuffix("==") {
         state = .receivedToken(token)
       }
     case let .pendingLocationConfirmation(token, location):
@@ -114,15 +139,18 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       }
     case .authenticated:
       do {
-        //FIXME: fix this shit
         let decoder = JSONDecoder()
         let carrotMessage = try decoder.decode(CarrotMessage<T>.self, from: data)
         
-        
-        //TODO: We need to do more here to convert from CarrotMessage to Message.
-        // For AR, message needs an origin too except it's converted.
-        
-        //messageHandler(.success(carrotMessage.message))
+        switch carrotMessage {
+        case let .event(message):
+          var eventMessage = message.message
+          //FIXME: We actually want to convert using: message.origin (Location2D), eventMessage.location (Location3D), and our state's Location2D
+          eventMessage.location = .zero
+          messageHandler(.success(.event(eventMessage)))
+        case let .stream(message):
+          fatalError("Stream messages are not yet implemented.")
+        }
       } catch {
         messageHandler(.error(error))
       }
@@ -163,20 +191,8 @@ public enum CarrotSessionState {
   }
 }
 
+public enum CarrotSessionError: Error {
+  case notAuthorized
+}
+
 public typealias SessionToken = String
-
-public struct Location2D: Codable {
-  public var latitude: Double
-  public var longitude: Double
-  
-  public init(from location: CLLocation) {
-    self.latitude = location.coordinate.latitude
-    self.longitude = location.coordinate.longitude
-  }
-}
-
-public struct Location3D: Codable {
-  public var x: Double
-  public var y: Double
-  public var z: Double
-}

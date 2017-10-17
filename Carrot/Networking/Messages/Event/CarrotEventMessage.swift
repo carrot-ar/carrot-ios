@@ -14,14 +14,16 @@ struct CarrotEventMessage<T: Codable> {
   
   // MARK: Lifecycle
   
-  init(from message: EventMessage<T>, origin: Location2D) {
-    self.message = message
+  init(from message: EventMessage<T>, token: SessionToken, origin: Location2D) {
+    self.token = token
     self.origin = origin
+    self.message = message
   }
   
   // MARK: Internal
   
   var origin: Location2D
+  var token: SessionToken
   var message: EventMessage<T>
 }
 
@@ -30,19 +32,22 @@ struct CarrotEventMessage<T: Codable> {
 extension CarrotEventMessage: Codable {
   
   enum CodingKeys: String, CodingKey {
-    case message
     case origin
+    case token
+    case message
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    message = try values.decode(EventMessage<T>.self, forKey: .message)
     origin = try values.decode(Location2D.self, forKey: .origin)
+    token = try values.decode(SessionToken.self, forKey: .token)
+    message = try values.decode(EventMessage<T>.self, forKey: .message)
   }
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(message, forKey: .message)
     try container.encode(origin, forKey: .origin)
+    try container.encode(token, forKey: .token)
+    try container.encode(message, forKey: .message)
   }
 }

@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 
+//TODO: client secret somewhere here eventually?
 public final class CarrotSession: SocketDelegate {
   
   // MARK: Lifecycle
@@ -40,7 +41,9 @@ public final class CarrotSession: SocketDelegate {
   }
   
   func send(message: Message) throws {
-    
+    //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
+    let data = try message.data()
+    try socket.send(data: data)
   }
   
   // MARK: Private
@@ -54,7 +57,6 @@ public final class CarrotSession: SocketDelegate {
       state = .pendingToken
       socket.open()
     case .closed:
-      state = .closed
       socket.close()
     case let .receivedToken(token):
       state = .fetchingLocation(token)
@@ -66,8 +68,9 @@ public final class CarrotSession: SocketDelegate {
           self?.state = .failed(self?.state, error)
         }
       }
-    case let .didFetchLocation(_, location):
+    case let .didFetchLocation(token, location):
       do {
+        state = .pendingLocationConfirmation(token, location)
         let data = try location.data()
         try socket.send(data: data)
       } catch {
@@ -99,11 +102,12 @@ public final class CarrotSession: SocketDelegate {
   public func socketDidReceive(data: Data) {
     switch state {
     case .pendingToken:
+      //TODO: actually verify that this is a token
       if let token = String(data: data, encoding: .utf8) {
         state = .receivedToken(token)
       }
     case let .pendingLocationConfirmation(token, location):
-      if let message = String(data: data, encoding: .utf8), message.hasPrefix("Authenticated"), message.contains(token) {
+      if let message = String(data: data, encoding: .utf8), message.hasPrefix("Authenticated:"), message.contains(token) {
         state = .authenticated(token, location)
       }
     case .authenticated:

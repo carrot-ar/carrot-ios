@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - Socket
 
+//TODO: Need ability to add a header, for re-auth purposes that server expects
 public protocol Socket: class {
   weak var eventDelegate: SocketDelegate? { get set }
   func open()

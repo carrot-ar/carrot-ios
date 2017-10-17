@@ -15,16 +15,16 @@ public enum MessageError: Error {
 
 public struct Message {
   public let endpoint: String?
-  public let info: JSONDict
+  public let params: JSONDict
   
   public init(endpoint: String? = nil, jsonConvertible: JSONConvertible) {
     self.endpoint = endpoint
-    self.info = jsonConvertible.makeJSON()
+    self.params = jsonConvertible.makeJSON()
   }
   
-  public init(endpoint: String? = nil, info: JSONDict) {
+  public init(endpoint: String? = nil, params: JSONDict) {
     self.endpoint = endpoint
-    self.info = info
+    self.params = params
   }
   
   init(data: Data) throws {
@@ -33,10 +33,10 @@ public struct Message {
       throw MessageError.jsonError
     }
     let endpoint = jsonDict["end_point"] as? String
-    guard let info = jsonDict["info"] as? JSONDict else {
-      throw MessageError.badKey("info")
+    guard let params = jsonDict["params"] as? JSONDict else {
+      throw MessageError.badKey("params")
     }
-    self.init(endpoint: endpoint, info: info)
+    self.init(endpoint: endpoint, params: params)
   }
   
   func data() throws -> Data {
@@ -44,7 +44,7 @@ public struct Message {
     if let endpoint = endpoint {
       dict["end_point"] = endpoint
     }
-    dict["info"] = info
+    dict["params"] = params
     return try JSONSerialization.data(withJSONObject: dict, options: [])
   }
 }

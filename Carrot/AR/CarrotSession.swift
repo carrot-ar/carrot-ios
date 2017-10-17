@@ -10,18 +10,18 @@ import Foundation
 import CoreLocation
 
 //TODO: client secret somewhere here eventually?
-public final class CarrotSession: SocketDelegate {
+public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
   
-  init(socket: Socket, messageHandler: @escaping (Result<Message>) -> Void) {
+  init(socket: Socket, messageHandler: @escaping (Result<Message<T>>) -> Void) {
     self.socket = socket
     self.messageHandler = messageHandler
   }
   
   // MARK: Public
   
-  public var messageHandler: (Result<Message>) -> Void
+  public var messageHandler: (Result<Message<T>>) -> Void
   
   private(set) public var state: CarrotSessionState = .closed {
     didSet { handleStateChange() }
@@ -40,10 +40,10 @@ public final class CarrotSession: SocketDelegate {
     state = .closed
   }
   
-  func send(message: Message) throws {
+  func send(message: Message<T>) throws {
     //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
-    let data = try message.data()
-    try socket.send(data: data)
+    //let data = try message.data()
+    //try socket.send(data: data)
   }
   
   // MARK: Private
@@ -89,6 +89,7 @@ public final class CarrotSession: SocketDelegate {
   
   public func socketDidOpen() {
     // NOOP for now
+    
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
@@ -113,7 +114,7 @@ public final class CarrotSession: SocketDelegate {
     case .authenticated:
       do {
         //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
-        let message = try Message(data: data)
+        let message = try JSONDecoder().decode(Message<T>.self, from: data)
         messageHandler(.success(message))
       } catch {
         messageHandler(.error(error))

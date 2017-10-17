@@ -8,50 +8,37 @@
 
 import Foundation
 
-public enum MessageError: Error {
-  case jsonError
-  case badKey(String)
-}
-
-public struct Message {
-  public let endpoint: String?
-  public let params: JSONDict
+public struct Message<T: Codable> {
   
-  public init(endpoint: String? = nil, jsonConvertible: JSONConvertible) {
+  // MARK: Lifecycle
+  
+  public init(endpoint: String, object: T) {
     self.endpoint = endpoint
-    self.params = jsonConvertible.makeJSON()
+    self.object = object
   }
   
-  public init(endpoint: String? = nil, params: JSONDict) {
-    self.endpoint = endpoint
-    self.params = params
-  }
+  // MARK: Public
   
-  init(data: Data) throws {
-    let object = try JSONSerialization.jsonObject(with: data, options: [])
-    guard let jsonDict = object as? JSONDict else {
-      throw MessageError.jsonError
-    }
-    let endpoint = jsonDict["end_point"] as? String
-    guard let params = jsonDict["params"] as? JSONDict else {
-      throw MessageError.badKey("params")
-    }
-    self.init(endpoint: endpoint, params: params)
-  }
-  
-  func data() throws -> Data {
-    var dict = JSONDict()
-    if let endpoint = endpoint {
-      dict["end_point"] = endpoint
-    }
-    dict["params"] = params
-    return try JSONSerialization.data(withJSONObject: dict, options: [])
-  }
+  public var endpoint: String?
+  public var object: T
 }
 
-public protocol JSONConvertible: class {
-  init?(json: JSONDict)
-  func makeJSON() -> JSONDict
+extension Message: Codable {
+  
+  enum CodingKeys: String, CodingKey {
+    case endpoint
+    case object = "params"
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    endpoint = try values.decode(String?.self, forKey: .endpoint)
+    object = try values.decode(T.self, forKey: .object)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(endpoint, forKey: .endpoint)
+    try container.encode(object, forKey: .object)
+  }
 }
-
-public typealias JSONDict = [String: Any]

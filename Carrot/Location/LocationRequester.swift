@@ -82,8 +82,10 @@ public final class LocationRequester: NSObject, CLLocationManagerDelegate {
 }
 
 extension CLLocation {
-  public convenience init?(json: JSONDict) {
-    guard let lat = json["lat"] as? CLLocationDegrees, let lon = json["lon"] as? CLLocationDegrees else {
+  public convenience init?(json: [String: Any]) {
+    guard let lat = json["lat"] as? CLLocationDegrees,
+          let lon = json["lon"] as? CLLocationDegrees
+    else {
       return nil
     }
     self.init(latitude: lat, longitude: lon)

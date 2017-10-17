@@ -1,5 +1,5 @@
 //
-//  Message.swift
+//  CarrotMessage.swift
 //  Carrot
 //
 //  Created by Gonzalo Nunez on 10/17/17.
@@ -8,13 +8,12 @@
 
 import Foundation
 
-public enum Message<T: Codable> {
-  case event(EventMessage<T>)
-  case stream(StreamMessage<T>)
+enum CarrotMessage<T: Codable> {
+  case event(CarrotEventMessage<T>)
+  case stream(CarrotStreamMessage<T>)
 }
 
-/*
-extension Message: Codable {
+extension CarrotMessage: Codable {
   
   enum CodingError: Error {
     case decoding(String)
@@ -26,11 +25,10 @@ extension Message: Codable {
   }
   
   public init(from decoder: Decoder) throws {
-    
+
   }
   
   public func encode(to encoder: Encoder) throws {
     
   }
 }
-*/

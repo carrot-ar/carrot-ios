@@ -63,7 +63,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       locationRequester.fetch() { [weak self] result in
         switch result {
         case let .success(location):
-          self?.state = .didFetchLocation(token, location)
+          self?.state = .didFetchLocation(token, Location2D(from: location))
         case let .error(error):
           self?.state = .failed(self?.state, error)
         }
@@ -71,7 +71,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case let .didFetchLocation(token, location):
       do {
         state = .pendingLocationConfirmation(token, location)
-        let data = try location.data()
+        let encoder = JSONEncoder()
+        let data = try encoder.encode(location)
         try socket.send(data: data)
       } catch {
         state = .failed(state, error)
@@ -113,9 +114,15 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       }
     case .authenticated:
       do {
-        //TODO: We need to get more info here based on our format and convert coordinates if applicable, etc.
-        let message = try JSONDecoder().decode(Message<T>.self, from: data)
-        messageHandler(.success(message))
+        //FIXME: fix this shit
+        let decoder = JSONDecoder()
+        let carrotMessage = try decoder.decode(CarrotMessage<T>.self, from: data)
+        
+        
+        //TODO: We need to do more here to convert from CarrotMessage to Message.
+        // For AR, message needs an origin too except it's converted.
+        
+        //messageHandler(.success(carrotMessage.message))
       } catch {
         messageHandler(.error(error))
       }
@@ -131,9 +138,9 @@ public enum CarrotSessionState {
   case pendingToken
   case receivedToken(SessionToken)
   case fetchingLocation(SessionToken)
-  case didFetchLocation(SessionToken, CLLocation)
-  case pendingLocationConfirmation(SessionToken, CLLocation)
-  case authenticated(SessionToken, CLLocation)
+  case didFetchLocation(SessionToken, Location2D)
+  case pendingLocationConfirmation(SessionToken, Location2D)
+  case authenticated(SessionToken, Location2D)
   indirect case failed(CarrotSessionState?, Error)
   
   var token: SessionToken? {
@@ -157,3 +164,19 @@ public enum CarrotSessionState {
 }
 
 public typealias SessionToken = String
+
+public struct Location2D: Codable {
+  public var latitude: Double
+  public var longitude: Double
+  
+  public init(from location: CLLocation) {
+    self.latitude = location.coordinate.latitude
+    self.longitude = location.coordinate.longitude
+  }
+}
+
+public struct Location3D: Codable {
+  public var x: Double
+  public var y: Double
+  public var z: Double
+}

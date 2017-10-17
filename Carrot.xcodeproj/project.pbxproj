@@ -8,22 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
+		AB4E9CBD1F969ACE0071B69F /* CarrotEventMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CBC1F969ACE0071B69F /* CarrotEventMessage.swift */; };
+		AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CBE1F96A4530071B69F /* Message.swift */; };
+		AB4E9CC11F96A4800071B69F /* StreamMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CC01F96A4800071B69F /* StreamMessage.swift */; };
+		AB4E9CC51F96A6AC0071B69F /* CarrotStreamMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CC41F96A6AC0071B69F /* CarrotStreamMessage.swift */; };
+		AB4E9CC91F96A7BA0071B69F /* CarrotMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CC81F96A7BA0071B69F /* CarrotMessage.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D61F9112E900F17E85 /* LocationRequester.swift */; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
-		AB7931E01F940E4800F17E85 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DF1F940E4800F17E85 /* Message.swift */; };
+		AB7931E01F940E4800F17E85 /* EventMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DF1F940E4800F17E85 /* EventMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
+		AB4E9CBC1F969ACE0071B69F /* CarrotEventMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotEventMessage.swift; sourceTree = "<group>"; };
+		AB4E9CBE1F96A4530071B69F /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		AB4E9CC01F96A4800071B69F /* StreamMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamMessage.swift; sourceTree = "<group>"; };
+		AB4E9CC41F96A6AC0071B69F /* CarrotStreamMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotStreamMessage.swift; sourceTree = "<group>"; };
+		AB4E9CC81F96A7BA0071B69F /* CarrotMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotMessage.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB7931D61F9112E900F17E85 /* LocationRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequester.swift; sourceTree = "<group>"; };
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
-		AB7931DF1F940E4800F17E85 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		AB7931DF1F940E4800F17E85 /* EventMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMessage.swift; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -42,6 +52,24 @@
 				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
 			);
 			path = AR;
+			sourceTree = "<group>";
+		};
+		AB4E9CC61F96A6B20071B69F /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				AB4E9CC01F96A4800071B69F /* StreamMessage.swift */,
+				AB4E9CC41F96A6AC0071B69F /* CarrotStreamMessage.swift */,
+			);
+			path = Stream;
+			sourceTree = "<group>";
+		};
+		AB4E9CC71F96A6B90071B69F /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				AB7931DF1F940E4800F17E85 /* EventMessage.swift */,
+				AB4E9CBC1F969ACE0071B69F /* CarrotEventMessage.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		AB7931C11F91101900F17E85 = {
@@ -93,7 +121,10 @@
 		AB7931DC1F91364300F17E85 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AB7931DF1F940E4800F17E85 /* Message.swift */,
+				AB4E9CC71F96A6B90071B69F /* Event */,
+				AB4E9CC61F96A6B20071B69F /* Stream */,
+				AB4E9CBE1F96A4530071B69F /* Message.swift */,
+				AB4E9CC81F96A7BA0071B69F /* CarrotMessage.swift */,
 				AB7931DD1F913E9E00F17E85 /* Socket.swift */,
 			);
 			path = Networking;
@@ -180,9 +211,14 @@
 			files = (
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
 				AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */,
-				AB7931E01F940E4800F17E85 /* Message.swift in Sources */,
+				AB4E9CBD1F969ACE0071B69F /* CarrotEventMessage.swift in Sources */,
+				AB4E9CC51F96A6AC0071B69F /* CarrotStreamMessage.swift in Sources */,
+				AB4E9CC91F96A7BA0071B69F /* CarrotMessage.swift in Sources */,
+				AB7931E01F940E4800F17E85 /* EventMessage.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
+				AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */,
+				AB4E9CC11F96A4800071B69F /* StreamMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

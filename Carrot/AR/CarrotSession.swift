@@ -40,10 +40,10 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     state = .closed
   }
   
-  public func send(message: Message<T>) throws {
+  public func send(message: Message<T>, to endpoint: String) throws {
     switch state {
     case let .authenticated(token, location):
-      let sendable = Sendable.message(message, token, location)
+      let sendable = Sendable.message(token, endpoint, location, message)
       let encoder = JSONEncoder()
       let data = try encoder.encode(sendable)
       try socket.send(data: data)
@@ -124,17 +124,14 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       if let message = String(data: data, encoding: .utf8), message.hasPrefix("Authenticated:"), message.contains(token) {
         state = .authenticated(token, location)
       }
-    case .authenticated:
+    case let .authenticated(_, location):
       do {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {
-        case let .message(message, token, location):
-          switch message {
-          case .event:
-            break
-          case .stream:
-            fatalError("Stream messages not implemented yet.")
-          }
+        case let .message(_, _, foreignOrigin, message):
+          var receivable = message
+          receivable.location = .zero //FIXME: convert via `origin`, `foreignOrigin`, and `receivable.location`
+          messageHandler(.success(receivable))
         }
       } catch {
         messageHandler(.error(error))

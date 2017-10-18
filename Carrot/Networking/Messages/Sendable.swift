@@ -9,7 +9,7 @@
 import Foundation
 
 enum Sendable<T: Codable> {
-  case message(Message<T>, SessionToken, Location2D)
+  case message(SessionToken, String, Location2D, Message<T>)
 }
 
 extension Sendable: Codable {
@@ -19,30 +19,32 @@ extension Sendable: Codable {
   }
   
   enum CodingKeys: String, CodingKey {
-    case message
-    case token
+    case token = "session_token"
+    case endpoint = "endpoint"
     case origin
+    case message = "payload"
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    guard let message = try? values.decode(Message<T>.self, forKey: .message),
-          let token = try? values.decode(SessionToken.self, forKey: .token),
-          let origin = try? values.decode(Location2D.self, forKey: .origin)
+    guard let token = try? values.decode(SessionToken.self, forKey: .token),
+          let endpoint = try? values.decode(String.self, forKey: .endpoint),
+          let origin = try? values.decode(Location2D.self, forKey: .origin),
+          let message = try? values.decode(Message<T>.self, forKey: .message)
     else {
       throw CodingError.decoding("Decoding Failed. \(dump(values))")
-      
     }
-    self = .message(message, token, origin)
+    self = .message(token, endpoint, origin, message)
   }
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     switch self {
-    case let .message(message, token, origin):
-      try container.encode(message, forKey: .message)
+    case let .message(message, token, endpoint, origin):
       try container.encode(token, forKey: .token)
+      try container.encode(endpoint, forKey: .endpoint)
       try container.encode(origin, forKey: .origin)
+      try container.encode(message, forKey: .message)
     }
   }
 }

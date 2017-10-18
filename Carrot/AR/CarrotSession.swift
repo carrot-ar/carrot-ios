@@ -41,24 +41,12 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func send(message: Message<T>) throws {
-    
     switch state {
     case let .authenticated(token, location):
-      
-      let carrotMessage: CarrotMessage<T>
-      
-      switch message {
-      case let .event(eventMessage):
-        let carrotEventMessage = CarrotEventMessage(from: eventMessage, token: token, origin: location)
-        carrotMessage = .event(carrotEventMessage)
-      case let .stream(streamMessage):
-        fatalError("Stream messages are not yet implemented.")
-      }
-      
+      let sendable = Sendable.message(message, token, location)
       let encoder = JSONEncoder()
-      let data = try encoder.encode(carrotMessage)
+      let data = try encoder.encode(sendable)
       try socket.send(data: data)
-      
     case .closed,
          .opening,
          .pendingToken,
@@ -96,8 +84,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case let .didFetchLocation(token, location):
       do {
         state = .pendingLocationConfirmation(token, location)
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(location)
+        let data = try JSONEncoder().encode(location)
         try socket.send(data: data)
       } catch {
         state = .failed(state, error)
@@ -139,17 +126,15 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       }
     case .authenticated:
       do {
-        let decoder = JSONDecoder()
-        let carrotMessage = try decoder.decode(CarrotMessage<T>.self, from: data)
-        
-        switch carrotMessage {
-        case let .event(message):
-          var eventMessage = message.message
-          //FIXME: We actually want to convert using: message.origin (Location2D), eventMessage.location (Location3D), and our state's Location2D
-          eventMessage.location = .zero
-          messageHandler(.success(.event(eventMessage)))
-        case let .stream(message):
-          fatalError("Stream messages are not yet implemented.")
+        let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
+        switch sendable {
+        case let .message(message, token, location):
+          switch message {
+          case .event:
+            break
+          case .stream:
+            fatalError("Stream messages not implemented yet.")
+          }
         }
       } catch {
         messageHandler(.error(error))

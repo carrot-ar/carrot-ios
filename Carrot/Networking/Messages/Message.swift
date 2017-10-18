@@ -29,24 +29,20 @@ extension Message: Codable {
   }
   
   public init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-    
-    if let eventMessage = try? values.decode(EventMessage<T>.self, forKey: .event) {
+    let values = try decoder.singleValueContainer()
+    if let eventMessage = try? values.decode(EventMessage<T>.self) {
       self = .event(eventMessage)
       return
     }
-    
-    if let streamMessage = try? values.decode(StreamMessage<T>.self, forKey: .stream) {
+    if let streamMessage = try? values.decode(StreamMessage<T>.self) {
       self = .stream(streamMessage)
       return
     }
-    
     throw CodingError.decoding("Decoding Failed. \(dump(values))")
   }
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    
     switch self {
     case let .event(message):
       try container.encode(message, forKey: .event)

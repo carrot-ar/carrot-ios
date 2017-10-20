@@ -31,7 +31,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     return state.token
   }
   
-  public func start(stateDidChange: @escaping (CarrotSessionState) - > Void) {
+  public func start(stateDidChange: @escaping (CarrotSessionState) -> Void) {
     self.stateDidChange = stateDidChange
     socket.eventDelegate = self
     state = .opening

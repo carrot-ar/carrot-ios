@@ -116,8 +116,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   public func socketDidReceive(data: Data) {
     switch state {
     case .pendingToken:
-      //TODO: actually verify that this is a token?
-      if let token = String(data: data, encoding: .utf8), token.hasSuffix("==") {
+      if let token = String(data: data, encoding: .utf8) {
         state = .receivedToken(token)
       }
     case let .pendingLocationConfirmation(token, location):

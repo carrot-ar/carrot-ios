@@ -31,7 +31,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     return state.token
   }
   
-  public func start() {
+  public func start(stateDidChange: @escaping (CarrotSessionState) - > Void) {
+    self.stateDidChange = stateDidChange
     socket.eventDelegate = self
     state = .opening
   }
@@ -59,8 +60,10 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: Private
   
   private var socket: Socket
+  private var stateDidChange: ((CarrotSessionState) -> Void)?
   
   private func handleStateChange() {
+    stateDidChange?(state)
     switch state {
     case .opening:
       state = .pendingToken
@@ -91,6 +94,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public func socketDidOpen() {
     // NOOP for now
+    
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {

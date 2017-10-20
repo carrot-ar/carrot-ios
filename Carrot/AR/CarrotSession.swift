@@ -44,16 +44,13 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     switch state {
     case let .authenticated(token, location):
       let sendable = Sendable.message(token, endpoint, location, message)
-      let encoder = JSONEncoder()
-      let data = try encoder.encode(sendable)
+      let data = try JSONEncoder().encode(sendable)
       try socket.send(data: data)
     case .closed,
          .opening,
          .pendingToken,
          .receivedToken,
          .fetchingLocation,
-         .didFetchLocation,
-         .pendingLocationConfirmation,
          .failed:
       throw CarrotSessionError.notAuthorized
     }
@@ -62,7 +59,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: Private
   
   private var socket: Socket
-  private let locationRequester = LocationRequester()
   
   private func handleStateChange() {
     switch state {
@@ -72,28 +68,21 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case .closed:
       socket.close()
     case let .receivedToken(token):
-      state = .fetchingLocation(token)
+      let locationRequester = LocationRequester()
       locationRequester.fetch() { [weak self] result in
         switch result {
         case let .success(location):
-          self?.state = .didFetchLocation(token, Location2D(from: location))
+          self?.state = .authenticated(token, Location2D(from: location))
         case let .error(error):
           self?.state = .failed(self?.state, error)
         }
       }
-    case let .didFetchLocation(token, location):
-      do {
-        state = .pendingLocationConfirmation(token, location)
-        let data = try JSONEncoder().encode(location)
-        try socket.send(data: data)
-      } catch {
-        state = .failed(state, error)
-      }
+      state = .fetchingLocation(token, locationRequester)
     case let .failed(previous, error):
       //FIXME: handle error here and attempt to recover based on previous state?
       // For example, if we failed to fetch a location we can retry.
       break
-    case .pendingToken, .fetchingLocation, .pendingLocationConfirmation, .authenticated:
+    case .pendingToken, .fetchingLocation,  .authenticated:
       break
     }
   }
@@ -102,7 +91,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public func socketDidOpen() {
     // NOOP for now
-    
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
@@ -119,11 +107,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       if let token = String(data: data, encoding: .utf8) {
         state = .receivedToken(token)
       }
-    case let .pendingLocationConfirmation(token, location):
-      if let message = String(data: data, encoding: .utf8), message.hasPrefix("Authenticated:"), message.contains(token) {
-        state = .authenticated(token, location)
-      }
-    case let .authenticated(_, location):
+    case let .authenticated(_, origin):
       do {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {
@@ -135,7 +119,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } catch {
         messageHandler(.error(error))
       }
-    case .closed, .opening, .receivedToken, .fetchingLocation, .didFetchLocation, .failed:
+    case .closed, .opening, .receivedToken, .fetchingLocation, .failed:
       break
     }
   }
@@ -146,9 +130,7 @@ public enum CarrotSessionState {
   case opening
   case pendingToken
   case receivedToken(SessionToken)
-  case fetchingLocation(SessionToken)
-  case didFetchLocation(SessionToken, Location2D)
-  case pendingLocationConfirmation(SessionToken, Location2D)
+  case fetchingLocation(SessionToken, LocationRequester)
   case authenticated(SessionToken, Location2D)
   indirect case failed(CarrotSessionState?, Error)
   
@@ -158,11 +140,7 @@ public enum CarrotSessionState {
       return nil
     case let .receivedToken(token):
       return token
-    case let .fetchingLocation(token):
-      return token
-    case let .didFetchLocation(token, _):
-      return token
-    case let .pendingLocationConfirmation(token, _):
+    case let .fetchingLocation(token, _):
       return token
     case let .authenticated(token, _):
       return token

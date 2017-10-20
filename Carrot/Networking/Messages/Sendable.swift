@@ -40,7 +40,7 @@ extension Sendable: Codable {
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     switch self {
-    case let .message(message, token, endpoint, origin):
+    case let .message(token, endpoint, origin, message):
       try container.encode(token, forKey: .token)
       try container.encode(endpoint, forKey: .endpoint)
       try container.encode(origin, forKey: .origin)

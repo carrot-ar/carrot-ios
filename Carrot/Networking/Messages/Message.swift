@@ -23,6 +23,17 @@ public struct Message<T: Codable> {
   
   public var location: Location3D?
   public var object: T
+  
+  // MARK: Internal
+  
+  var offset: Offset? {
+    guard let dx = location?.x, let dy = location?.y else {
+      return nil
+    }
+    return Offset(
+      dx: Measurement<UnitLength>(value: dx, unit: .meters),
+      dy: Measurement<UnitLength>(value: dy, unit: .meters))
+  }
 }
 
 // MARK: - Codable

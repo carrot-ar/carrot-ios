@@ -94,7 +94,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public func socketDidOpen() {
     // NOOP for now
-    
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
@@ -117,7 +116,11 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         switch sendable {
         case let .message(_, _, foreignOrigin, message):
           var receivable = message
-          receivable.location = .zero //FIXME: convert via `origin`, `foreignOrigin`, and `receivable.location`
+          if let offset = receivable.offset, let zOffset = receivable.location?.z {
+            let foreignLocation = foreignOrigin.🔥translated🔥(by: offset)
+            let offset = origin.🔥offset🔥(to: foreignLocation)
+            receivable.location = Location3D(x: offset.dx.value, y: offset.dy.value, z: zOffset)
+          }
           messageHandler(.success(receivable))
         }
       } catch {

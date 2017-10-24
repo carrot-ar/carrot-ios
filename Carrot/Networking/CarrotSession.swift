@@ -14,14 +14,14 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
   
-  public init(socket: Socket, messageHandler: @escaping (Result<Message<T>>) -> Void) {
+  public init(socket: Socket, messageHandler: @escaping (String?, Result<Message<T>>) -> Void) {
     self.socket = socket
     self.messageHandler = messageHandler
   }
   
   // MARK: Public
   
-  public var messageHandler: (Result<Message<T>>) -> Void
+  public var messageHandler: (String?, Result<Message<T>>) -> Void
   
   private(set) public var state: CarrotSessionState = .closed {
     didSet { handleStateChange() }
@@ -114,17 +114,18 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       do {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {
-        case let .message(_, _, foreignOrigin, message):
+        case let .message(_, endPoint, foreignOrigin, message):
           var receivable = message
+          //FIXME: Do x/y correspond to lat/lon? How do we get the true altitude instead of just taking the local one?
           if let offset = receivable.offset, let zOffset = receivable.location?.z {
             let foreignLocation = foreignOrigin.🔥translated🔥(by: offset)
             let offset = origin.🔥offset🔥(to: foreignLocation)
             receivable.location = Location3D(x: offset.dx.value, y: offset.dy.value, z: zOffset)
           }
-          messageHandler(.success(receivable))
+          messageHandler(endPoint, .success(receivable))
         }
       } catch {
-        messageHandler(.error(error))
+        messageHandler(nil, .error(error))
       }
     case .closed, .opening, .receivedToken, .fetchingLocation, .failed:
       break

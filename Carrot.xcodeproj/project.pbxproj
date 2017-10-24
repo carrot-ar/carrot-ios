@@ -21,7 +21,20 @@
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
 		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
+		ABEC7D921F9F93B70022A004 /* CarrotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7D911F9F93B70022A004 /* CarrotTests.swift */; };
+		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
+		ABEC7D9B1F9F94870022A004 /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7D9A1F9F94870022A004 /* LocationTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABEC7D951F9F93B70022A004 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB7931C21F91101900F17E85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB7931CA1F91101900F17E85;
+			remoteInfo = Carrot;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
@@ -40,8 +53,23 @@
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
+		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABEC7D911F9F93B70022A004 /* CarrotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotTests.swift; sourceTree = "<group>"; };
+		ABEC7D931F9F93B70022A004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABEC7D9A1F9F94870022A004 /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ABEC7D8C1F9F93B70022A004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4A1EC1FE6ED6D4ACB2C9D984 /* Frameworks */ = {
@@ -68,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				AB7931CD1F91101900F17E85 /* Carrot */,
+				ABEC7D901F9F93B70022A004 /* CarrotTests */,
 				AB7931CC1F91101900F17E85 /* Products */,
 				4A1EC1FE6ED6D4ACB2C9D984 /* Frameworks */,
 			);
@@ -77,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				AB7931CB1F91101900F17E85 /* Carrot.framework */,
+				ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,6 +161,16 @@
 			path = Messages;
 			sourceTree = "<group>";
 		};
+		ABEC7D901F9F93B70022A004 /* CarrotTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABEC7D911F9F93B70022A004 /* CarrotTests.swift */,
+				ABEC7D9A1F9F94870022A004 /* LocationTests.swift */,
+				ABEC7D931F9F93B70022A004 /* Info.plist */,
+			);
+			path = CarrotTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -162,18 +202,41 @@
 			productReference = AB7931CB1F91101900F17E85 /* Carrot.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		ABEC7D8E1F9F93B70022A004 /* CarrotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABEC7D971F9F93B70022A004 /* Build configuration list for PBXNativeTarget "CarrotTests" */;
+			buildPhases = (
+				ABEC7D8B1F9F93B70022A004 /* Sources */,
+				ABEC7D8C1F9F93B70022A004 /* Frameworks */,
+				ABEC7D8D1F9F93B70022A004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABEC7D961F9F93B70022A004 /* PBXTargetDependency */,
+			);
+			name = CarrotTests;
+			productName = CarrotTests;
+			productReference = ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		AB7931C21F91101900F17E85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = carrot;
 				TargetAttributes = {
 					AB7931CA1F91101900F17E85 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+					ABEC7D8E1F9F93B70022A004 = {
+						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -191,12 +254,20 @@
 			projectRoot = "";
 			targets = (
 				AB7931CA1F91101900F17E85 /* Carrot */,
+				ABEC7D8E1F9F93B70022A004 /* CarrotTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		AB7931C91F91101900F17E85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABEC7D8D1F9F93B70022A004 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -226,7 +297,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABEC7D8B1F9F93B70022A004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABEC7D9B1F9F94870022A004 /* LocationTests.swift in Sources */,
+				ABEC7D921F9F93B70022A004 /* CarrotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ABEC7D961F9F93B70022A004 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB7931CA1F91101900F17E85 /* Carrot */;
+			targetProxy = ABEC7D951F9F93B70022A004 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AB4E9CB81F965E0C0071B69F /* Debug */ = {
@@ -275,7 +363,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -299,6 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.Carrot;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -350,7 +438,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -374,6 +461,47 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.Carrot;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ABEC7D981F9F93B70022A004 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BG3Y5KSHNC;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CarrotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.CarrotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ABEC7D991F9F93B70022A004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BG3Y5KSHNC;
+				INFOPLIST_FILE = CarrotTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carrot.CarrotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -396,6 +524,15 @@
 			buildConfigurations = (
 				AB4E9CB91F965E0C0071B69F /* Debug */,
 				AB4E9CBB1F965E1B0071B69F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ABEC7D971F9F93B70022A004 /* Build configuration list for PBXNativeTarget "CarrotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABEC7D981F9F93B70022A004 /* Debug */,
+				ABEC7D991F9F93B70022A004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

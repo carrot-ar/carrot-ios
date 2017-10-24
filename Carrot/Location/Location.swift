@@ -10,17 +10,22 @@
 import Foundation
 import CoreLocation
 
-public struct Offset {
-  let dx: Measurement<UnitLength>
-  let dy: Measurement<UnitLength>
+public struct Offset: Equatable {
+  public let dx: Measurement<UnitLength>
+  public let dy: Measurement<UnitLength>
   
   public init(dx: Measurement<UnitLength>, dy: Measurement<UnitLength>) {
     self.dx = dx
     self.dy = dy
   }
+  
+  public static func ==(lhs: Offset, rhs: Offset) -> Bool {
+    return lhs.dx == rhs.dx &&
+           lhs.dy == rhs.dy
+  }
  }
 
-public struct Location2D: Codable {
+public struct Location2D: Codable, Equatable {
   public var latitude: Measurement<UnitAngle>
   public var longitude: Measurement<UnitAngle>
   
@@ -33,27 +38,25 @@ public struct Location2D: Codable {
     self.latitude = Measurement<UnitAngle>(value: location.coordinate.latitude, unit: .degrees)
     self.longitude = Measurement<UnitAngle>(value: location.coordinate.longitude, unit: .degrees)
   }
+  
+  public static func ==(lhs: Location2D, rhs: Location2D) -> Bool {
+    return lhs.latitude == rhs.latitude &&
+           lhs.longitude == rhs.longitude
+  }
 }
 
 extension Location2D {
   static let earthRadius = Measurement<UnitLength>(value: 6353, unit: .kilometers).converted(to: .meters).value
   
-  public func distance(from location: Location2D) -> Measurement<UnitLength> {
-    let start = CLLocation(location2D: self)
-    let other = CLLocation(location2D: location)
-    let distance = start.distance(from: other)
-    return Measurement<UnitLength>(value: distance, unit: .meters)
-  }
-  
   public func 🔥offset🔥(to location: Location2D) -> Offset {
-    let lat = location.latitude.converted(to: .degrees).value
-    let lon = location.longitude.converted(to: .degrees).value
+    let dLat = location.latitude - latitude
+    let dLon = location.longitude - longitude
     let r = Location2D.earthRadius
-    let dn = lat * r
-    let de = lon * (r * cos(location.latitude.converted(to: .radians).value))
+    let dn = dLat.converted(to: .radians).value * r
+    let de = dLon.converted(to: .radians).value * (r * cos(latitude.converted(to: .radians).value))
     return Offset(
-      dx: Measurement<UnitLength>(value: dn, unit: .meters),
-      dy: Measurement<UnitLength>(value: de, unit: .meters))
+      dx: Measurement<UnitLength>(value: de, unit: .meters),
+      dy: Measurement<UnitLength>(value: dn, unit: .meters))
   }
   
   /**
@@ -64,13 +67,15 @@ extension Location2D {
    */
   public func 🔥translated🔥(by offset: Offset) -> Location2D {
     let r = Location2D.earthRadius
-    let dn = offset.dx.converted(to: .meters).value
-    let de = offset.dy.converted(to: .meters).value
+    let dn = offset.dy.converted(to: .meters).value
+    let de = offset.dx.converted(to: .meters).value
     let dLat = dn / r
     let dLon = de / (r * cos(latitude.converted(to: .radians).value))
-    let lat = Measurement<UnitAngle>(value: dLat, unit: .radians).converted(to: .degrees)
-    let lon = Measurement<UnitAngle>(value: dLon, unit: .radians).converted(to: .degrees)
-    return Location2D(latitude: lat, longitude: lon)
+    let lat = Measurement<UnitAngle>(value: dLat, unit: .radians)
+    let lon = Measurement<UnitAngle>(value: dLon, unit: .radians)
+    let finalLat = (latitude.converted(to: .radians) + lat).converted(to: .degrees)
+    let finalLon = (longitude.converted(to: .radians) + lon).converted(to: .degrees)
+    return Location2D(latitude: finalLat, longitude: finalLon)
   }
   
   public func 🔥bearing🔥(to endLocation: Location2D) -> Measurement<UnitAngle> {
@@ -86,12 +91,23 @@ extension Location2D {
     if (azimuth.value < 0) { azimuth.value += 360 }
     return azimuth
   }
+  
+  public func distance(from location: Location2D) -> Measurement<UnitLength> {
+    let start = CLLocation(location2D: self)
+    let other = CLLocation(location2D: location)
+    let distance = start.distance(from: other)
+    return Measurement<UnitLength>(value: distance, unit: .meters)
+  }
 }
 
-public struct Location3D: Codable {
+public struct Location3D: Codable, Equatable {
   public var x: Double
   public var y: Double
   public var z: Double
   
-  public static var zero = Location3D(x: 0, y: 0, z: 0)
+  public static func ==(lhs: Location3D, rhs: Location3D) -> Bool {
+    return lhs.x == rhs.x &&
+           lhs.y == rhs.y &&
+           lhs.z == rhs.z
+  }
 }

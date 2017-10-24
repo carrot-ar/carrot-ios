@@ -117,10 +117,13 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         case let .message(_, endPoint, foreignOrigin, message):
           var receivable = message
           //FIXME: Do x/y correspond to lat/lon? How do we get the true altitude instead of just taking the local one?
-          if let offset = receivable.offset, let zOffset = receivable.location?.z {
+          if let offset = receivable.offset {
             let foreignLocation = foreignOrigin.🔥translated🔥(by: offset)
             let offset = origin.🔥offset🔥(to: foreignLocation)
-            receivable.location = Location3D(x: offset.dx.value, y: offset.dy.value, z: zOffset)
+            receivable.location = Location3D(
+              x: offset.dx.value,
+              z: offset.dz.value,
+              altitude: (foreignOrigin.altitude + offset.dAlt).value)
           }
           messageHandler(endPoint, .success(receivable))
         }

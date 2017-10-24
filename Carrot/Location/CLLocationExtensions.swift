@@ -12,7 +12,12 @@ import Foundation
 extension CLLocation {
   convenience init(location2D: Location2D) {
     self.init(
-      latitude: location2D.latitude.converted(to: .degrees).value,
-      longitude: location2D.longitude.converted(to: .degrees).value)
+      coordinate: CLLocationCoordinate2D(
+        latitude: location2D.latitude.converted(to: .degrees).value,
+        longitude: location2D.longitude.converted(to: .degrees).value),
+      altitude: location2D.altitude.converted(to: .meters).value,
+      horizontalAccuracy: kCLLocationAccuracyBest,
+      verticalAccuracy: kCLLocationAccuracyBest,
+      timestamp: Date())
   }
 }

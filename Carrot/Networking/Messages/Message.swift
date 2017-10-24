@@ -27,12 +27,16 @@ public struct Message<T: Codable> {
   // MARK: Internal
   
   var offset: Offset? {
-    guard let dx = location?.x, let dy = location?.y else {
+    guard let loc = location else {
       return nil
     }
+    let dx = loc.x
+    let dz = loc.z
+    let alt = loc.altitude
     return Offset(
       dx: Measurement<UnitLength>(value: dx, unit: .meters),
-      dy: Measurement<UnitLength>(value: dy, unit: .meters))
+      dz: Measurement<UnitLength>(value: dz, unit: .meters),
+      dAlt: Measurement<UnitLength>(value: alt, unit: .meters))
   }
 }
 

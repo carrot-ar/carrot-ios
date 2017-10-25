@@ -11,8 +11,8 @@ import Carrot
 
 class LocationTests: XCTestCase {
   
-  public static let angleDelta = Measurement<UnitAngle>(value: 0.004, unit: .degrees)
-  public static let distanceDelta = Measurement<UnitLength>(value: 0.001, unit: .meters)
+  static let angleDelta = Measurement<UnitAngle>(value: 0.004, unit: .degrees)
+  static let distanceDelta = Measurement<UnitLength>(value: 0.001, unit: .meters)
 
   func testSameLocation() {
     let zero = Measurement<UnitLength>(value: 0, unit: .meters)
@@ -70,6 +70,10 @@ class LocationTests: XCTestCase {
     let zeroMeters = Measurement<UnitLength>(value: 0, unit: .meters)
     let expected = Offset(dx: zeroMeters, dz: zeroMeters, dAlt: tenMeters)
     assert(offsetAccurate(expected: expected, actual: actual))
+  }
+  
+  func testToAndFromOffset() {
+    
   }
   
   // MARK: - Helpers

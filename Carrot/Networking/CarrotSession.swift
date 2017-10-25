@@ -116,7 +116,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         switch sendable {
         case let .message(_, endPoint, foreignOrigin, message):
           var receivable = message
-          //FIXME: Do x/y correspond to lat/lon? How do we get the true altitude instead of just taking the local one?
           if let offset = receivable.offset {
             let foreignLocation = foreignOrigin.🔥translated🔥(by: offset)
             let offset = origin.🔥offset🔥(to: foreignLocation)

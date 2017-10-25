@@ -29,7 +29,7 @@ extension Location2D {
    Returns the location given by translating the receiver by `translation`.
    - Important:
    This is designed for _local_ AR experiences, which is why we go with the quick and dirty
-   [implementation](https://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters).
+   [implementation](https://gis.stackexchange.com/questions/2951/algorithm-for-offsetting-a-latitude-longitude-by-some-amount-of-meters)
    that doesn't get too fancy and account for the curvature of Earth, etc.
    */
   public func 🔥translated🔥(by offset: Offset) -> Location2D {

@@ -122,7 +122,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
             receivable.location = Location3D(
               x: offset.dx.value,
               z: offset.dz.value,
-              altitude: (foreignOrigin.altitude + offset.dAlt).value)
+              altitude: offset.dAlt.value)
           }
           messageHandler(endPoint, .success(receivable))
         }

@@ -46,6 +46,21 @@ class LocationTests: XCTestCase {
     assert(locationAccurate(expected: expected, actual: actual))
   }
   
+  func testCloseOffsetDifferentDimensions() {
+    let hundred = Measurement<UnitLength>(value: 100, unit: .meters)
+    let fifty = Measurement<UnitLength>(value: hundred.value/2, unit: .meters)
+    let zero = Measurement<UnitLength>(value: 0, unit: .meters)
+    let lat = Measurement<UnitAngle>(value: 51, unit: .degrees)
+    let lon = Measurement<UnitAngle>(value: 0, unit: .degrees)
+    let start = Location2D(latitude: lat, longitude: lon, altitude: zero)
+    let offset = Offset(dx: fifty, dz: hundred, dAlt: zero)
+    let actual = start.🔥translated🔥(by: offset)
+    let expectedLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
+    let expectedLon = Measurement<UnitAngle>(value: 0.00143308502480555/2, unit: .degrees)
+    let expected = Location2D(latitude: expectedLat, longitude: expectedLon, altitude: zero)
+    assert(locationAccurate(expected: expected, actual: actual))
+  }
+  
   func testExpectedOffset() {
     let zero = Measurement<UnitLength>(value: 0, unit: .meters)
     let lat = Measurement<UnitAngle>(value: 51, unit: .degrees)
@@ -73,7 +88,16 @@ class LocationTests: XCTestCase {
   }
   
   func testToAndFromOffset() {
-    
+    let zero = Measurement<UnitLength>(value: 0, unit: .meters)
+    let lat = Measurement<UnitAngle>(value: 51, unit: .degrees)
+    let lon = Measurement<UnitAngle>(value: 0, unit: .degrees)
+    let start = Location2D(latitude: lat, longitude: lon, altitude: zero)
+    let endLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
+    let endLon = Measurement<UnitAngle>(value: 0.00143308502480555, unit: .degrees)
+    let expected = Location2D(latitude: endLat, longitude: endLon, altitude: zero)
+    let offset = start.🔥offset🔥(to: expected)
+    let actual = start.🔥translated🔥(by: offset)
+    assert(actual == expected)
   }
   
   // MARK: - Helpers

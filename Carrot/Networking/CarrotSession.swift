@@ -14,17 +14,23 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
   
-  public init(socket: Socket, messageHandler: @escaping (Result<Message<T>>, String?) -> Void) {
+  public init(
+    socket: Socket,
+    messageHandler: @escaping (Result<Message<T>>, String?) -> Void,
+    errorHandler: @escaping (CarrotSessionState?, Error) -> ErrorRecoveryCommand?)
+  {
     self.socket = socket
     self.messageHandler = messageHandler
+    self.errorHandler = errorHandler
   }
   
   // MARK: Public
   
-  public var messageHandler: (Result<Message<T>>, String?) -> Void
+  public let messageHandler: (Result<Message<T>>, String?) -> Void
+  public let errorHandler: (CarrotSessionState?, Error) -> ErrorRecoveryCommand?
   
   private(set) public var state: CarrotSessionState = .closed {
-    didSet { handleStateChange() }
+    didSet { handleStateChange(previous: oldValue) }
   }
   
   public var token: SessionToken? {
@@ -38,7 +44,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func end() {
-    state = .closed
+    state = .closing
   }
   
   public func send(message: Message<T>, to endpoint: String) throws {
@@ -48,6 +54,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       let data = try JSONEncoder().encode(sendable)
       try socket.send(data: data)
     case .closed,
+         .closing,
          .opening,
          .pendingToken,
          .receivedToken,
@@ -62,13 +69,12 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   private var socket: Socket
   private var stateDidChange: ((CarrotSessionState) -> Void)?
   
-  private func handleStateChange() {
+  private func handleStateChange(previous: CarrotSessionState) {
     stateDidChange?(state)
     switch state {
     case .opening:
-      state = .pendingToken
       socket.open()
-    case .closed:
+    case .closing:
       socket.close()
     case let .receivedToken(token):
       let locationRequester = LocationRequester()
@@ -81,11 +87,17 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         }
       }
       state = .fetchingLocation(token, locationRequester)
-    case let .failed(previous, error):
-      //FIXME: handle error here and attempt to recover based on previous state?
-      // For example, if we failed to fetch a location we can retry.
-      break
-    case .pendingToken, .fetchingLocation,  .authenticated:
+    case let .failed(failedOn, error):
+      guard let command = errorHandler(failedOn, error) else { return }
+      switch command {
+      case .restart:
+        state = .opening
+      case .retry:
+        state = previous
+      case .close:
+        state = .closed
+      }
+    case .closed, .pendingToken, .fetchingLocation,  .authenticated:
       break
     }
   }
@@ -93,7 +105,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: SocketDelegate
   
   public func socketDidOpen() {
-    // NOOP for now
+    state = .pendingToken
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
@@ -121,15 +133,16 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } catch {
         messageHandler(.error(error), nil)
       }
-    case .closed, .opening, .receivedToken, .fetchingLocation, .failed:
+    case .opening, .closing, .closed, .receivedToken, .fetchingLocation, .failed:
       break
     }
   }
 }
 
 public enum CarrotSessionState {
-  case closed
   case opening
+  case closing
+  case closed
   case pendingToken
   case receivedToken(SessionToken)
   case fetchingLocation(SessionToken, LocationRequester)
@@ -138,7 +151,7 @@ public enum CarrotSessionState {
   
   var token: SessionToken? {
     switch self {
-    case .closed, .opening, .pendingToken:
+    case .opening, .closing, .closed, .pendingToken:
       return nil
     case let .receivedToken(token):
       return token
@@ -150,6 +163,12 @@ public enum CarrotSessionState {
       return state?.token ?? nil
     }
   }
+}
+
+public enum ErrorRecoveryCommand {
+  case restart
+  case retry
+  case close
 }
 
 public enum CarrotSessionError: Error {

@@ -1,8 +1,8 @@
 # Examples
 
-### Providing `CarrotSession` with a `Socket`
+### Initializing a `CarrotSession`
 
-A `CarrotSession` is initialized with something that conforms to the `Socket` protocol:
+The first parameter in `CarrotSession`'s initializer is something that conforms to the `Socket` protocol:
 
 ```swift
 // MARK: - Socket
@@ -24,24 +24,38 @@ public protocol SocketDelegate: class {
 }
 ``` 
 
-This protocol allows you to use whatever implemention of a WebSocket that you'd like. All you have to do is conform the underlying implementation to the `Socket` protocol. The easiest way to do this is probably to wrap it within a new type that conforms to the `Socket` protocol.
+This protocol allows you to use whatever underlying implemention of a WebSocket that you'd like. All you have to do is conform the it to the `Socket` protocol. If you own the code, this should be trivial. If you don't own the underlying implementation, aka if you're using a third party library to interface with a WebSocket, the easiest way to do this is probably to wrap the third party WebSocket implementation within a new type that conforms to the `Socket` protocol.
+
+The following shows how one might go about doing this.
 
 ### Using Facebook's [SocketRocket](https://github.com/facebook/SocketRocket)
 
 Using the `CarrotSocket` as implemented below would allow you to do create a `CarrotSession` like this:
 
 ```swift
-let carrotSocket = CarrotSocket(webSocket: SRWebSocket(url: URL(string: "http://78.125.0.209:8080/ws")))
-let session = CarrotSession(socket: carrotSocket) { result in
-  // handle stream messages received here
-}
-session.start()
+let webSocket = SRWebSocket(url: URL(string: "http://35.196.152.230:8080/ws")!)!
+let carrotSocket = CarrotSocket(webSocket: webSocket)
+
+carrotSession = CarrotSession(
+  socket: carrotSocket,
+  messageHandler: { result in 
+    // handle receiving messages in here
+  },
+  errorHandler: { _, error in
+    // handle receiving errors in here
+  }
+)
+
+carrotSession.start()
 ```
 
 #### `CarrotSocket`
 
+`CarrotSocket` wraps an `SRWebSocket` and sets itself as the `SRWebSocket`'s delegate. It implements all of the methods required in the `Socket` protocol and and `SocketDelegate` protocol, respectively. It's important to note that `CarrotSession` expects all of these methods to be implemented correctly.
+
 ```swift
 import Foundation
+import Carrot
 import SocketRocket
 
 public class CarrotSocket: NSObject, Socket {
@@ -55,7 +69,7 @@ public class CarrotSocket: NSObject, Socket {
   }
   
   // MARK: Socket
-    
+  
   public weak var eventDelegate: SocketDelegate?
   
   public func open() {
@@ -94,9 +108,7 @@ extension CarrotSocket: SRWebSocketDelegate {
     case let data as Data:
       eventDelegate?.socketDidReceive(data: data)
     case let message as String:
-      if let data = message.data(using: .utf8) {
-        eventDelegate?.socketDidReceive(data: data)
-      }
+      eventDelegate?.socketDidReceive(data: Data(message.utf8))
     default:
       break
     }

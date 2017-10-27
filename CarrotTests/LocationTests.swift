@@ -19,7 +19,7 @@ class LocationTests: XCTestCase {
     let zeroOffset = Offset(dx: zero, dz: zero, dAlt: zero)
     let latLon = Measurement<UnitAngle>(value: 0, unit: .degrees)
     let location = Location2D(latitude: latLon, longitude: latLon, altitude: zero)
-    let offset = location.🔥offset🔥(to: location)
+    let offset = location.offset(to: location)
     assert(offset == zeroOffset)
   }
   
@@ -28,7 +28,7 @@ class LocationTests: XCTestCase {
     let latLon = Measurement<UnitAngle>(value: 0, unit: .degrees)
     let location = Location2D(latitude: latLon, longitude: latLon, altitude: zero)
     let zeroOffset = Offset(dx: zero, dz: zero, dAlt: zero)
-    let offsetted = location.🔥translated🔥(by: zeroOffset)
+    let offsetted = location.translated(by: zeroOffset)
     assert(offsetted == location)
   }
   
@@ -39,7 +39,7 @@ class LocationTests: XCTestCase {
     let start = Location2D(latitude: lat, longitude: lon, altitude: zero)
     let dim = Measurement<UnitLength>(value: 100, unit: .meters)
     let offset = Offset(dx: dim, dz: dim, dAlt: zero)
-    let actual = start.🔥translated🔥(by: offset)
+    let actual = start.translated(by: offset)
     let expectedLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
     let expectedLon = Measurement<UnitAngle>(value: 0.00143308502480555, unit: .degrees)
     let expected = Location2D(latitude: expectedLat, longitude: expectedLon, altitude: zero)
@@ -54,7 +54,7 @@ class LocationTests: XCTestCase {
     let lon = Measurement<UnitAngle>(value: 0, unit: .degrees)
     let start = Location2D(latitude: lat, longitude: lon, altitude: zero)
     let offset = Offset(dx: fifty, dz: hundred, dAlt: zero)
-    let actual = start.🔥translated🔥(by: offset)
+    let actual = start.translated(by: offset)
     let expectedLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
     let expectedLon = Measurement<UnitAngle>(value: 0.00143308502480555/2, unit: .degrees)
     let expected = Location2D(latitude: expectedLat, longitude: expectedLon, altitude: zero)
@@ -69,7 +69,7 @@ class LocationTests: XCTestCase {
     let endLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
     let endLon = Measurement<UnitAngle>(value: 0.00143308502480555, unit: .degrees)
     let end = Location2D(latitude: endLat, longitude: endLon, altitude: zero)
-    let actual = start.🔥offset🔥(to: end)
+    let actual = start.offset(to: end)
     let dim = Measurement<UnitLength>(value: 100, unit: .meters)
     let expected = Offset(dx: dim, dz: dim, dAlt: zero)
     assert(offsetAccurate(expected: expected, actual: actual))
@@ -81,7 +81,7 @@ class LocationTests: XCTestCase {
     let start = Location2D(latitude: zeroDegrees, longitude: zeroDegrees, altitude: tenMeters)
     let twentyMeters = Measurement<UnitLength>(value: 20, unit: .meters)
     let end = Location2D(latitude: zeroDegrees, longitude: zeroDegrees, altitude: twentyMeters)
-    let actual = start.🔥offset🔥(to: end)
+    let actual = start.offset(to: end)
     let zeroMeters = Measurement<UnitLength>(value: 0, unit: .meters)
     let expected = Offset(dx: zeroMeters, dz: zeroMeters, dAlt: tenMeters)
     assert(offsetAccurate(expected: expected, actual: actual))
@@ -95,8 +95,8 @@ class LocationTests: XCTestCase {
     let endLat = Measurement<UnitAngle>(value: 51.0009018699827, unit: .degrees)
     let endLon = Measurement<UnitAngle>(value: 0.00143308502480555, unit: .degrees)
     let expected = Location2D(latitude: endLat, longitude: endLon, altitude: zero)
-    let offset = start.🔥offset🔥(to: expected)
-    let actual = start.🔥translated🔥(by: offset)
+    let offset = start.offset(to: expected)
+    let actual = start.translated(by: offset)
     assert(actual == expected)
   }
   

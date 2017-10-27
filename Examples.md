@@ -12,7 +12,7 @@ The following shows how one might go about doing this.
 
 #### `CarrotSocket`
 
-`CarrotSocket` wraps an `SRWebSocket` and sets itself as the `SRWebSocket`'s delegate. It implements all of the methods required in the `Socket` protocol and and `SocketDelegate` protocol, respectively. It's important to note that `CarrotSession` expects all of these methods to be implemented correctly.
+`CarrotSocket` wraps an `SRWebSocket` and sets itself as the `SRWebSocket`'s delegate. It implements all of the methods required in the `Socket` protocol and the `SocketDelegate` protocol, respectively. It's important to note that `CarrotSession` expects all of these methods to be implemented correctly.
 
 ```swift
 import Foundation

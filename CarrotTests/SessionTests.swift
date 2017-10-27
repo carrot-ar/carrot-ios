@@ -63,7 +63,8 @@ class SessionTests: XCTestCase {
   var session: CarrotSession<TextMessage>!
   var failingSession: CarrotSession<TextMessage>!
   var retryingSession: CarrotSession<TextMessage>!
-  
+  var restartingSession: CarrotSession<TextMessage>!
+
   override func setUp() {
     super.setUp()
     socket = SyncEchoSocket()
@@ -84,6 +85,12 @@ class SessionTests: XCTestCase {
       locationRequester: FailingSyncLocationRequester(),
       messageHandler: { _, _ in },
       errorHandler: { _, _ in return .retry }
+    )
+    restartingSession = CarrotSession<TextMessage>(
+      socket: socket,
+      locationRequester: FailingSyncLocationRequester(),
+      messageHandler: { _, _ in },
+      errorHandler: { _, _ in return .restart }
     )
   }
   
@@ -172,6 +179,65 @@ class SessionTests: XCTestCase {
       case .fetchingLocation:
         fetchingLocationExpectation.fulfill()
       case .failed:
+        failingExpectation.fulfill()
+      case .authenticated:
+        authenticatedExpectation.fulfill()
+      default:
+        assert(false, "Unexpected state: \(state)")
+        return
+      }
+    }
+    wait(for: [openingExpectation,
+               pendingTokenExpectation,
+               receivedTokenExpectation,
+               fetchingLocationExpectation,
+               failingExpectation,
+               authenticatedExpectation],
+         timeout: 1,
+         enforceOrder: true)
+  }
+  
+  func testRestartingSession() {
+    let openingExpectation = XCTestExpectation(description: "Opening")
+    let pendingTokenExpectation = XCTestExpectation(description: "Pending token")
+    let receivedTokenExpectation = XCTestExpectation(description: "Received token")
+    let fetchingLocationExpectation = XCTestExpectation(description: "Fetching location")
+    let failingExpectation = XCTestExpectation(description: "Failed but retrying")
+    let openingExpectation2 = XCTestExpectation(description: "Opening again")
+    let pendingTokenExpectation2 = XCTestExpectation(description: "Pending token again")
+    let receivedTokenExpectation2 = XCTestExpectation(description: "Received token again")
+    let fetchingLocationExpectation2 = XCTestExpectation(description: "Fetching location again")
+    let authenticatedExpectation = XCTestExpectation(description: "Authenticated")
+    var onRetry = false
+    restartingSession.start { [weak self] state in
+      switch state {
+      case .opening:
+        if onRetry {
+          openingExpectation2.fulfill()
+        } else {
+          openingExpectation.fulfill()
+        }
+      case .pendingToken:
+        if onRetry {
+          pendingTokenExpectation2.fulfill()
+        } else {
+          pendingTokenExpectation.fulfill()
+        }
+        try! self?.socket.send(data: Data("session-token".utf8))
+      case .receivedToken:
+        if onRetry {
+          receivedTokenExpectation2.fulfill()
+        } else {
+          receivedTokenExpectation.fulfill()
+        }
+      case .fetchingLocation:
+        if onRetry {
+          fetchingLocationExpectation2.fulfill()
+        } else {
+          fetchingLocationExpectation.fulfill()
+        }
+      case .failed:
+        onRetry = true
         failingExpectation.fulfill()
       case .authenticated:
         authenticatedExpectation.fulfill()

@@ -17,6 +17,23 @@ class SyncLocationRequester: LocationRequester {
   }
 }
 
+class FailingSyncLocationRequester: LocationRequester {
+  
+  init() { }
+  
+  enum LocationError: Error {
+    case generic
+  }
+  
+  func fetch(result: @escaping (Result<CLLocation>) -> Void) {
+    let wrapped: Result<CLLocation> = retrying ? .success(CLLocation()) : .error(LocationError.generic)
+    retrying = true
+    result(wrapped)
+  }
+  
+  private var retrying = false
+}
+
 class SyncEchoSocket: Socket {
   
   init() { }
@@ -44,6 +61,8 @@ class SessionTests: XCTestCase {
   
   var socket: SyncEchoSocket!
   var session: CarrotSession<TextMessage>!
+  var failingSession: CarrotSession<TextMessage>!
+  var retryingSession: CarrotSession<TextMessage>!
   
   override func setUp() {
     super.setUp()
@@ -53,6 +72,18 @@ class SessionTests: XCTestCase {
       locationRequester: SyncLocationRequester(),
       messageHandler: { _, _ in },
       errorHandler: { _, _ in return nil }
+    )
+    failingSession = CarrotSession<TextMessage>(
+      socket: socket,
+      locationRequester: FailingSyncLocationRequester(),
+      messageHandler: { _, _ in },
+      errorHandler: { _, _ in return nil }
+    )
+    retryingSession = CarrotSession<TextMessage>(
+      socket: socket,
+      locationRequester: FailingSyncLocationRequester(),
+      messageHandler: { _, _ in },
+      errorHandler: { _, _ in return .retry }
     )
   }
   
@@ -76,7 +107,7 @@ class SessionTests: XCTestCase {
       case .authenticated:
         authenticatedExpectation.fulfill()
       default:
-        assert(false, "Unexpected state during handshake: \(state)")
+        assert(false, "Unexpected state: \(state)")
         return
       }
     }
@@ -86,6 +117,76 @@ class SessionTests: XCTestCase {
                fetchingLocationExpectation,
                authenticatedExpectation],
          timeout: 0.5,
+         enforceOrder: true)
+  }
+  
+  func testFailsForLocationError() {
+    let openingExpectation = XCTestExpectation(description: "Opening")
+    let pendingTokenExpectation = XCTestExpectation(description: "Pending token")
+    let receivedTokenExpectation = XCTestExpectation(description: "Received token")
+    let fetchingLocationExpectation = XCTestExpectation(description: "Fetching location")
+    let failingExpectation = XCTestExpectation(description: "Failed")
+    failingSession.start { [weak self] state in
+      switch state {
+      case .opening:
+        openingExpectation.fulfill()
+      case .pendingToken:
+        pendingTokenExpectation.fulfill()
+        try! self?.socket.send(data: Data("session-token".utf8))
+      case .receivedToken:
+        receivedTokenExpectation.fulfill()
+      case .fetchingLocation:
+        fetchingLocationExpectation.fulfill()
+      case .failed:
+        failingExpectation.fulfill()
+      default:
+        assert(false, "Unexpected state: \(state)")
+        return
+      }
+    }
+    wait(for: [openingExpectation,
+               pendingTokenExpectation,
+               receivedTokenExpectation,
+               fetchingLocationExpectation,
+               failingExpectation],
+         timeout: 0.5,
+         enforceOrder: true)
+  }
+  
+  func testRetriesLocationWhenFailsAndAsked() {
+    let openingExpectation = XCTestExpectation(description: "Opening")
+    let pendingTokenExpectation = XCTestExpectation(description: "Pending token")
+    let receivedTokenExpectation = XCTestExpectation(description: "Received token")
+    let fetchingLocationExpectation = XCTestExpectation(description: "Fetching location")
+    let failingExpectation = XCTestExpectation(description: "Failed but retrying")
+    let authenticatedExpectation = XCTestExpectation(description: "Authenticated")
+    retryingSession.start { [weak self] state in
+      switch state {
+      case .opening:
+        openingExpectation.fulfill()
+      case .pendingToken:
+        pendingTokenExpectation.fulfill()
+        try! self?.socket.send(data: Data("session-token".utf8))
+      case .receivedToken:
+        receivedTokenExpectation.fulfill()
+      case .fetchingLocation:
+        fetchingLocationExpectation.fulfill()
+      case .failed:
+        failingExpectation.fulfill()
+      case .authenticated:
+        authenticatedExpectation.fulfill()
+      default:
+        assert(false, "Unexpected state: \(state)")
+        return
+      }
+    }
+    wait(for: [openingExpectation,
+               pendingTokenExpectation,
+               receivedTokenExpectation,
+               fetchingLocationExpectation,
+               failingExpectation,
+               authenticatedExpectation],
+         timeout: 1,
          enforceOrder: true)
   }
   

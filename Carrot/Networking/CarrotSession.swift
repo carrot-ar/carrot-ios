@@ -86,16 +86,16 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         case let .success(location):
           self?.state = .authenticated(token, Location2D(from: location))
         case let .error(error):
-          self?.state = .failed(self?.state, error)
+          self?.state = .failed(on: self?.state, previous: .receivedToken(token), error)
         }
       }
-    case let .failed(failedOn, error):
+    case let .failed(failedOn, previous, error):
       guard let command = errorHandler(failedOn, error) else { return }
       switch command {
       case .restart:
         state = .opening
       case .retry:
-        state = previous
+        state = previous ?? .closed
       case .close:
         state = .closed
       }
@@ -115,7 +115,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func socketDidFail(with error: Error?) {
-    state = .failed(state, error ?? CarrotSessionError.failureWithoutError)
+    state = .failed(on: state, previous: nil, error ?? CarrotSessionError.failureWithoutError)
   }
   
   public func socketDidReceive(data: Data) {
@@ -149,7 +149,7 @@ public enum CarrotSessionState {
   case receivedToken(SessionToken)
   case fetchingLocation(SessionToken)
   case authenticated(SessionToken, Location2D)
-  indirect case failed(CarrotSessionState?, Error)
+  indirect case failed(on: CarrotSessionState?, previous: CarrotSessionState?, Error)
   
   var token: SessionToken? {
     switch self {
@@ -161,27 +161,8 @@ public enum CarrotSessionState {
       return token
     case let .authenticated(token, _):
       return token
-    case let .failed(state, _):
+    case let .failed(state, _, _):
       return state?.token ?? nil
-    }
-  }
-}
-
-extension CarrotSessionState: Equatable {
-  public static func ==(lhs: CarrotSessionState, rhs: CarrotSessionState) -> Bool {
-    switch (lhs, rhs) {
-    case (.opening, .opening), (.closing, .closing), (.closed, .closed), (.pendingToken, .pendingToken):
-      return true
-    case (let .receivedToken(token1), let .receivedToken(token2)):
-      return token1 == token2
-    case (let .fetchingLocation(token1), let .fetchingLocation(token2)):
-      return token1 == token2
-    case (let .authenticated(token1, origin1), let .authenticated(token2, origin2)):
-      return token1 == token2 && origin1 == origin2
-    case (let .failed(state1, error1), let .failed(state2, error2)):
-      return state1 == state2 && error1.localizedDescription == error2.localizedDescription
-    default:
-      return false
     }
   }
 }

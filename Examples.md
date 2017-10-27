@@ -2,27 +2,7 @@
 
 ### Initializing a `CarrotSession`
 
-The first parameter in `CarrotSession`'s initializer is something that conforms to the `Socket` protocol:
-
-```swift
-// MARK: - Socket
-
-public protocol Socket: class {
-  weak var eventDelegate: SocketDelegate? { get set }
-  func open()
-  func close()
-  func send(data: Data) throws
-}
-
-// MARK: - SocketDelegate
-
-public protocol SocketDelegate: class {
-  func socketDidOpen()
-  func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?)
-  func socketDidFail(with error: Error?)
-  func socketDidReceive(data: Data)
-}
-``` 
+The first parameter in `CarrotSession`'s initializer is something that conforms to the [`Socket`](https://github.com/carrot-ar/carrot-ios/blob/master/Carrot/Networking/Socket.swift) protocol:
 
 This protocol allows you to use whatever underlying implemention of a WebSocket that you'd like. All you have to do is conform the it to the `Socket` protocol. If you own the code, this should be trivial. If you don't own the underlying implementation, aka if you're using a third party library to interface with a WebSocket, the easiest way to do this is probably to wrap the third party WebSocket implementation within a new type that conforms to the `Socket` protocol.
 

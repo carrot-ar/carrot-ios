@@ -117,8 +117,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         case let .message(_, endPoint, foreignOrigin, message):
           var receivable = message
           if let offset = receivable.offset {
-            let foreignLocation = foreignOrigin.🔥translated🔥(by: offset)
-            let offset = origin.🔥offset🔥(to: foreignLocation)
+            let foreignLocation = foreignOrigin.translated(by: offset)
+            let offset = origin.offset(to: foreignLocation)
             receivable.location = Location3D(
               x: offset.dx.value,
               z: offset.dz.value,

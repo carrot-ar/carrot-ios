@@ -9,44 +9,20 @@
 import Foundation
 import CoreLocation
 
-// MARK: - LocationRequestOptions
-
-public struct LocationRequestOptions {
-  public let desiredAccuracy: CLLocationAccuracy
-  
-  public init(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
-    self.desiredAccuracy = desiredAccuracy
-  }
-}
-
-extension LocationRequestOptions {
-  public static var `default` = LocationRequestOptions()
-}
-
-// MARK: - LocationRequesterError
-
-public enum LocationRequesterError: Error {
-  case locationServicesNotAvailable
-  case noLocationsFound
-}
-
 // MARK: - LocationRequester
 
-public final class LocationRequester: NSObject, CLLocationManagerDelegate {
+public final class CarrotLocationRequester: NSObject, CLLocationManagerDelegate, LocationRequester {
   
   // MARK: Public
   
-  public func fetch(
-    with options: LocationRequestOptions = .default,
-    resultHandler: @escaping (Result<CLLocation>) -> Void)
-  {
+  public func fetch(result: @escaping (Result<CLLocation>) -> Void) {
     guard CLLocationManager.locationServicesEnabled() else {
-      resultHandler(.error(LocationRequesterError.locationServicesNotAvailable))
+      result(.error(LocationRequesterError.locationServicesNotAvailable))
       return
     }
-    self.resultHandler = resultHandler
+    resultHandler = result
     locationManager.requestWhenInUseAuthorization()
-    locationManager.desiredAccuracy = options.desiredAccuracy
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
     locationManager.requestLocation()
   }
   
@@ -79,4 +55,17 @@ public final class LocationRequester: NSObject, CLLocationManagerDelegate {
   {
     resultHandler?(.error(error))
   }
+}
+
+// MARK: - LocationRequesterError
+
+public enum LocationRequesterError: Error {
+  case locationServicesNotAvailable
+  case noLocationsFound
+}
+
+// MARK: - LocationRequester
+
+public protocol LocationRequester {
+ func fetch(result: @escaping (Result<CLLocation>) -> Void)
 }

@@ -16,10 +16,12 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public init(
     socket: Socket,
+    locationRequester: LocationRequester = CarrotLocationRequester(),
     messageHandler: @escaping (Result<Message<T>>, String?) -> Void,
     errorHandler: @escaping (CarrotSessionState?, Error) -> ErrorRecoveryCommand?)
   {
     self.socket = socket
+    self.locationRequester = locationRequester
     self.messageHandler = messageHandler
     self.errorHandler = errorHandler
   }
@@ -67,6 +69,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: Private
   
   private var socket: Socket
+  private var locationRequester: LocationRequester
   private var stateDidChange: ((CarrotSessionState) -> Void)?
   
   private func handleStateChange(previous: CarrotSessionState) {
@@ -77,7 +80,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case .closing:
       socket.close()
     case let .receivedToken(token):
-      let locationRequester = LocationRequester()
+      state = .fetchingLocation(token)
       locationRequester.fetch() { [weak self] result in
         switch result {
         case let .success(location):
@@ -86,7 +89,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
           self?.state = .failed(self?.state, error)
         }
       }
-      state = .fetchingLocation(token, locationRequester)
     case let .failed(failedOn, error):
       guard let command = errorHandler(failedOn, error) else { return }
       switch command {
@@ -145,7 +147,7 @@ public enum CarrotSessionState {
   case closed
   case pendingToken
   case receivedToken(SessionToken)
-  case fetchingLocation(SessionToken, LocationRequester)
+  case fetchingLocation(SessionToken)
   case authenticated(SessionToken, Location2D)
   indirect case failed(CarrotSessionState?, Error)
   
@@ -155,12 +157,31 @@ public enum CarrotSessionState {
       return nil
     case let .receivedToken(token):
       return token
-    case let .fetchingLocation(token, _):
+    case let .fetchingLocation(token):
       return token
     case let .authenticated(token, _):
       return token
     case let .failed(state, _):
       return state?.token ?? nil
+    }
+  }
+}
+
+extension CarrotSessionState: Equatable {
+  public static func ==(lhs: CarrotSessionState, rhs: CarrotSessionState) -> Bool {
+    switch (lhs, rhs) {
+    case (.opening, .opening), (.closing, .closing), (.closed, .closed), (.pendingToken, .pendingToken):
+      return true
+    case (let .receivedToken(token1), let .receivedToken(token2)):
+      return token1 == token2
+    case (let .fetchingLocation(token1), let .fetchingLocation(token2)):
+      return token1 == token2
+    case (let .authenticated(token1, origin1), let .authenticated(token2, origin2)):
+      return token1 == token2 && origin1 == origin2
+    case (let .failed(state1, error1), let .failed(state2, error2)):
+      return state1 == state2 && error1.localizedDescription == error2.localizedDescription
+    default:
+      return false
     }
   }
 }

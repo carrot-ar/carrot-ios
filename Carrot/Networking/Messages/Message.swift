@@ -38,6 +38,19 @@ public struct Message<T: Codable> {
       dz: Measurement<UnitLength>(value: dz, unit: .meters),
       dAlt: Measurement<UnitLength>(value: alt, unit: .meters))
   }
+  
+  /// Returns a `Message<T>` with a location that's been converted from being based off of `foreignOrigin` to `origin`.
+  func localized(from foreignOrigin: Location2D, to origin: Location2D) -> Message<T> {
+    guard let offset = offset else { return self }
+    var copy = self
+    let foreignLocation = foreignOrigin.translated(by: offset)
+    let newOffset = origin.offset(to: foreignLocation)
+    copy.location = Location3D(
+      x: newOffset.dx.value,
+      z: newOffset.dz.value,
+      altitude: newOffset.dAlt.value)
+    return copy
+  }
 }
 
 // MARK: - Codable

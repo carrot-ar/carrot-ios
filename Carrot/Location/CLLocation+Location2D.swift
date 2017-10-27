@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 
 extension CLLocation {
-  convenience init(location2D: Location2D) {
+  public convenience init(location2D: Location2D) {
     self.init(
       coordinate: CLLocationCoordinate2D(
         latitude: location2D.latitude.converted(to: .degrees).value,

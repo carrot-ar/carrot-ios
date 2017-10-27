@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-//TODO: client secret somewhere here eventually?
+//TODO: client secret?
 public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
@@ -97,11 +97,11 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
-    // NOOP for now
+    state = .closed
   }
   
   public func socketDidFail(with error: Error?) {
-    // NOOP for now
+    state = .failed(state, error ?? CarrotSessionError.failureWithoutError)
   }
   
   public func socketDidReceive(data: Data) {
@@ -115,15 +115,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {
         case let .message(_, endPoint, foreignOrigin, message):
-          var receivable = message
-          if let offset = receivable.offset {
-            let foreignLocation = foreignOrigin.translated(by: offset)
-            let offset = origin.offset(to: foreignLocation)
-            receivable.location = Location3D(
-              x: offset.dx.value,
-              z: offset.dz.value,
-              altitude: offset.dAlt.value)
-          }
+          let receivable = message.localized(from: foreignOrigin, to: origin)
           messageHandler(endPoint, .success(receivable))
         }
       } catch {
@@ -161,6 +153,7 @@ public enum CarrotSessionState {
 }
 
 public enum CarrotSessionError: Error {
+  case failureWithoutError
   case notAuthorized
 }
 

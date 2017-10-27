@@ -4,30 +4,11 @@
 
 The first parameter in `CarrotSession`'s initializer is something that conforms to the [`Socket`](https://github.com/carrot-ar/carrot-ios/blob/master/Carrot/Networking/Socket.swift) protocol.
 
-This protocol allows you to use whatever underlying implemention of a WebSocket that you'd like. All you have to do is conform the it to the `Socket` protocol. If you own the code, this should be trivial. If you don't own the underlying implementation, aka if you're using a third party library to interface with a WebSocket, the easiest way to do this is probably to wrap the third party WebSocket implementation within a new type that conforms to the `Socket` protocol.
+This protocol allows you to use whatever underlying implemention of a WebSocket that you'd like. All you have to do is conform the implementation to the `Socket` protocol. If you own the code, this should be trivial. If you don't own the code, aka if you're using a third party library to interface with a WebSocket, one strategy is to wrap the third party WebSocket implementation within your own type that conforms to the `Socket` protocol.
 
 The following shows how one might go about doing this.
 
 ### Using Facebook's [SocketRocket](https://github.com/facebook/SocketRocket)
-
-Using the `CarrotSocket` as implemented below would allow you to do create a `CarrotSession` like this:
-
-```swift
-let webSocket = SRWebSocket(url: URL(string: "http://35.196.152.230:8080/ws")!)!
-let carrotSocket = CarrotSocket(webSocket: webSocket)
-
-carrotSession = CarrotSession(
-  socket: carrotSocket,
-  messageHandler: { result in 
-    // handle receiving messages in here
-  },
-  errorHandler: { _, error in
-    // handle receiving errors in here
-  }
-)
-
-carrotSession.start()
-```
 
 #### `CarrotSocket`
 
@@ -94,4 +75,23 @@ extension CarrotSocket: SRWebSocketDelegate {
     }
   }
 }
+```
+
+Using the `CarrotSocket` as implemented above would allow you to do create a `CarrotSession` like this:
+
+```swift
+let webSocket = SRWebSocket(url: URL(string: "http://35.196.152.230:8080/ws")!)!
+let carrotSocket = CarrotSocket(webSocket: webSocket)
+
+carrotSession = CarrotSession(
+  socket: carrotSocket,
+  messageHandler: { result in 
+    // handle receiving messages in here
+  },
+  errorHandler: { _, error in
+    // handle receiving errors in here
+  }
+)
+
+carrotSession.start()
 ```

@@ -14,14 +14,14 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
   
-  public init(socket: Socket, messageHandler: @escaping (String?, Result<Message<T>>) -> Void) {
+  public init(socket: Socket, messageHandler: @escaping (Result<Message<T>>, String?) -> Void) {
     self.socket = socket
     self.messageHandler = messageHandler
   }
   
   // MARK: Public
   
-  public var messageHandler: (String?, Result<Message<T>>) -> Void
+  public var messageHandler: (Result<Message<T>>, String?) -> Void
   
   private(set) public var state: CarrotSessionState = .closed {
     didSet { handleStateChange() }
@@ -116,10 +116,10 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         switch sendable {
         case let .message(_, endPoint, foreignOrigin, message):
           let receivable = message.localized(from: foreignOrigin, to: origin)
-          messageHandler(endPoint, .success(receivable))
+          messageHandler(.success(receivable), endPoint)
         }
       } catch {
-        messageHandler(nil, .error(error))
+        messageHandler(.error(error), nil)
       }
     case .closed, .opening, .receivedToken, .fetchingLocation, .failed:
       break

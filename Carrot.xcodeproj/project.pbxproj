@@ -12,20 +12,19 @@
 		AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */; };
 		AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */; };
 		AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */; };
-		AB35DE421F9E960C00A4F179 /* CLLocation+Location2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE411F9E960C00A4F179 /* CLLocation+Location2D.swift */; };
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
 		AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CBE1F96A4530071B69F /* Message.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D61F9112E900F17E85 /* LocationRequester.swift */; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
-		ABB7A4481FA79822005386E3 /* PeripheralAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7A4471FA79822005386E3 /* PeripheralAdvertiser.swift */; };
+		AB80C4101FAA62CD00AE8A2E /* BeaconRanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */; };
+		AB80C4121FAA683000AE8A2E /* InitialMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80C4111FAA683000AE8A2E /* InitialMessage.swift */; };
+		ABB7A4481FA79822005386E3 /* BeaconAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */; };
 		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
 		ABEC7D921F9F93B70022A004 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7D911F9F93B70022A004 /* SessionTests.swift */; };
 		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
 		ABEC7D9B1F9F94870022A004 /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7D9A1F9F94870022A004 /* LocationTests.swift */; };
-		ABEC7DE31FA12D460022A004 /* Location+Converting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEC7DE21FA12D460022A004 /* Location+Converting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,23 +43,22 @@
 		AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorOperations.swift; sourceTree = "<group>"; };
 		AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARUtils.swift; sourceTree = "<group>"; };
 		AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotatable.swift; sourceTree = "<group>"; };
-		AB35DE411F9E960C00A4F179 /* CLLocation+Location2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Location2D.swift"; sourceTree = "<group>"; };
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
 		AB4E9CBE1F96A4530071B69F /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB7931D61F9112E900F17E85 /* LocationRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequester.swift; sourceTree = "<group>"; };
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
-		ABB7A4471FA79822005386E3 /* PeripheralAdvertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralAdvertiser.swift; sourceTree = "<group>"; };
+		AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconRanger.swift; sourceTree = "<group>"; };
+		AB80C4111FAA683000AE8A2E /* InitialMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMessage.swift; sourceTree = "<group>"; };
+		ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconAdvertiser.swift; sourceTree = "<group>"; };
 		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
 		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABEC7D911F9F93B70022A004 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
 		ABEC7D931F9F93B70022A004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABEC7D9A1F9F94870022A004 /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
-		ABEC7DE21FA12D460022A004 /* Location+Converting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+Converting.swift"; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,10 +130,7 @@
 		AB7931DA1F91361700F17E85 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				ABEC7DE21FA12D460022A004 /* Location+Converting.swift */,
 				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
-				AB35DE411F9E960C00A4F179 /* CLLocation+Location2D.swift */,
-				AB7931D61F9112E900F17E85 /* LocationRequester.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -161,7 +156,8 @@
 		ABB7A4461FA79792005386E3 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				ABB7A4471FA79822005386E3 /* PeripheralAdvertiser.swift */,
+				ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */,
+				AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -171,6 +167,7 @@
 			children = (
 				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
 				AB4E9CBE1F96A4530071B69F /* Message.swift */,
+				AB80C4111FAA683000AE8A2E /* InitialMessage.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -296,18 +293,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
+				AB80C4121FAA683000AE8A2E /* InitialMessage.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
 				AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */,
 				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
-				ABB7A4481FA79822005386E3 /* PeripheralAdvertiser.swift in Sources */,
+				AB80C4101FAA62CD00AE8A2E /* BeaconRanger.swift in Sources */,
+				ABB7A4481FA79822005386E3 /* BeaconAdvertiser.swift in Sources */,
 				AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */,
-				AB7931D71F9112E900F17E85 /* LocationRequester.swift in Sources */,
 				AB35DE381F9E7A6F00A4F179 /* MatrixOperations.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
-				ABEC7DE31FA12D460022A004 /* Location+Converting.swift in Sources */,
 				AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */,
-				AB35DE421F9E960C00A4F179 /* CLLocation+Location2D.swift in Sources */,
 				AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */,
 				AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */,
 			);

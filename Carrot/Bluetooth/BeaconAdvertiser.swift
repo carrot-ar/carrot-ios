@@ -10,11 +10,12 @@ import Foundation
 import CoreBluetooth
 import CoreLocation
 
-class BeaconAdvertiser: NSObject {
+public final class BeaconAdvertiser: NSObject {
   
   // MARK: Lifecycle
   
   init(uuid: UUID) {
+    //FIXME: What should we use for major and/or minor?
     beaconRegion = CLBeaconRegion(
       proximityUUID: uuid,
       major: 100,
@@ -29,8 +30,12 @@ class BeaconAdvertiser: NSObject {
   
   // MARK: Internal
   
-  func startAdvertising(onStateChange: @escaping (BeaconAdvertisingState) -> Void) {
+  func startAdvertising(
+    onStateChange: @escaping (BeaconAdvertisingState) -> Void,
+    onImmediatePing: @escaping () -> Void)
+  {
     stateHandler = onStateChange
+    didSendImmediatePing = onImmediatePing
     updateAdvertisingState()
   }
   
@@ -41,6 +46,7 @@ class BeaconAdvertiser: NSObject {
   
   // MARK: Private
   
+  private var didSendImmediatePing: (() -> Void)!
   private var stateHandler: ((BeaconAdvertisingState) -> Void)!
   private var advertisingState: BeaconAdvertisingState = .off {
     didSet { stateHandler(advertisingState) }
@@ -73,7 +79,7 @@ class BeaconAdvertiser: NSObject {
 }
 
 extension BeaconAdvertiser: CBPeripheralManagerDelegate {
-  func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+  public func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
     updateAdvertisingState()
   }
   

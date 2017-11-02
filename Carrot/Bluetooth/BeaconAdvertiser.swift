@@ -15,7 +15,7 @@ public final class BeaconAdvertiser: NSObject {
   // MARK: Lifecycle
   
   init(uuid: UUID) {
-    //FIXME: What should we use for major and/or minor?
+    //FIXME: What should we use for major and/or minor if we are the primary device?
     beaconRegion = CLBeaconRegion(
       proximityUUID: uuid,
       major: 100,
@@ -31,7 +31,7 @@ public final class BeaconAdvertiser: NSObject {
   // MARK: Internal
   
   func startAdvertising(
-    onStateChange: @escaping (BeaconAdvertisingState) -> Void,
+    onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void,
     onImmediatePing: @escaping () -> Void)
   {
     stateHandler = onStateChange
@@ -47,9 +47,9 @@ public final class BeaconAdvertiser: NSObject {
   // MARK: Private
   
   private var didSendImmediatePing: (() -> Void)!
-  private var stateHandler: ((BeaconAdvertisingState) -> Void)!
-  private var advertisingState: BeaconAdvertisingState = .off {
-    didSet { stateHandler(advertisingState) }
+  private var stateHandler: ((BeaconAdvertiser, BeaconAdvertisingState) -> Void)!
+  private var advertisingState: BeaconAdvertisingState = .idle {
+    didSet { stateHandler(self, advertisingState) }
   }
   
   private let beaconRegion: CLBeaconRegion
@@ -67,14 +67,12 @@ public final class BeaconAdvertiser: NSObject {
       let data = beaconRegion.peripheralData(withMeasuredPower: nil) as! [String: Any]
       peripheral.startAdvertising(data)
     case .poweredOff:
-      advertisingState = .off
+      advertisingState = .queued
     case .unsupported, .unauthorized:
       advertisingState = .error(BeaconAdvertiserError.badState(peripheralState))
     case .unknown, .resetting:
       advertisingState = .queued
     }
-    print("Peripheral state: \(peripheral.state)")
-    print("Advertising state: \(advertisingState)")
   }
 }
 
@@ -92,14 +90,17 @@ extension BeaconAdvertiser: CBPeripheralManagerDelegate {
   }
 }
 
-enum BeaconAdvertisingState {
-  case off
+public enum BeaconAdvertisingState {
+  /// Waiting for the call to startAdvertising(_:_:)
   case idle
+  /// Waiting for the `CBManagerState` to change from .poweredOff, .unknown, or .resetting
   case queued
+  /// The CBPeripheralManager is currently advertising `beaconRegion`
   case advertising
+  /// An error occured
   case error(Error)
 }
 
-enum BeaconAdvertiserError: Error {
+public enum BeaconAdvertiserError: Error {
   case badState(CBManagerState)
 }

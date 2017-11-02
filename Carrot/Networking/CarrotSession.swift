@@ -58,7 +58,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
          .opening,
          .pendingToken,
          .receivedInitialMessage,
-         .ranging,
+         .pendingImmediatePing,
+         .pendingAdvertising,
          .failed:
       throw CarrotSessionError.notAuthorized
     }
@@ -79,24 +80,26 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case let .receivedInitialMessage(token, primaryBeaconRegion):
       if let region = primaryBeaconRegion {
         let ranger = BeaconRanger(for: region)
-        state = .ranging(token, ranger)
+        state = .pendingImmediatePing(token, ranger)
         ranger.startRanging(
-          onError: { [weak self] error in
-            self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
-          },
           onImmediatePing: { [weak self] in
             //FIXME: fetch our current transform and send to the server
             self?.state = .authenticatedSecondary(token)
+          },
+          onError: { [weak self] error in
+            self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
           }
         )
       } else {
         let advertiser = BeaconAdvertiser(uuid: token)
-        state = .authenticatedPrimary(token, advertiser)
+        state = .pendingAdvertising(token, advertiser, .idle)
         advertiser.startAdvertising(
-          onStateChange: { [weak self] advertisingState in
+          onStateChange: { [weak self] advertiser, advertisingState in
             switch advertisingState {
-            case .off, .idle, .queued, .advertising:
-              break //FIXME: do we want to have an external way to receive updates on advertising status?
+            case .advertising:
+              self?.state = .authenticatedPrimary(token, advertiser)
+            case .idle, .queued:
+              self?.state = .pendingAdvertising(token, advertiser, advertisingState)
             case let .error(error):
               self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
             }
@@ -116,7 +119,12 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       case .close:
         state = .closed
       }
-    case .closed, .pendingToken, .ranging, .authenticatedSecondary, .authenticatedPrimary:
+    case .closed,
+         .pendingToken,
+         .pendingImmediatePing,
+         .pendingAdvertising,
+         .authenticatedSecondary,
+         .authenticatedPrimary:
       break
     }
   }
@@ -154,7 +162,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } catch {
         messageHandler(.error(error), nil)
       }
-    case .opening, .closing, .closed, .receivedInitialMessage, .ranging, .failed:
+    case .opening, .closing, .closed, .receivedInitialMessage, .pendingImmediatePing, .pendingAdvertising, .failed:
       break
     }
   }
@@ -166,25 +174,44 @@ public enum CarrotSessionState {
   case closed
   case pendingToken
   case receivedInitialMessage(SessionToken, CLBeaconRegion?)
-  case ranging(SessionToken, BeaconRanger)
+  case pendingImmediatePing(SessionToken, BeaconRanger)
+  case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
   case authenticatedSecondary(SessionToken)
   case authenticatedPrimary(SessionToken, BeaconAdvertiser)
   indirect case failed(on: CarrotSessionState?, previous: CarrotSessionState?, Error)
   
-  var token: SessionToken? {
+  public var token: SessionToken? {
     switch self {
     case .opening, .closing, .closed, .pendingToken:
       return nil
     case let .receivedInitialMessage(token, _):
       return token
-    case let .ranging(token, _):
+    case let .pendingImmediatePing(token, _):
       return token
     case let .authenticatedSecondary(token):
+      return token
+    case let .pendingAdvertising(token, _, _):
       return token
     case let .authenticatedPrimary(token, _):
       return token
     case let .failed(state, _, _):
       return state?.token ?? nil
+    }
+  }
+  
+  public var isAuthenticated: Bool {
+    switch self {
+    case .authenticatedPrimary, .authenticatedSecondary:
+      return true
+    case .closed,
+         .closing,
+         .opening,
+         .pendingToken,
+         .receivedInitialMessage,
+         .pendingImmediatePing,
+         .pendingAdvertising,
+         .failed:
+      return false
     }
   }
 }

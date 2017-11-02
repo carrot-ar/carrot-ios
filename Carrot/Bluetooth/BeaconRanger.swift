@@ -23,15 +23,15 @@ public final class BeaconRanger: NSObject {
   }
   
   func startRanging(
-    onError: @escaping (Error) -> Void,
-    onImmediatePing: @escaping () -> Void)
+    onImmediatePing: @escaping () -> Void,
+    onError: @escaping (Error) -> Void)
   {
     if let error = error(for: CLLocationManager.authorizationStatus()) {
       onError(error)
       return
     }
-    self.onError = onError
     self.onImmediatePing = onImmediatePing
+    self.onError = onError
     locationManager.requestWhenInUseAuthorization()
     locationManager.startMonitoring(for: beaconRegion)
     locationManager.startUpdatingLocation()
@@ -39,8 +39,8 @@ public final class BeaconRanger: NSObject {
   
   // MARK: Private
   
-  private var onError: ((Error) -> Void)?
   private var onImmediatePing: (() -> Void)?
+  private var onError: ((Error) -> Void)?
   private let beaconRegion: CLBeaconRegion
   
   private lazy var locationManager: CLLocationManager = {

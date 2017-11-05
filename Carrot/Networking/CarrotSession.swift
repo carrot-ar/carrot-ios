@@ -83,9 +83,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         state = .pendingImmediatePing(token, ranger, .unknown)
         ranger.startMonitoring(
           onProximityChange: { [weak self] _, proximity in
-            switch (ranger, proximity) {
-            case (let ranger, .immediate):
-              ranger.stopMonitoring()
+            switch proximity {
+            case .immediate:
               self?.state = .authenticatedSecondary(token)
               //FIXME: fetch our current transform and send to the server
             default:
@@ -145,7 +144,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func socketDidReceive(data: Data) {
-    //FIXME: check if message hits a reserved endpoint, and responds as expected it it does
     switch state {
     case .pendingToken:
       do {
@@ -155,6 +153,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         messageHandler(.error(error), nil)
       }
     case .authenticatedPrimary, .authenticatedSecondary:
+      //FIXME: check if message hits a reserved endpoint, and responds as expected it it does
       do {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {

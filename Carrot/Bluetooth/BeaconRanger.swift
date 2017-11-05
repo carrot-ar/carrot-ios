@@ -24,10 +24,6 @@ public final class BeaconRanger: NSObject {
   
   // MARK: Public
   
-  public var isMonitoring: Bool {
-    return !locationManager.monitoredRegions.isEmpty
-  }
-  
   public func startMonitoring(
     onProximityChange: @escaping (BeaconRanger, CLProximity) -> Void,
     onError: @escaping (Error) -> Void)
@@ -65,8 +61,10 @@ public final class BeaconRanger: NSObject {
   
   private func error(for status: CLAuthorizationStatus) -> Error? {
     switch status {
-    case .denied, .restricted:
-      return BeaconRangerError.badLocationStatus(status)
+    case .restricted:
+      return BeaconRangerError.locationRestricted
+    case .denied:
+      return BeaconRangerError.locationDenied
     case .notDetermined, .authorizedWhenInUse, .authorizedAlways:
       return nil
     }
@@ -74,8 +72,10 @@ public final class BeaconRanger: NSObject {
   
   private func error(for status: UIBackgroundRefreshStatus) -> Error? {
     switch status {
-    case .restricted, .denied:
-      return BeaconRangerError.badRefreshStatus(status)
+    case .restricted:
+      return BeaconRangerError.backgroundRefreshRestricted
+    case .denied:
+      return BeaconRangerError.backgroundRefreshDenied
     case .available:
       return nil
     }
@@ -155,6 +155,8 @@ extension BeaconRanger: CLLocationManagerDelegate {
 }
 
 enum BeaconRangerError: Error {
-  case badLocationStatus(CLAuthorizationStatus)
-  case badRefreshStatus(UIBackgroundRefreshStatus)
+  case locationDenied
+  case locationRestricted
+  case backgroundRefreshDenied
+  case backgroundRefreshRestricted
 }

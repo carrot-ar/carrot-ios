@@ -25,7 +25,7 @@ public final class BeaconAdvertiser: NSObject {
   }
   
   deinit {
-    peripheral.stopAdvertising()
+    stopAdvertising()
   }
   
   // MARK: Public
@@ -34,9 +34,7 @@ public final class BeaconAdvertiser: NSObject {
     return peripheral.isAdvertising
   }
   
-  public func startAdvertising(
-    onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void)
-  {
+  public func startAdvertising(onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void) {
     stateHandler = onStateChange
     updateAdvertisingState()
   }
@@ -69,8 +67,10 @@ public final class BeaconAdvertiser: NSObject {
       peripheral.startAdvertising(data)
     case .poweredOff:
       advertisingState = .queued
-    case .unsupported, .unauthorized:
-      advertisingState = .error(BeaconAdvertiserError.badState(peripheralState))
+    case .unsupported:
+      advertisingState = .error(BeaconAdvertiserError.unsupported)
+    case .unauthorized:
+      advertisingState = .error(BeaconAdvertiserError.unauthorized)
     case .unknown, .resetting:
       advertisingState = .queued
     }
@@ -84,10 +84,6 @@ extension BeaconAdvertiser: CBPeripheralManagerDelegate {
   
   public func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
     if let error = error {
-      let nsError = error as NSError
-      if nsError.domain == CBErrorDomain, nsError.code == 9 {
-        return
-      }
       advertisingState = .error(error)
     } else {
       advertisingState = .advertising
@@ -107,5 +103,6 @@ public enum BeaconAdvertisingState {
 }
 
 public enum BeaconAdvertiserError: Error {
-  case badState(CBManagerState)
+  case unsupported
+  case unauthorized
 }

@@ -30,10 +30,6 @@ public final class BeaconAdvertiser: NSObject {
   
   // MARK: Public
   
-  public var isAdvertising: Bool {
-    return peripheral.isAdvertising
-  }
-  
   public func startAdvertising(onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void) {
     stateHandler = onStateChange
     updateAdvertisingState()
@@ -65,14 +61,12 @@ public final class BeaconAdvertiser: NSObject {
     case .poweredOn:
       let data = beaconRegion.peripheralData(withMeasuredPower: nil) as! [String: Any]
       peripheral.startAdvertising(data)
-    case .poweredOff:
+    case .poweredOff, .unknown, .resetting:
       advertisingState = .queued
     case .unsupported:
       advertisingState = .error(BeaconAdvertiserError.unsupported)
     case .unauthorized:
       advertisingState = .error(BeaconAdvertiserError.unauthorized)
-    case .unknown, .resetting:
-      advertisingState = .queued
     }
   }
 }
@@ -85,9 +79,9 @@ extension BeaconAdvertiser: CBPeripheralManagerDelegate {
   public func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
     if let error = error {
       advertisingState = .error(error)
-    } else {
-      advertisingState = .advertising
+      return
     }
+    advertisingState = .advertising
   }
 }
 

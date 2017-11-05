@@ -11,11 +11,12 @@ import CoreLocation
 
 public final class BeaconRanger: NSObject {
   
-  // MARK: Internal
+  // MARK: Lifecycle
   
   public init(for region: CLBeaconRegion) {
     beaconRegion = region
     beaconRegion.notifyEntryStateOnDisplay = true
+    super.init()
   }
   
   deinit {

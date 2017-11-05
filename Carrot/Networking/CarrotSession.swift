@@ -80,11 +80,17 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case let .receivedInitialMessage(token, primaryBeaconRegion):
       if let region = primaryBeaconRegion {
         let ranger = BeaconRanger(for: region)
-        state = .pendingImmediatePing(token, ranger)
-        ranger.startRanging(
-          onImmediatePing: { [weak self] in
-            //FIXME: fetch our current transform and send to the server
-            self?.state = .authenticatedSecondary(token)
+        state = .pendingImmediatePing(token, ranger, .unknown)
+        ranger.startMonitoring(
+          onProximityChange: { [weak self] _, proximity in
+            switch (ranger, proximity) {
+            case (let ranger, .immediate):
+              ranger.stopMonitoring()
+              self?.state = .authenticatedSecondary(token)
+              //FIXME: fetch our current transform and send to the server
+            default:
+              self?.state = .pendingImmediatePing(token, ranger, proximity)
+            }
           },
           onError: { [weak self] error in
             self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
@@ -93,21 +99,16 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } else {
         let advertiser = BeaconAdvertiser(uuid: token)
         state = .pendingAdvertising(token, advertiser, .idle)
-        advertiser.startAdvertising(
-          onStateChange: { [weak self] advertiser, advertisingState in
-            switch advertisingState {
-            case .advertising:
-              self?.state = .authenticatedPrimary(token, advertiser)
-            case .idle, .queued:
-              self?.state = .pendingAdvertising(token, advertiser, advertisingState)
-            case let .error(error):
-              self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
-            }
-          },
-          onImmediatePing: { [weak self] in
-            //FIXME: fetch our current transform and send to the server
+        advertiser.startAdvertising { [weak self] advertiser, advertisingState in
+          switch advertisingState {
+          case .advertising:
+            self?.state = .authenticatedPrimary(token, advertiser)
+          case .idle, .queued:
+            self?.state = .pendingAdvertising(token, advertiser, advertisingState)
+          case let .error(error):
+            self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
           }
-        )
+        }
       }
     case let .failed(failedOn, previous, error):
       guard let command = errorHandler(failedOn, error) else { return }
@@ -144,6 +145,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
   
   public func socketDidReceive(data: Data) {
+    //FIXME: check if message hits a reserved endpoint, and responds as expected it it does
     switch state {
     case .pendingToken:
       do {
@@ -174,7 +176,7 @@ public enum CarrotSessionState {
   case closed
   case pendingToken
   case receivedInitialMessage(SessionToken, CLBeaconRegion?)
-  case pendingImmediatePing(SessionToken, BeaconRanger)
+  case pendingImmediatePing(SessionToken, BeaconRanger, CLProximity)
   case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
   case authenticatedSecondary(SessionToken)
   case authenticatedPrimary(SessionToken, BeaconAdvertiser)
@@ -186,7 +188,7 @@ public enum CarrotSessionState {
       return nil
     case let .receivedInitialMessage(token, _):
       return token
-    case let .pendingImmediatePing(token, _):
+    case let .pendingImmediatePing(token, _, _):
       return token
     case let .authenticatedSecondary(token):
       return token

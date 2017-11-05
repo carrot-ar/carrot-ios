@@ -8,38 +8,52 @@
 
 import Foundation
 import CoreLocation
-import CoreBluetooth
 
 public final class BeaconRanger: NSObject {
   
   // MARK: Internal
   
-  init(for region: CLBeaconRegion) {
+  public init(for region: CLBeaconRegion) {
     beaconRegion = region
+    beaconRegion.notifyEntryStateOnDisplay = true
   }
   
   deinit {
-    locationManager.stopMonitoring(for: beaconRegion)
+    stopMonitoring()
   }
   
-  func startRanging(
-    onImmediatePing: @escaping () -> Void,
+  // MARK: Public
+  
+  public var isMonitoring: Bool {
+    return !locationManager.monitoredRegions.isEmpty
+  }
+  
+  public func startMonitoring(
+    onProximityChange: @escaping (BeaconRanger, CLProximity) -> Void,
     onError: @escaping (Error) -> Void)
   {
     if let error = error(for: CLLocationManager.authorizationStatus()) {
       onError(error)
       return
     }
-    self.onImmediatePing = onImmediatePing
+    if let error = error(for: UIApplication.shared.backgroundRefreshStatus) {
+      onError(error)
+      return
+    }
+    self.onProximityChange = onProximityChange
     self.onError = onError
-    locationManager.requestWhenInUseAuthorization()
+    locationManager.requestAlwaysAuthorization()
     locationManager.startMonitoring(for: beaconRegion)
-    locationManager.startUpdatingLocation()
+  }
+  
+  public func stopMonitoring() {
+    locationManager.stopRangingBeacons(in: beaconRegion)
+    locationManager.stopMonitoring(for: beaconRegion)
   }
   
   // MARK: Private
   
-  private var onImmediatePing: (() -> Void)?
+  private var onProximityChange: ((BeaconRanger, CLProximity) -> Void)?
   private var onError: ((Error) -> Void)?
   private let beaconRegion: CLBeaconRegion
   
@@ -52,8 +66,17 @@ public final class BeaconRanger: NSObject {
   private func error(for status: CLAuthorizationStatus) -> Error? {
     switch status {
     case .denied, .restricted:
-      return BeaconRangerError.badStatus(status)
+      return BeaconRangerError.badLocationStatus(status)
     case .notDetermined, .authorizedWhenInUse, .authorizedAlways:
+      return nil
+    }
+  }
+  
+  private func error(for status: UIBackgroundRefreshStatus) -> Error? {
+    switch status {
+    case .restricted, .denied:
+      return BeaconRangerError.badRefreshStatus(status)
+    case .available:
       return nil
     }
   }
@@ -67,14 +90,8 @@ extension BeaconRanger: CLLocationManagerDelegate {
   {
     if let error = error(for: status) {
       onError?(error)
+      return
     }
-  }
-  
-  public func locationManager(
-    _ manager: CLLocationManager,
-    didStartMonitoringFor region: CLRegion)
-  {
-    locationManager.requestState(for: beaconRegion)
   }
   
   public func locationManager(
@@ -85,10 +102,8 @@ extension BeaconRanger: CLLocationManagerDelegate {
     switch state {
     case .inside:
       locationManager.startRangingBeacons(in: beaconRegion)
-    case .outside:
+    case .outside, .unknown:
       locationManager.stopRangingBeacons(in: beaconRegion)
-    case .unknown:
-      break
     }
   }
   
@@ -96,14 +111,14 @@ extension BeaconRanger: CLLocationManagerDelegate {
     _ manager: CLLocationManager,
     didEnterRegion region: CLRegion)
   {
-    print("Entered \(region)")
+    locationManager.startRangingBeacons(in: beaconRegion)
   }
   
   public func locationManager(
     _ manager: CLLocationManager,
     didExitRegion region: CLRegion)
   {
-    print("Exited \(region)")
+    locationManager.stopRangingBeacons(in: beaconRegion)
   }
   
   public func locationManager(
@@ -112,21 +127,7 @@ extension BeaconRanger: CLLocationManagerDelegate {
     in region: CLBeaconRegion)
   {
     guard let beacon = beacons.first else { return }
-    switch beacon.proximity {
-    case .immediate:
-      onImmediatePing?()
-      manager.stopMonitoring(for: region)
-      manager.stopUpdatingLocation()
-    case .unknown, .far, .near:
-      break
-    }
-  }
-  
-  public func locationManager(
-    _ manager: CLLocationManager,
-    didFailWithError error: Error)
-  {
-    onError?(error)
+    onProximityChange?(self, beacon.proximity)
   }
   
   public func locationManager(
@@ -136,9 +137,24 @@ extension BeaconRanger: CLLocationManagerDelegate {
   {
     onError?(error)
   }
+  
+  public func locationManager(
+    _ manager: CLLocationManager,
+    rangingBeaconsDidFailFor region: CLBeaconRegion,
+    withError error: Error)
+  {
+    onError?(error)
+  }
+  
+  public func locationManager(
+    _ manager: CLLocationManager,
+    didFailWithError error: Error)
+  {
+    onError?(error)
+  }
 }
 
-
 enum BeaconRangerError: Error {
-  case badStatus(CLAuthorizationStatus)
+  case badLocationStatus(CLAuthorizationStatus)
+  case badRefreshStatus(UIBackgroundRefreshStatus)
 }

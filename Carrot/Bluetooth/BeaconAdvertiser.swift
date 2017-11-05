@@ -14,7 +14,7 @@ public final class BeaconAdvertiser: NSObject {
   
   // MARK: Lifecycle
   
-  init(uuid: UUID) {
+  public init(uuid: UUID) {
     //FIXME: What should we use for major and/or minor if we are the primary device?
     beaconRegion = CLBeaconRegion(
       proximityUUID: uuid,
@@ -28,25 +28,26 @@ public final class BeaconAdvertiser: NSObject {
     peripheral.stopAdvertising()
   }
   
-  // MARK: Internal
+  // MARK: Public
   
-  func startAdvertising(
-    onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void,
-    onImmediatePing: @escaping () -> Void)
+  public var isAdvertising: Bool {
+    return peripheral.isAdvertising
+  }
+  
+  public func startAdvertising(
+    onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void)
   {
     stateHandler = onStateChange
-    didSendImmediatePing = onImmediatePing
     updateAdvertisingState()
   }
   
- func stopAdvertising() {
+  public func stopAdvertising() {
     peripheral.stopAdvertising()
     advertisingState = .idle
   }
   
   // MARK: Private
   
-  private var didSendImmediatePing: (() -> Void)!
   private var stateHandler: ((BeaconAdvertiser, BeaconAdvertisingState) -> Void)!
   private var advertisingState: BeaconAdvertisingState = .idle {
     didSet { stateHandler(self, advertisingState) }
@@ -83,6 +84,10 @@ extension BeaconAdvertiser: CBPeripheralManagerDelegate {
   
   public func peripheralManagerDidStartAdvertising(_ peripheral: CBPeripheralManager, error: Error?) {
     if let error = error {
+      let nsError = error as NSError
+      if nsError.domain == CBErrorDomain, nsError.code == 9 {
+        return
+      }
       advertisingState = .error(error)
     } else {
       advertisingState = .advertising

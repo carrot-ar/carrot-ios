@@ -26,18 +26,3 @@ public protocol SocketDelegate: class {
   func socketDidFail(with error: Error?)
   func socketDidReceive(data: Data)
 }
-
-// MARK: - Socket + String
-
-public enum SocketError: Error {
-  case stringEncodingFailure
-}
-
-extension Socket {
-  func send(string: String, with encoding: String.Encoding = .utf8) throws {
-    guard let data = string.data(using: encoding) else {
-      throw SocketError.stringEncodingFailure
-    }
-    try send(data: data)
-  }
-}

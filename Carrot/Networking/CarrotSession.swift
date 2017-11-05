@@ -16,12 +16,10 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public init(
     socket: Socket,
-    locationRequester: LocationRequester = CarrotLocationRequester(),
     messageHandler: @escaping (Result<Message<T>>, String?) -> Void,
     errorHandler: @escaping (CarrotSessionState?, Error) -> ErrorRecoveryCommand?)
   {
     self.socket = socket
-    self.locationRequester = locationRequester
     self.messageHandler = messageHandler
     self.errorHandler = errorHandler
   }
@@ -51,16 +49,17 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public func send(message: Message<T>, to endpoint: String) throws {
     switch state {
-    case let .authenticated(token, location):
-      let sendable = Sendable.message(token, endpoint, location, message)
+    case let .authenticatedPrimary(token, _), let .authenticatedSecondary(token):
+      let sendable = Sendable.message(token, endpoint, message)
       let data = try JSONEncoder().encode(sendable)
       try socket.send(data: data)
     case .closed,
          .closing,
          .opening,
          .pendingToken,
-         .receivedToken,
-         .fetchingLocation,
+         .receivedInitialMessage,
+         .pendingImmediatePing,
+         .pendingAdvertising,
          .failed:
       throw CarrotSessionError.notAuthorized
     }
@@ -69,7 +68,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: Private
   
   private var socket: Socket
-  private var locationRequester: LocationRequester
   private var stateDidChange: ((CarrotSessionState) -> Void)?
   
   private func handleStateChange(previous: CarrotSessionState) {
@@ -79,14 +77,36 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       socket.open()
     case .closing:
       socket.close()
-    case let .receivedToken(token):
-      state = .fetchingLocation(token)
-      locationRequester.fetch() { [weak self] result in
-        switch result {
-        case let .success(location):
-          self?.state = .authenticated(token, Location2D(from: location))
-        case let .error(error):
-          self?.state = .failed(on: self?.state, previous: .receivedToken(token), error)
+    case let .receivedInitialMessage(token, primaryBeaconRegion):
+      if let region = primaryBeaconRegion {
+        let ranger = BeaconRanger(for: region)
+        state = .pendingImmediatePing(token, ranger, .unknown)
+        ranger.startMonitoring(
+          onProximityChange: { [weak self] _, proximity in
+            switch proximity {
+            case .immediate:
+              self?.state = .authenticatedSecondary(token)
+              //FIXME: fetch our current transform and send to the server
+            default:
+              self?.state = .pendingImmediatePing(token, ranger, proximity)
+            }
+          },
+          onError: { [weak self] error in
+            self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
+          }
+        )
+      } else {
+        let advertiser = BeaconAdvertiser(uuid: token)
+        state = .pendingAdvertising(token, advertiser, .idle)
+        advertiser.startAdvertising { [weak self] advertiser, advertisingState in
+          switch advertisingState {
+          case .advertising:
+            self?.state = .authenticatedPrimary(token, advertiser)
+          case .idle, .queued:
+            self?.state = .pendingAdvertising(token, advertiser, advertisingState)
+          case let .error(error):
+            self?.state = .failed(on: self?.state, previous: .receivedInitialMessage(token, primaryBeaconRegion), error)
+          }
         }
       }
     case let .failed(failedOn, previous, error):
@@ -99,7 +119,12 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       case .close:
         state = .closed
       }
-    case .closed, .pendingToken, .fetchingLocation,  .authenticated:
+    case .closed,
+         .pendingToken,
+         .pendingImmediatePing,
+         .pendingAdvertising,
+         .authenticatedSecondary,
+         .authenticatedPrimary:
       break
     }
   }
@@ -121,21 +146,24 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   public func socketDidReceive(data: Data) {
     switch state {
     case .pendingToken:
-      if let token = String(data: data, encoding: .utf8) {
-        state = .receivedToken(token)
+      do {
+        let initialMessage = try JSONDecoder().decode(InitialMessage.self, from: data)
+        state = .receivedInitialMessage(initialMessage.token, initialMessage.primaryBeacon)
+      } catch {
+        messageHandler(.error(error), nil)
       }
-    case let .authenticated(_, origin):
+    case .authenticatedPrimary, .authenticatedSecondary:
+      //FIXME: check if message hits a reserved endpoint, and responds as expected it it does
       do {
         let sendable = try JSONDecoder().decode(Sendable<T>.self, from: data)
         switch sendable {
-        case let .message(_, endPoint, foreignOrigin, message):
-          let receivable = message.localized(from: foreignOrigin, to: origin)
-          messageHandler(.success(receivable), endPoint)
+        case let .message(_, endPoint, message):
+          messageHandler(.success(message), endPoint)
         }
       } catch {
         messageHandler(.error(error), nil)
       }
-    case .opening, .closing, .closed, .receivedToken, .fetchingLocation, .failed:
+    case .opening, .closing, .closed, .receivedInitialMessage, .pendingImmediatePing, .pendingAdvertising, .failed:
       break
     }
   }
@@ -146,23 +174,45 @@ public enum CarrotSessionState {
   case closing
   case closed
   case pendingToken
-  case receivedToken(SessionToken)
-  case fetchingLocation(SessionToken)
-  case authenticated(SessionToken, Location2D)
+  case receivedInitialMessage(SessionToken, CLBeaconRegion?)
+  case pendingImmediatePing(SessionToken, BeaconRanger, CLProximity)
+  case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
+  case authenticatedSecondary(SessionToken)
+  case authenticatedPrimary(SessionToken, BeaconAdvertiser)
   indirect case failed(on: CarrotSessionState?, previous: CarrotSessionState?, Error)
   
-  var token: SessionToken? {
+  public var token: SessionToken? {
     switch self {
     case .opening, .closing, .closed, .pendingToken:
       return nil
-    case let .receivedToken(token):
+    case let .receivedInitialMessage(token, _):
       return token
-    case let .fetchingLocation(token):
+    case let .pendingImmediatePing(token, _, _):
       return token
-    case let .authenticated(token, _):
+    case let .authenticatedSecondary(token):
+      return token
+    case let .pendingAdvertising(token, _, _):
+      return token
+    case let .authenticatedPrimary(token, _):
       return token
     case let .failed(state, _, _):
       return state?.token ?? nil
+    }
+  }
+  
+  public var isAuthenticated: Bool {
+    switch self {
+    case .authenticatedPrimary, .authenticatedSecondary:
+      return true
+    case .closed,
+         .closing,
+         .opening,
+         .pendingToken,
+         .receivedInitialMessage,
+         .pendingImmediatePing,
+         .pendingAdvertising,
+         .failed:
+      return false
     }
   }
 }
@@ -178,4 +228,4 @@ public enum CarrotSessionError: Error {
   case notAuthorized
 }
 
-public typealias SessionToken = String
+public typealias SessionToken = UUID

@@ -26,7 +26,7 @@ public final class BeaconRanger: NSObject {
   // MARK: Public
   
   public func startMonitoring(
-    onProximityChange: @escaping (BeaconRanger, CLProximity) -> Void,
+    onProximityUpdate: @escaping (BeaconRanger, CLProximity) -> Void,
     onError: @escaping (Error) -> Void)
   {
     if let error = error(for: CLLocationManager.authorizationStatus()) {
@@ -37,7 +37,7 @@ public final class BeaconRanger: NSObject {
       onError(error)
       return
     }
-    self.onProximityChange = onProximityChange
+    self.onProximityUpdate = onProximityUpdate
     self.onError = onError
     locationManager.requestAlwaysAuthorization()
     locationManager.startMonitoring(for: beaconRegion)
@@ -50,7 +50,7 @@ public final class BeaconRanger: NSObject {
   
   // MARK: Private
   
-  private var onProximityChange: ((BeaconRanger, CLProximity) -> Void)?
+  private var onProximityUpdate: ((BeaconRanger, CLProximity) -> Void)?
   private var onError: ((Error) -> Void)?
   private let beaconRegion: CLBeaconRegion
   
@@ -91,7 +91,6 @@ extension BeaconRanger: CLLocationManagerDelegate {
   {
     if let error = error(for: status) {
       onError?(error)
-      return
     }
   }
   
@@ -128,7 +127,7 @@ extension BeaconRanger: CLLocationManagerDelegate {
     in region: CLBeaconRegion)
   {
     guard let beacon = beacons.first else { return }
-    onProximityChange?(self, beacon.proximity)
+    onProximityUpdate?(self, beacon.proximity)
   }
   
   public func locationManager(

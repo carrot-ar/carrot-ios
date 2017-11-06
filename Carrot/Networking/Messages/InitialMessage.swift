@@ -9,10 +9,14 @@
 import Foundation
 import CoreLocation
 
+// MARK: - InitialMessage
+
 struct InitialMessage {
   var token: UUID
   var primaryBeacon: CLBeaconRegion?
 }
+
+// MARK: - Codable
 
 extension InitialMessage: Codable {
   

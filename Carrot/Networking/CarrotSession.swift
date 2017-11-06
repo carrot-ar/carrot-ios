@@ -82,7 +82,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         let ranger = BeaconRanger(for: region)
         state = .pendingImmediatePing(token, ranger, .unknown)
         ranger.startMonitoring(
-          onProximityChange: { [weak self] _, proximity in
+          onProximityUpdate: { [weak self] _, proximity in
             switch proximity {
             case .immediate:
               self?.state = .authenticatedSecondary(token)

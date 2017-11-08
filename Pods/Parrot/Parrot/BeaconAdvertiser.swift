@@ -1,6 +1,6 @@
 //
-//  PeripheralAdvertiser.swift
-//  Carrot
+//  BeaconAdvertiser.swift
+//  Parrot
 //
 //  Created by Gonzalo Nunez on 10/30/17.
 //  Copyright © 2017 carrot. All rights reserved.
@@ -10,17 +10,27 @@ import Foundation
 import CoreBluetooth
 import CoreLocation
 
+/// A class that allows a `CLBeaconRegion` to be advertised.
 public final class BeaconAdvertiser: NSObject {
   
   // MARK: Lifecycle
   
-  public init(uuid: UUID) {
-    //FIXME: What should we use for major and/or minor if we are the primary device?
+  /**
+   Initializer that creates the underlying [CLBeaconRegion](https://developer.apple.com/documentation/corelocation/clbeaconregion) that is advertised.
+   
+   - parameter uuid: The underlying `CLBeaconRegion`'s `proximityUUID`.
+   - parameter params: The `BeaconParams` that will be used to populate the underlying `CLBeaconRegion`'s major/minor values.
+   - parameter identifier: The underlying `CLBeaconRegion`'s `identifier`.
+  */
+  public init(
+    uuid: UUID,
+    identifier: String,
+    params: BeaconRegionParams)
+  {
     beaconRegion = CLBeaconRegion(
-      proximityUUID: uuid,
-      major: 100,
-      minor: 100,
-      identifier: "com.carrot.PrimaryDeviceBeaconRegion")
+      uuid: uuid,
+      identifier: identifier,
+      params: params)
     super.init()
   }
   
@@ -30,11 +40,16 @@ public final class BeaconAdvertiser: NSObject {
   
   // MARK: Public
   
+  /**
+   Start advertising.
+   - parameter onStateChange: A closure to handle when the `BeaconAdvertistingState` changes.
+  */
   public func startAdvertising(onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void) {
     stateHandler = onStateChange
     updateAdvertisingState()
   }
   
+  /// Stop advertising
   public func stopAdvertising() {
     peripheral.stopAdvertising()
     advertisingState = .idle
@@ -71,7 +86,9 @@ public final class BeaconAdvertiser: NSObject {
   }
 }
 
+/// :nodoc:
 extension BeaconAdvertiser: CBPeripheralManagerDelegate {
+  
   public func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
     updateAdvertisingState()
   }
@@ -85,18 +102,22 @@ extension BeaconAdvertiser: CBPeripheralManagerDelegate {
   }
 }
 
+/// An enum that describes the state of a `BeaconAdvertiser`.
 public enum BeaconAdvertisingState {
-  /// Waiting for the call to startAdvertising(_:_:)
+  /// Waiting for the call to startAdvertising(_:_:).
   case idle
-  /// Waiting for the `CBManagerState` to change from .poweredOff, .unknown, or .resetting
+  /// Waiting for the `CBManagerState` to change from .poweredOff, .unknown, or .resetting.
   case queued
-  /// The CBPeripheralManager is currently advertising `beaconRegion`
+  /// The CBPeripheralManager is currently advertising `beaconRegion`.
   case advertising
-  /// An error occured
+  /// An error occured.
   case error(Error)
 }
 
+/// An enum describing an error originating from a `BeaconAdvertiser`.
 public enum BeaconAdvertiserError: Error {
+  /// The `CBManagerState` is `.unsupported`.
   case unsupported
+  /// The `CBManagerState` is `.unauthorized`.
   case unauthorized
 }

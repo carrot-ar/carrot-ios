@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CoreLocation
+import simd
 
 public struct Location3D : Codable {
   public var x: Double
@@ -18,5 +18,16 @@ public struct Location3D : Codable {
     self.x = x
     self.y = y
     self.z = z
+  }
+}
+
+extension Location3D {
+  
+ init(transform: matrix_float4x4) {
+    let position = transform.position
+    self.init(
+      x: Double(position.x),
+      y: Double(position.y),
+      z: Double(position.z))
   }
 }

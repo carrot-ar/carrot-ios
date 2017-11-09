@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09724347F3D29C4BA785792E4F414C7A /* Parrot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9440D26EA2EC965292137EA8AB0147 /* Parrot-dummy.m */; };
+		12A6C763A4EF31857F97B571EF4A4BB0 /* BeaconMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC5125609174029FC53F49C8EDF9600 /* BeaconMonitor.swift */; };
 		36AAF0B5943A9D4FF4B6D0ECB24E8055 /* Pods-Carrot-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21C01EE510837E71D955461083F64B2B /* Pods-Carrot-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6B5F732E2146D48BA820FF29E2196EC7 /* BeaconParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12547C68DFF8F3793444B11DC288B32 /* BeaconParams.swift */; };
+		4D5B856565D295A58887F7446690AD63 /* BeaconParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA837C92803B55055D53F1C1ED064770 /* BeaconParams.swift */; };
+		741B0E0042CA809401013F798129A6D8 /* BeaconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D1034A5DA9B71FB4CF0BC21EF93FD3 /* BeaconInfo.swift */; };
 		78BF8BAFDFB0A12D18BDDE30626BECC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		98AB0610FA557DCA1BA0177B8F4C442E /* BeaconAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235EA3392E7352E7EAED5B1A2622908B /* BeaconAdvertiser.swift */; };
-		9FB53B3F0ABA01EAD554F482968FC007 /* Parrot-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D97B8E818CD65471E2C88109D12D0104 /* Parrot-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A1C04B6E81383272DE4B335581A23D39 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		8B026A0C0FDBCF11AEC7D23A65F91B55 /* BeaconAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC91C51FE87F366A5D992D17BF6705EE /* BeaconAdvertiser.swift */; };
+		B15BEFC074B75232A372EBC2604619F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		D97DBC91F535986D15B4AC3039621A51 /* Parrot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 231F17AB5D74F355D706D35F1E0D07F6 /* Parrot-dummy.m */; };
+		E71A142441989046703D3716C21B6F38 /* Parrot-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D752D3403A02D877C70A1581E9143E37 /* Parrot-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F667ECA004A41EF01093F8BB2937CF64 /* Pods-Carrot-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABEE8193B5B3317026922198177FF5A /* Pods-Carrot-dummy.m */; };
-		FC0F0A22FB81C8C14DECF1559F43C514 /* BeaconMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC879709510344261CDEBECF7F2BFE7 /* BeaconMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,7 +24,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B37EB1E1772319AE4567A9A1F95076F5;
+			remoteGlobalIDString = 81418789AC216C923DA5E7184AAEF4CD;
 			remoteInfo = Parrot;
 		};
 /* End PBXContainerItemProxy section */
@@ -31,29 +32,38 @@
 /* Begin PBXFileReference section */
 		0D31772A211D83EE4E0AF10B9E86BA3F /* Pods-Carrot-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Carrot-acknowledgements.plist"; sourceTree = "<group>"; };
 		21C01EE510837E71D955461083F64B2B /* Pods-Carrot-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Carrot-umbrella.h"; sourceTree = "<group>"; };
-		235EA3392E7352E7EAED5B1A2622908B /* BeaconAdvertiser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconAdvertiser.swift; path = Parrot/BeaconAdvertiser.swift; sourceTree = "<group>"; };
-		26DD5B640032FBD746D4947EE6EDABE2 /* Parrot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Parrot.xcconfig; sourceTree = "<group>"; };
+		231F17AB5D74F355D706D35F1E0D07F6 /* Parrot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Parrot-dummy.m"; sourceTree = "<group>"; };
 		2DD2F3902639BD8DD759A176CCF891F9 /* Pods-Carrot-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Carrot-acknowledgements.markdown"; sourceTree = "<group>"; };
-		39FF9992453D146DDEF94E0B5E5163BB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3C9440D26EA2EC965292137EA8AB0147 /* Parrot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Parrot-dummy.m"; sourceTree = "<group>"; };
 		3F8469F52FD3CEA333A4B292855ADBC3 /* Pods-Carrot.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Carrot.modulemap"; sourceTree = "<group>"; };
+		5B8B3359D0C103028C3059367AE02181 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		76F4C57404D65E93C136704A125A4294 /* Pods-Carrot-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Carrot-resources.sh"; sourceTree = "<group>"; };
 		8ABEE8193B5B3317026922198177FF5A /* Pods-Carrot-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Carrot-dummy.m"; sourceTree = "<group>"; };
-		8AC037575051AFC4EAA2CCBBDC50F3AA /* Parrot.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Parrot.modulemap; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		98D1034A5DA9B71FB4CF0BC21EF93FD3 /* BeaconInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconInfo.swift; path = Parrot/BeaconInfo.swift; sourceTree = "<group>"; };
+		AA837C92803B55055D53F1C1ED064770 /* BeaconParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconParams.swift; path = Parrot/BeaconParams.swift; sourceTree = "<group>"; };
+		AC77624813763BF40794D557578F0B48 /* Parrot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Parrot-prefix.pch"; sourceTree = "<group>"; };
 		AC7EE1EF1D25E802C43886C2D21A8BA3 /* Pods-Carrot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Carrot.debug.xcconfig"; sourceTree = "<group>"; };
-		BFC879709510344261CDEBECF7F2BFE7 /* BeaconMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconMonitor.swift; path = Parrot/BeaconMonitor.swift; sourceTree = "<group>"; };
+		ACC5125609174029FC53F49C8EDF9600 /* BeaconMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconMonitor.swift; path = Parrot/BeaconMonitor.swift; sourceTree = "<group>"; };
+		C009D3590818FDF4427BC422E0E2AE27 /* Parrot.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Parrot.modulemap; sourceTree = "<group>"; };
 		D4DB4CEBBE1EAEFB8BF8354420E25A01 /* Parrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Parrot.framework; path = Parrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D55B38B03FD6B69D7F61041AFCD8E86D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D61D2B189DC481A855684C80927A29A3 /* Parrot-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Parrot-prefix.pch"; sourceTree = "<group>"; };
-		D97B8E818CD65471E2C88109D12D0104 /* Parrot-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Parrot-umbrella.h"; sourceTree = "<group>"; };
-		F12547C68DFF8F3793444B11DC288B32 /* BeaconParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconParams.swift; path = Parrot/BeaconParams.swift; sourceTree = "<group>"; };
+		D752D3403A02D877C70A1581E9143E37 /* Parrot-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Parrot-umbrella.h"; sourceTree = "<group>"; };
+		DBC38E70AEE428611AA4F2A0D3D31102 /* Parrot.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Parrot.xcconfig; sourceTree = "<group>"; };
+		EC91C51FE87F366A5D992D17BF6705EE /* BeaconAdvertiser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeaconAdvertiser.swift; path = Parrot/BeaconAdvertiser.swift; sourceTree = "<group>"; };
 		FAE5BF7C9317CEACF82DFD87A057C579 /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Carrot.framework; path = "Pods-Carrot.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA0A3A94696EBFCFBA943680905831C /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		262FAE7F3F6D5A236D1187C3CAC4197B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B15BEFC074B75232A372EBC2604619F8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D3F2EE6043B3F9E69EA2773AC0CC500E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,37 +72,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E2A00D2DAE9F6396F4FAEAF3F025A668 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1C04B6E81383272DE4B335581A23D39 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		09AAC217B4FC14772BEF46BB6216E718 /* Pods */ = {
+		0307E1DB6B397BBC017E88C11F99EC0E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7E475E6E68FE5B1FABF771AE78550624 /* Parrot */,
+				6FF21EAAA8E84F79E584E762D402949E /* Parrot */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		1B36610FAEFEC6AE2FA31105EF866382 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				39FF9992453D146DDEF94E0B5E5163BB /* Info.plist */,
-				8AC037575051AFC4EAA2CCBBDC50F3AA /* Parrot.modulemap */,
-				26DD5B640032FBD746D4947EE6EDABE2 /* Parrot.xcconfig */,
-				3C9440D26EA2EC965292137EA8AB0147 /* Parrot-dummy.m */,
-				D61D2B189DC481A855684C80927A29A3 /* Parrot-prefix.pch */,
-				D97B8E818CD65471E2C88109D12D0104 /* Parrot-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Parrot";
 			sourceTree = "<group>";
 		};
 		1FCC74F731937E4B0FD33591FC91845C /* Products */ = {
@@ -112,27 +100,42 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		6FF21EAAA8E84F79E584E762D402949E /* Parrot */ = {
+			isa = PBXGroup;
+			children = (
+				EC91C51FE87F366A5D992D17BF6705EE /* BeaconAdvertiser.swift */,
+				98D1034A5DA9B71FB4CF0BC21EF93FD3 /* BeaconInfo.swift */,
+				ACC5125609174029FC53F49C8EDF9600 /* BeaconMonitor.swift */,
+				AA837C92803B55055D53F1C1ED064770 /* BeaconParams.swift */,
+				A95EAE08144218F4C9B8CC3C0AFB38AC /* Support Files */,
+			);
+			name = Parrot;
+			path = Parrot;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				09AAC217B4FC14772BEF46BB6216E718 /* Pods */,
+				0307E1DB6B397BBC017E88C11F99EC0E /* Pods */,
 				1FCC74F731937E4B0FD33591FC91845C /* Products */,
 				58856AE787773708F3DCC9ED1E1138F3 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		7E475E6E68FE5B1FABF771AE78550624 /* Parrot */ = {
+		A95EAE08144218F4C9B8CC3C0AFB38AC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				235EA3392E7352E7EAED5B1A2622908B /* BeaconAdvertiser.swift */,
-				BFC879709510344261CDEBECF7F2BFE7 /* BeaconMonitor.swift */,
-				F12547C68DFF8F3793444B11DC288B32 /* BeaconParams.swift */,
-				1B36610FAEFEC6AE2FA31105EF866382 /* Support Files */,
+				5B8B3359D0C103028C3059367AE02181 /* Info.plist */,
+				C009D3590818FDF4427BC422E0E2AE27 /* Parrot.modulemap */,
+				DBC38E70AEE428611AA4F2A0D3D31102 /* Parrot.xcconfig */,
+				231F17AB5D74F355D706D35F1E0D07F6 /* Parrot-dummy.m */,
+				AC77624813763BF40794D557578F0B48 /* Parrot-prefix.pch */,
+				D752D3403A02D877C70A1581E9143E37 /* Parrot-umbrella.h */,
 			);
-			name = Parrot;
-			path = Parrot;
+			name = "Support Files";
+			path = "../Target Support Files/Parrot";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -171,6 +174,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		50A529A9FD5CA862033BC73A322BD210 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71A142441989046703D3716C21B6F38 /* Parrot-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E69B04A79AF614D829B56917FCABF994 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,24 +190,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F8FBB9B2A6C9B9643113BB8C09096C81 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9FB53B3F0ABA01EAD554F482968FC007 /* Parrot-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B37EB1E1772319AE4567A9A1F95076F5 /* Parrot */ = {
+		81418789AC216C923DA5E7184AAEF4CD /* Parrot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B106C668FE527483D6178A6940969280 /* Build configuration list for PBXNativeTarget "Parrot" */;
+			buildConfigurationList = 20991BDF8C4DCE8EC4B3CDE7EBA948D6 /* Build configuration list for PBXNativeTarget "Parrot" */;
 			buildPhases = (
-				86671EF395791BC3518D885E1245BDB0 /* Sources */,
-				E2A00D2DAE9F6396F4FAEAF3F025A668 /* Frameworks */,
-				F8FBB9B2A6C9B9643113BB8C09096C81 /* Headers */,
+				63E54BD677CC1743F372DED297653A53 /* Sources */,
+				262FAE7F3F6D5A236D1187C3CAC4197B /* Frameworks */,
+				50A529A9FD5CA862033BC73A322BD210 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -246,21 +249,22 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B37EB1E1772319AE4567A9A1F95076F5 /* Parrot */,
+				81418789AC216C923DA5E7184AAEF4CD /* Parrot */,
 				E31D268693203F43C0968C1A0E370123 /* Pods-Carrot */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		86671EF395791BC3518D885E1245BDB0 /* Sources */ = {
+		63E54BD677CC1743F372DED297653A53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98AB0610FA557DCA1BA0177B8F4C442E /* BeaconAdvertiser.swift in Sources */,
-				FC0F0A22FB81C8C14DECF1559F43C514 /* BeaconMonitor.swift in Sources */,
-				6B5F732E2146D48BA820FF29E2196EC7 /* BeaconParams.swift in Sources */,
-				09724347F3D29C4BA785792E4F414C7A /* Parrot-dummy.m in Sources */,
+				8B026A0C0FDBCF11AEC7D23A65F91B55 /* BeaconAdvertiser.swift in Sources */,
+				741B0E0042CA809401013F798129A6D8 /* BeaconInfo.swift in Sources */,
+				12A6C763A4EF31857F97B571EF4A4BB0 /* BeaconMonitor.swift in Sources */,
+				4D5B856565D295A58887F7446690AD63 /* BeaconParams.swift in Sources */,
+				D97DBC91F535986D15B4AC3039621A51 /* Parrot-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,12 +282,47 @@
 		72E45DA6D143DF94F7423005E949BA17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Parrot;
-			target = B37EB1E1772319AE4567A9A1F95076F5 /* Parrot */;
+			target = 81418789AC216C923DA5E7184AAEF4CD /* Parrot */;
 			targetProxy = 1EAC6AA005092A936835E2D226BC9D9B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1777CE00AA97A69C55BF14678AE0646A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBC38E70AEE428611AA4F2A0D3D31102 /* Parrot.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Parrot/Parrot-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Parrot/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Parrot/Parrot.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Parrot;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		1A41B15D3AA834993ADDD808FA9D8764 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -325,41 +364,6 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		3797654B37D6B58E45D655464A94B0C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26DD5B640032FBD746D4947EE6EDABE2 /* Parrot.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Parrot/Parrot-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Parrot/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Parrot/Parrot.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Parrot;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -489,16 +493,16 @@
 			};
 			name = Debug;
 		};
-		BD9AB6A27ADE2BB2509786AA3D5FACA2 /* Debug */ = {
+		F28AB91F4442729A112AC596F1BFFDE6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26DD5B640032FBD746D4947EE6EDABE2 /* Parrot.xcconfig */;
+			baseConfigurationReference = DBC38E70AEE428611AA4F2A0D3D31102 /* Parrot.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -511,22 +515,31 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Parrot/Parrot.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Parrot;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		20991BDF8C4DCE8EC4B3CDE7EBA948D6 /* Build configuration list for PBXNativeTarget "Parrot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1777CE00AA97A69C55BF14678AE0646A /* Debug */,
+				F28AB91F4442729A112AC596F1BFFDE6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -541,15 +554,6 @@
 			buildConfigurations = (
 				3DDDD133D73B8159B5BB5CA326A95FCF /* Debug */,
 				6994C497B8E63767061EA8979C061EF2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B106C668FE527483D6178A6940969280 /* Build configuration list for PBXNativeTarget "Parrot" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BD9AB6A27ADE2BB2509786AA3D5FACA2 /* Debug */,
-				3797654B37D6B58E45D655464A94B0C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

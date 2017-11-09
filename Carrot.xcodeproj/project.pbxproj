@@ -14,10 +14,10 @@
 		AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */; };
 		AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */; };
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
-		AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CBE1F96A4530071B69F /* Message.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
+		AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB962CC41FB3BFB900F82AB5 /* Message.swift */; };
 		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
 		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
@@ -41,12 +41,12 @@
 		AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARUtils.swift; sourceTree = "<group>"; };
 		AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotatable.swift; sourceTree = "<group>"; };
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
-		AB4E9CBE1F96A4530071B69F /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		AB962CC41FB3BFB900F82AB5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
 		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
-				AB4E9CBE1F96A4530071B69F /* Message.swift */,
+				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -330,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
+				AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
 				AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */,
 				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
@@ -338,7 +339,6 @@
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
 				AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */,
-				AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */,
 				AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

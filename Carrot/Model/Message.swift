@@ -8,10 +8,14 @@
 
 import Foundation
 
+// MARK: - Message
+
 public struct Message<T: Codable> {
   var location: Location3D?
   var object: T
 }
+
+// MARK: - Codable
 
 extension Message: Codable {
   

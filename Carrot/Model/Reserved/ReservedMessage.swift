@@ -9,10 +9,14 @@
 import Foundation
 import Parrot
 
+// MARK: - ReservedMessage
+
 enum ReservedMessage {
   case beacon(BeaconInfo)
   case transform(Location3D)
 }
+
+// MARK: - Codable
 
 extension ReservedMessage: Codable {
   

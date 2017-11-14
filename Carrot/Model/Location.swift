@@ -9,6 +9,8 @@
 import Foundation
 import simd
 
+// MARK: - Location3D
+
 public struct Location3D : Codable {
   public var x: Double
   public var y: Double
@@ -20,6 +22,8 @@ public struct Location3D : Codable {
     self.z = z
   }
 }
+
+// MARK: - Equatable
 
 extension Location3D: Equatable {
   

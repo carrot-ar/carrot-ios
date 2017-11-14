@@ -10,6 +10,8 @@ import CoreLocation
 import Foundation
 import Parrot
 
+// MARK: - CarrotSessionState
+
 public enum CarrotSessionState {
   case opening
   case closing

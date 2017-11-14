@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - ReservedSendable
+
 struct ReservedSendable {
   var token: SessionToken
   var endpoint: ReservedEndpoint
@@ -25,10 +27,14 @@ struct ReservedSendable {
   }
 }
 
+// MARK: - ReservedEndpoint
+
 enum ReservedEndpoint: String, Codable {
   case transform = "carrot_transform"
   case beacon = "carrot_beacon"
 }
+
+// MARK: - Codable
 
 extension ReservedSendable: Codable {
  

@@ -11,6 +11,8 @@ import Foundation
 import Parrot
 import simd
 
+// MARK: - CarrotSession
+
 //TODO: client secret?
 public final class CarrotSession<T: Codable>: SocketDelegate {
   
@@ -250,11 +252,15 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   }
 }
 
+// MARK: - ErrorRecoveryCommand
+
 public enum ErrorRecoveryCommand {
   case restart
   case retry
   case close
 }
+
+// MARK: - CarrotSessionError
 
 public enum CarrotSessionError: Error {
   case failureWithoutError

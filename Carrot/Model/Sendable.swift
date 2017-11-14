@@ -8,13 +8,15 @@
 
 import Foundation
 
+// MARK: - Sendable
+
 struct Sendable<T: Codable> {
   var token: SessionToken
   var endpoint: String
   var message: Message<T>
 }
 
-// MARK: Codable
+// MARK: - Codable
 
 extension Sendable: Codable {
   

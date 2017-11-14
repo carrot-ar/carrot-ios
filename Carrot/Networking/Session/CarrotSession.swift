@@ -243,7 +243,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       let message = ReservedMessage.transform(location)
       return ReservedSendable(
         token: token,
-        endpoint: .transform,
         message: message)
     case .beacon:
       return nil

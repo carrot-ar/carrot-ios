@@ -1,5 +1,5 @@
 //
-//  SessionTests.swift
+//  CarrotTestsTests.swift
 //  CarrotTests
 //
 //  Created by Gonzalo Nunez on 11/14/17.
@@ -10,12 +10,13 @@ import Foundation
 
 import XCTest
 @testable import Carrot
+@testable import Parrot
 
 struct A: Codable {
   var foo: String
 }
 
-class SessionTests: XCTestCase {
+class CarrotTests: XCTestCase {
   
   let token = UUID(uuidString: "E621E1F8-C36C-495A-93FC-0C247A3E6E5F")!
   
@@ -25,7 +26,7 @@ class SessionTests: XCTestCase {
   
   func testSendableDecoding() {
     let dict = [
-      "session_token": "E621E1F8-C36C-495A-93FC-0C247A3E6E5F",
+      "session_token": token.uuidString,
       "endpoint": "test_endpoint",
       "payload": [
         "offset": [
@@ -48,7 +49,7 @@ class SessionTests: XCTestCase {
   
   func testReservedSendableDecoding() {
     let dict = [
-      "session_token": "E621E1F8-C36C-495A-93FC-0C247A3E6E5F",
+      "session_token": token.uuidString,
       "endpoint": "carrot_transform",
       "payload": [
         "offset": [
@@ -62,7 +63,30 @@ class SessionTests: XCTestCase {
   }
   
   func testReservedSendableEncoding() {
-    let sendable = ReservedSendable(token: token, endpoint: .transform, message: .transform(Location3D(x: 1, y: 2, z: 1)))
+    let sendable = ReservedSendable(token: token, message: .transform(Location3D(x: 1, y: 2, z: 1)))
     XCTAssertNoThrow(try JSONEncoder().encode(sendable))
+  }
+  
+  func testReservedSendableEndpoint() {
+    var sendable = ReservedSendable(token: token, message: .transform(Location3D(x: 1, y: 2, z: 1)))
+    switch sendable.endpoint {
+    case .transform:
+      break
+    case .beacon:
+      XCTAssert(false, "Unexpected endpoint type")
+    }
+   sendable = ReservedSendable(
+    token: token,
+    message: .beacon(BeaconInfo(
+      uuid: token,
+      identifier: "com.Carrot.Beacon",
+      params: .none))
+    )
+    switch sendable.endpoint {
+    case .beacon:
+      break
+    case .transform:
+      XCTAssert(false, "Unexpected endpoint type")
+    }
   }
 }

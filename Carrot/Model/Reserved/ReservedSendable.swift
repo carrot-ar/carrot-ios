@@ -12,6 +12,17 @@ struct ReservedSendable {
   var token: SessionToken
   var endpoint: ReservedEndpoint
   var message: ReservedMessage
+  
+  init(token: SessionToken, message: ReservedMessage) {
+    self.token = token
+    self.message = message
+    switch message {
+    case .transform:
+      endpoint = .transform
+    case .beacon:
+      endpoint = .beacon
+    }
+  }
 }
 
 enum ReservedEndpoint: String, Codable {

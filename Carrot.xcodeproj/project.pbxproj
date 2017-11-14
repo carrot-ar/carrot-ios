@@ -19,7 +19,7 @@
 		ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */; };
 		ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */; };
 		ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */; };
-		ABE625551FBB93AA00636BE3 /* SessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625541FBB93AA00636BE3 /* SessionTests.swift */; };
+		ABE625551FBB93AA00636BE3 /* CarrotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625541FBB93AA00636BE3 /* CarrotTests.swift */; };
 		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
 		E037D90B840C2EC71190C03D /* Pods_CarrotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF80604425FA006C629782C4 /* Pods_CarrotTests.framework */; };
 /* End PBXBuildFile section */
@@ -50,7 +50,7 @@
 		ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSessionState.swift; sourceTree = "<group>"; };
 		ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedMessage.swift; sourceTree = "<group>"; };
 		ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedSendable.swift; sourceTree = "<group>"; };
-		ABE625541FBB93AA00636BE3 /* SessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTests.swift; sourceTree = "<group>"; };
+		ABE625541FBB93AA00636BE3 /* CarrotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotTests.swift; sourceTree = "<group>"; };
 		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABEC7D931F9F93B70022A004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF80604425FA006C629782C4 /* Pods_CarrotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarrotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,7 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				ABEC7D931F9F93B70022A004 /* Info.plist */,
-				ABE625541FBB93AA00636BE3 /* SessionTests.swift */,
+				ABE625541FBB93AA00636BE3 /* CarrotTests.swift */,
 			);
 			path = CarrotTests;
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABE625551FBB93AA00636BE3 /* SessionTests.swift in Sources */,
+				ABE625551FBB93AA00636BE3 /* CarrotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,13 @@ import Foundation
 // MARK: - Message
 
 public struct Message<T: Codable> {
-  var location: Location3D?
-  var object: T
+  public var location: Location3D?
+  public var object: T
+  
+  public init(location: Location3D?, object: T) {
+    self.location = location
+    self.object = object
+  }
 }
 
 // MARK: - Codable

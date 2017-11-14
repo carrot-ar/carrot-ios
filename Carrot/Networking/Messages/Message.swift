@@ -11,7 +11,7 @@ import Foundation
 public enum Message<T: Codable> {
   case offset(Location3D)
   case object(T)
-  case full(Location3D, T)
+  case full(Location3D?, T)
 }
 
 extension Message: Codable {
@@ -36,7 +36,7 @@ extension Message: Codable {
       self = .offset(location)
     case let (.none, object?):
       self = .object(object)
-    case let (location?, object?):
+    case let (location, object?):
       self = .full(location, object)
     }
   }

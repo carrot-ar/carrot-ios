@@ -18,7 +18,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   
   public init(
     socket: Socket,
-    currentTransform: @escaping () -> matrix_float4x4,
+    currentTransform: @escaping () -> matrix_float4x4?,
     messageHandler: @escaping (Result<Message<T>>, String?) -> Void,
     errorHandler: @escaping (CarrotSessionState?, Error) -> ErrorRecoveryCommand?)
   {
@@ -72,7 +72,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   // MARK: Private
   
   private let socket: Socket
-  private let currentTransform: () -> matrix_float4x4
+  private let currentTransform: () -> matrix_float4x4?
   private let messageHandler: (Result<Message<T>>, String?) -> Void
   private let errorHandler: (CarrotSessionState?, Error) -> ErrorRecoveryCommand?
   private var stateDidChange: ((CarrotSessionState) -> Void)?
@@ -152,7 +152,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     token: SessionToken,
     beaconInfo: BeaconInfo?)
   {
-    let transform = currentTransform()
+    guard let transform = currentTransform() else { return }
     switch proximity {
     case .immediate:
       state = .authenticatedSecondary(token)
@@ -221,54 +221,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
          .pendingAdvertising,
          .failed:
       break
-    }
-  }
-}
-
-public enum CarrotSessionState {
-  case opening
-  case closing
-  case closed
-  case pendingToken
-  case receivedInitialMessage(SessionToken, BeaconInfo?)
-  case pendingImmediatePing(SessionToken, BeaconMonitor, CLProximity)
-  case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
-  case authenticatedSecondary(SessionToken)
-  case authenticatedPrimary(SessionToken, BeaconAdvertiser)
-  indirect case failed(on: CarrotSessionState?, previous: CarrotSessionState?, Error)
-  
-  public var token: SessionToken? {
-    switch self {
-    case .opening, .closing, .closed, .pendingToken:
-      return nil
-    case let .receivedInitialMessage(token, _):
-      return token
-    case let .pendingImmediatePing(token, _, _):
-      return token
-    case let .authenticatedSecondary(token):
-      return token
-    case let .pendingAdvertising(token, _, _):
-      return token
-    case let .authenticatedPrimary(token, _):
-      return token
-    case let .failed(state, _, _):
-      return state?.token ?? nil
-    }
-  }
-  
-  public var isAuthenticated: Bool {
-    switch self {
-    case .authenticatedPrimary, .authenticatedSecondary:
-      return true
-    case .closed,
-         .closing,
-         .opening,
-         .pendingToken,
-         .receivedInitialMessage,
-         .pendingImmediatePing,
-         .pendingAdvertising,
-         .failed:
-      return false
     }
   }
 }

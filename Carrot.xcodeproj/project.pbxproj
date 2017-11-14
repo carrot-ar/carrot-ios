@@ -8,11 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FA76354DC71098126952398 /* Pods_Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */; };
-		AB35DE381F9E7A6F00A4F179 /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */; };
-		AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE391F9E7AC100A4F179 /* Translatable.swift */; };
-		AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */; };
-		AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */; };
-		AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */; };
+		AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */; };
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
@@ -20,6 +16,7 @@
 		AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB962CC41FB3BFB900F82AB5 /* Message.swift */; };
 		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
+		ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */; };
 		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,11 +32,7 @@
 
 /* Begin PBXFileReference section */
 		03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
-		AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
-		AB35DE391F9E7AC100A4F179 /* Translatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
-		AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorOperations.swift; sourceTree = "<group>"; };
-		AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARUtils.swift; sourceTree = "<group>"; };
-		AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotatable.swift; sourceTree = "<group>"; };
+		AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix_Float4x4+Conveniences.swift"; sourceTree = "<group>"; };
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
@@ -49,6 +42,7 @@
 		AB962CC41FB3BFB900F82AB5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
+		ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSessionState.swift; sourceTree = "<group>"; };
 		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABEC7D931F9F93B70022A004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA8E9F149702A27326922847 /* Pods-Carrot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.debug.xcconfig"; sourceTree = "<group>"; };
@@ -92,18 +86,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		AB4E9CB11F941B3E0071B69F /* AR */ = {
-			isa = PBXGroup;
-			children = (
-				AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */,
-				AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */,
-				AB35DE391F9E7AC100A4F179 /* Translatable.swift */,
-				AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */,
-				AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */,
-			);
-			path = AR;
-			sourceTree = "<group>";
-		};
 		AB7931C11F91101900F17E85 = {
 			isa = PBXGroup;
 			children = (
@@ -127,27 +109,19 @@
 		AB7931CD1F91101900F17E85 /* Carrot */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CB11F941B3E0071B69F /* AR */,
-				AB7931DA1F91361700F17E85 /* Location */,
-				AB7931DC1F91364300F17E85 /* Networking */,
-				AB7931DB1F91363200F17E85 /* Utils */,
 				AB7931CE1F91101900F17E85 /* Carrot.h */,
 				AB7931CF1F91101900F17E85 /* Info.plist */,
+				ABE6254C1FBAA96100636BE3 /* Model */,
+				AB7931DC1F91364300F17E85 /* Networking */,
+				AB7931DB1F91363200F17E85 /* Utils */,
 			);
 			path = Carrot;
-			sourceTree = "<group>";
-		};
-		AB7931DA1F91361700F17E85 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
-			);
-			path = Location;
 			sourceTree = "<group>";
 		};
 		AB7931DB1F91363200F17E85 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */,
 				AB7931D81F91265B00F17E85 /* Utils.swift */,
 			);
 			path = Utils;
@@ -156,20 +130,29 @@
 		AB7931DC1F91364300F17E85 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
 				AB7931DD1F913E9E00F17E85 /* Socket.swift */,
-				ABC28A0C1F96AB100014FEE9 /* Messages */,
+				ABE625491FBAA8C900636BE3 /* Session */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		ABC28A0C1F96AB100014FEE9 /* Messages */ = {
+		ABE625491FBAA8C900636BE3 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
-				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
+				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
+				ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */,
 			);
-			path = Messages;
+			path = Session;
+			sourceTree = "<group>";
+		};
+		ABE6254C1FBAA96100636BE3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
+				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
+				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ABEC7D901F9F93B70022A004 /* CarrotTests */ = {
@@ -332,14 +315,11 @@
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
 				AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
-				AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */,
+				ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */,
 				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
-				AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */,
-				AB35DE381F9E7A6F00A4F179 /* MatrixOperations.swift in Sources */,
+				AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
-				AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */,
-				AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

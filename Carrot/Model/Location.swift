@@ -21,7 +21,7 @@ public struct Location3D : Codable {
   }
 }
 
-extension Location3D {
+extension Location3D: Equatable {
   
  init(transform: matrix_float4x4) {
     let position = transform.position
@@ -29,5 +29,11 @@ extension Location3D {
       x: Double(position.x),
       y: Double(position.y),
       z: Double(position.z))
+  }
+  
+  public static func ==(lhs: Location3D, rhs: Location3D) -> Bool {
+    return lhs.x == rhs.x &&
+           lhs.y == rhs.y &&
+           lhs.z == rhs.z
   }
 }

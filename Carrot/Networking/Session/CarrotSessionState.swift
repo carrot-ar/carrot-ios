@@ -15,7 +15,7 @@ public enum CarrotSessionState {
   case closing
   case closed
   case pendingToken
-  case receivedInitialMessage(SessionToken, BeaconInfo?)
+  case receivedInitialMessage(SessionToken, BeaconInfo)
   case pendingImmediatePing(SessionToken, BeaconMonitor, CLProximity)
   case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
   case authenticatedSecondary(SessionToken)

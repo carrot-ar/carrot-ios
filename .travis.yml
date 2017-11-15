@@ -1,4 +1,4 @@
 language: objective-c
 script:
-  - xcodebuild -workspace Carrot.xcworkspace -scheme Carrot -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xcodebuild test -workspace Carrot.xcworkspace -scheme CarrotTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xcodebuild test -workspace Carrot.xcworkspace -scheme Carrot -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  

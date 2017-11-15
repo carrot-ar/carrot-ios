@@ -1,6 +1,6 @@
 //
 //  BeaconRanger.swift
-//  Carrot
+//  Parrot
 //
 //  Created by Gonzalo Nunez on 11/1/17.
 //  Copyright © 2017 carrot. All rights reserved.
@@ -9,12 +9,24 @@
 import Foundation
 import CoreLocation
 
-public final class BeaconRanger: NSObject {
+/// A class that allows a `CLBeaconRegion` to be monitored.
+public final class BeaconMonitor: NSObject {
   
   // MARK: Lifecycle
   
-  public init(for region: CLBeaconRegion) {
-    beaconRegion = region
+  /**
+   Initializer that accepts the [CLBeaconRegion](https://developer.apple.com/documentation/corelocation/clbeaconregion) to be monitored.
+   
+   - parameter uuid: The underlying `CLBeaconRegion`'s `proximityUUID`.
+   - parameter identifier: The underlying `CLBeaconRegion`'s `identifier`.
+   - parameter params: The `BeaconParams` that will be used to populate the underlying `CLBeaconRegion`'s major/minor values.
+  */
+  public init(
+    uuid: UUID,
+    identifier: String,
+    params: BeaconRegionParams)
+  {
+    beaconRegion = CLBeaconRegion(uuid: uuid, identifier: identifier, params: params)
     beaconRegion.notifyEntryStateOnDisplay = true
     super.init()
   }
@@ -25,8 +37,14 @@ public final class BeaconRanger: NSObject {
   
   // MARK: Public
   
+  /**
+   Start monitoring the underlying `CLBeaconRegion`.
+   
+   - parameter onProximityUpdate: A closure that gets passed an instance of `self` along with the current `CLProximity` acquired whenever the `CLBeaconRegion` is ranged.
+   - parameter onError: A closure that is called whenever an error occurs.
+  */
   public func startMonitoring(
-    onProximityChange: @escaping (BeaconRanger, CLProximity) -> Void,
+    onProximityUpdate: @escaping (BeaconMonitor, CLProximity) -> Void,
     onError: @escaping (Error) -> Void)
   {
     if let error = error(for: CLLocationManager.authorizationStatus()) {
@@ -37,12 +55,13 @@ public final class BeaconRanger: NSObject {
       onError(error)
       return
     }
-    self.onProximityChange = onProximityChange
+    self.onProximityUpdate = onProximityUpdate
     self.onError = onError
     locationManager.requestAlwaysAuthorization()
     locationManager.startMonitoring(for: beaconRegion)
   }
   
+  /// Stop monitoring the underlying `CLBeaconRegion`.
   public func stopMonitoring() {
     locationManager.stopRangingBeacons(in: beaconRegion)
     locationManager.stopMonitoring(for: beaconRegion)
@@ -50,7 +69,7 @@ public final class BeaconRanger: NSObject {
   
   // MARK: Private
   
-  private var onProximityChange: ((BeaconRanger, CLProximity) -> Void)?
+  private var onProximityUpdate: ((BeaconMonitor, CLProximity) -> Void)?
   private var onError: ((Error) -> Void)?
   private let beaconRegion: CLBeaconRegion
   
@@ -63,9 +82,9 @@ public final class BeaconRanger: NSObject {
   private func error(for status: CLAuthorizationStatus) -> Error? {
     switch status {
     case .restricted:
-      return BeaconRangerError.locationRestricted
+      return BeaconMonitorError.locationRestricted
     case .denied:
-      return BeaconRangerError.locationDenied
+      return BeaconMonitorError.locationDenied
     case .notDetermined, .authorizedWhenInUse, .authorizedAlways:
       return nil
     }
@@ -74,16 +93,17 @@ public final class BeaconRanger: NSObject {
   private func error(for status: UIBackgroundRefreshStatus) -> Error? {
     switch status {
     case .restricted:
-      return BeaconRangerError.backgroundRefreshRestricted
+      return BeaconMonitorError.backgroundRefreshRestricted
     case .denied:
-      return BeaconRangerError.backgroundRefreshDenied
+      return BeaconMonitorError.backgroundRefreshDenied
     case .available:
       return nil
     }
   }
 }
 
-extension BeaconRanger: CLLocationManagerDelegate {
+/// :nodoc:
+extension BeaconMonitor: CLLocationManagerDelegate {
   
   public func locationManager(
     _ manager: CLLocationManager,
@@ -91,7 +111,6 @@ extension BeaconRanger: CLLocationManagerDelegate {
   {
     if let error = error(for: status) {
       onError?(error)
-      return
     }
   }
   
@@ -128,7 +147,7 @@ extension BeaconRanger: CLLocationManagerDelegate {
     in region: CLBeaconRegion)
   {
     guard let beacon = beacons.first else { return }
-    onProximityChange?(self, beacon.proximity)
+    onProximityUpdate?(self, beacon.proximity)
   }
   
   public func locationManager(
@@ -155,9 +174,14 @@ extension BeaconRanger: CLLocationManagerDelegate {
   }
 }
 
-enum BeaconRangerError: Error {
+/// An enum describing an error originating from a `BeaconMonitor`.
+enum BeaconMonitorError: Error {
+  /// The `CLAuthorizationStatus` is `.denied`.
   case locationDenied
+  /// The `CLAuthorizationStatus` is `.restricted`.
   case locationRestricted
+  /// The `UIBackgroundRefreshStatus` is `.denied`.
   case backgroundRefreshDenied
+  /// The `UIBackgroundRefreshStatus` is `.restricted`.
   case backgroundRefreshRestricted
 }

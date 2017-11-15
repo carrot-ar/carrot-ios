@@ -7,22 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB35DE381F9E7A6F00A4F179 /* MatrixOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */; };
-		AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE391F9E7AC100A4F179 /* Translatable.swift */; };
-		AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */; };
-		AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */; };
-		AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */; };
+		2FA76354DC71098126952398 /* Pods_Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */; };
+		AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */; };
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
-		AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CBE1F96A4530071B69F /* Message.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
-		AB80C4101FAA62CD00AE8A2E /* BeaconRanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */; };
-		AB80C4121FAA683000AE8A2E /* InitialMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB80C4111FAA683000AE8A2E /* InitialMessage.swift */; };
-		ABB7A4481FA79822005386E3 /* BeaconAdvertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */; };
+		AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB962CC41FB3BFB900F82AB5 /* Message.swift */; };
 		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
+		ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */; };
+		ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */; };
+		ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */; };
+		ABE625551FBB93AA00636BE3 /* CarrotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625541FBB93AA00636BE3 /* CarrotTests.swift */; };
 		ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7931CB1F91101900F17E85 /* Carrot.framework */; };
+		E037D90B840C2EC71190C03D /* Pods_CarrotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF80604425FA006C629782C4 /* Pods_CarrotTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,34 +35,45 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixOperations.swift; sourceTree = "<group>"; };
-		AB35DE391F9E7AC100A4F179 /* Translatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translatable.swift; sourceTree = "<group>"; };
-		AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorOperations.swift; sourceTree = "<group>"; };
-		AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARUtils.swift; sourceTree = "<group>"; };
-		AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotatable.swift; sourceTree = "<group>"; };
+		03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
+		51C6DB63C0C501B75B99C35C /* Pods-CarrotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarrotTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests.release.xcconfig"; sourceTree = "<group>"; };
+		AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix_Float4x4+Conveniences.swift"; sourceTree = "<group>"; };
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
-		AB4E9CBE1F96A4530071B69F /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
-		AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconRanger.swift; sourceTree = "<group>"; };
-		AB80C4111FAA683000AE8A2E /* InitialMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMessage.swift; sourceTree = "<group>"; };
-		ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconAdvertiser.swift; sourceTree = "<group>"; };
+		AB962CC41FB3BFB900F82AB5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
+		ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSessionState.swift; sourceTree = "<group>"; };
+		ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedMessage.swift; sourceTree = "<group>"; };
+		ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedSendable.swift; sourceTree = "<group>"; };
+		ABE625541FBB93AA00636BE3 /* CarrotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotTests.swift; sourceTree = "<group>"; };
 		ABEC7D8F1F9F93B70022A004 /* CarrotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarrotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABEC7D931F9F93B70022A004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF80604425FA006C629782C4 /* Pods_CarrotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarrotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA8E9F149702A27326922847 /* Pods-Carrot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.debug.xcconfig"; sourceTree = "<group>"; };
+		E58B130D60B54A4AFE6EB515 /* Pods-CarrotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarrotTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5D3D1068DCD410C24B87FFBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FA76354DC71098126952398 /* Pods_Carrot.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABEC7D8C1F9F93B70022A004 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				ABEC7D941F9F93B70022A004 /* Carrot.framework in Frameworks */,
+				E037D90B840C2EC71190C03D /* Pods_CarrotTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,20 +84,20 @@
 			isa = PBXGroup;
 			children = (
 				FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */,
+				AF80604425FA006C629782C4 /* Pods_CarrotTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AB4E9CB11F941B3E0071B69F /* AR */ = {
+		4C5A951E91BB2A7E2799A0B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AB35DE371F9E7A6F00A4F179 /* MatrixOperations.swift */,
-				AB35DE3B1F9E853A00A4F179 /* VectorOperations.swift */,
-				AB35DE391F9E7AC100A4F179 /* Translatable.swift */,
-				AB35DE3F1F9E86B700A4F179 /* Rotatable.swift */,
-				AB35DE3D1F9E854C00A4F179 /* ARUtils.swift */,
+				CA8E9F149702A27326922847 /* Pods-Carrot.debug.xcconfig */,
+				03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */,
+				E58B130D60B54A4AFE6EB515 /* Pods-CarrotTests.debug.xcconfig */,
+				51C6DB63C0C501B75B99C35C /* Pods-CarrotTests.release.xcconfig */,
 			);
-			path = AR;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		AB7931C11F91101900F17E85 = {
@@ -97,6 +107,7 @@
 				ABEC7D901F9F93B70022A004 /* CarrotTests */,
 				AB7931CC1F91101900F17E85 /* Products */,
 				4A1EC1FE6ED6D4ACB2C9D984 /* Frameworks */,
+				4C5A951E91BB2A7E2799A0B2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,28 +123,19 @@
 		AB7931CD1F91101900F17E85 /* Carrot */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CB11F941B3E0071B69F /* AR */,
-				ABB7A4461FA79792005386E3 /* Bluetooth */,
-				AB7931DA1F91361700F17E85 /* Location */,
-				AB7931DC1F91364300F17E85 /* Networking */,
-				AB7931DB1F91363200F17E85 /* Utils */,
 				AB7931CE1F91101900F17E85 /* Carrot.h */,
 				AB7931CF1F91101900F17E85 /* Info.plist */,
+				ABE6254C1FBAA96100636BE3 /* Model */,
+				AB7931DC1F91364300F17E85 /* Networking */,
+				AB7931DB1F91363200F17E85 /* Utils */,
 			);
 			path = Carrot;
-			sourceTree = "<group>";
-		};
-		AB7931DA1F91361700F17E85 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
-			);
-			path = Location;
 			sourceTree = "<group>";
 		};
 		AB7931DB1F91363200F17E85 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */,
 				AB7931D81F91265B00F17E85 /* Utils.swift */,
 			);
 			path = Utils;
@@ -142,36 +144,46 @@
 		AB7931DC1F91364300F17E85 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
 				AB7931DD1F913E9E00F17E85 /* Socket.swift */,
-				ABC28A0C1F96AB100014FEE9 /* Messages */,
+				ABE625491FBAA8C900636BE3 /* Session */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		ABB7A4461FA79792005386E3 /* Bluetooth */ = {
+		ABE625491FBAA8C900636BE3 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				ABB7A4471FA79822005386E3 /* BeaconAdvertiser.swift */,
-				AB80C40F1FAA62CD00AE8A2E /* BeaconRanger.swift */,
+				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
+				ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */,
 			);
-			path = Bluetooth;
+			path = Session;
 			sourceTree = "<group>";
 		};
-		ABC28A0C1F96AB100014FEE9 /* Messages */ = {
+		ABE6254C1FBAA96100636BE3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
-				AB4E9CBE1F96A4530071B69F /* Message.swift */,
-				AB80C4111FAA683000AE8A2E /* InitialMessage.swift */,
+				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
+				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
+				ABE6254F1FBB8B1700636BE3 /* Reserved */,
 			);
-			path = Messages;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ABE6254F1FBB8B1700636BE3 /* Reserved */ = {
+			isa = PBXGroup;
+			children = (
+				ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */,
+				ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */,
+			);
+			path = Reserved;
 			sourceTree = "<group>";
 		};
 		ABEC7D901F9F93B70022A004 /* CarrotTests */ = {
 			isa = PBXGroup;
 			children = (
 				ABEC7D931F9F93B70022A004 /* Info.plist */,
+				ABE625541FBB93AA00636BE3 /* CarrotTests.swift */,
 			);
 			path = CarrotTests;
 			sourceTree = "<group>";
@@ -194,9 +206,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB7931D31F91101900F17E85 /* Build configuration list for PBXNativeTarget "Carrot" */;
 			buildPhases = (
+				E059BEC9501D8EDD9550ACD2 /* [CP] Check Pods Manifest.lock */,
 				AB7931C61F91101900F17E85 /* Sources */,
 				AB7931C81F91101900F17E85 /* Headers */,
 				AB7931C91F91101900F17E85 /* Resources */,
+				5D3D1068DCD410C24B87FFBE /* Frameworks */,
+				488A777C15FF372A97D06295 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -211,9 +226,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = ABEC7D971F9F93B70022A004 /* Build configuration list for PBXNativeTarget "CarrotTests" */;
 			buildPhases = (
+				00E2FEB5D67AEAA8A9939519 /* [CP] Check Pods Manifest.lock */,
 				ABEC7D8B1F9F93B70022A004 /* Sources */,
 				ABEC7D8C1F9F93B70022A004 /* Frameworks */,
 				ABEC7D8D1F9F93B70022A004 /* Resources */,
+				053376829567325D44794FCD /* [CP] Embed Pods Frameworks */,
+				E3921A1F4BF15BD6915A940A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -242,6 +260,7 @@
 					};
 					ABEC7D8E1F9F93B70022A004 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -281,25 +300,108 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		00E2FEB5D67AEAA8A9939519 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarrotTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		053376829567325D44794FCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Parrot/Parrot.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parrot.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		488A777C15FF372A97D06295 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Carrot/Pods-Carrot-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E059BEC9501D8EDD9550ACD2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Carrot-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3921A1F4BF15BD6915A940A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AB7931C61F91101900F17E85 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
-				AB80C4121FAA683000AE8A2E /* InitialMessage.swift in Sources */,
+				AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
-				AB35DE3C1F9E853A00A4F179 /* VectorOperations.swift in Sources */,
+				ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */,
 				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
-				AB80C4101FAA62CD00AE8A2E /* BeaconRanger.swift in Sources */,
-				ABB7A4481FA79822005386E3 /* BeaconAdvertiser.swift in Sources */,
-				AB35DE3E1F9E854C00A4F179 /* ARUtils.swift in Sources */,
-				AB35DE381F9E7A6F00A4F179 /* MatrixOperations.swift in Sources */,
+				ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */,
+				AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */,
+				ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
-				AB35DE3A1F9E7AC100A4F179 /* Translatable.swift in Sources */,
-				AB4E9CBF1F96A4530071B69F /* Message.swift in Sources */,
-				AB35DE401F9E86B700A4F179 /* Rotatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABE625551FBB93AA00636BE3 /* CarrotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +459,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -366,6 +470,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -375,6 +480,7 @@
 		};
 		AB4E9CB91F965E0C0071B69F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA8E9F149702A27326922847 /* Pods-Carrot.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -442,6 +548,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -450,6 +557,7 @@
 		};
 		AB4E9CBB1F965E1B0071B69F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -473,7 +581,9 @@
 		};
 		ABEC7D981F9F93B70022A004 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E58B130D60B54A4AFE6EB515 /* Pods-CarrotTests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = BG3Y5KSHNC;
@@ -499,7 +609,9 @@
 		};
 		ABEC7D991F9F93B70022A004 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51C6DB63C0C501B75B99C35C /* Pods-CarrotTests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BG3Y5KSHNC;
 				INFOPLIST_FILE = CarrotTests/Info.plist;

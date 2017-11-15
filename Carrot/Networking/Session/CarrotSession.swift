@@ -13,7 +13,6 @@ import simd
 
 // MARK: - CarrotSession
 
-//TODO: client secret?
 public final class CarrotSession<T: Codable>: SocketDelegate {
   
   // MARK: Lifecycle
@@ -87,14 +86,9 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     case .closing:
       socket.close()
     case let .receivedInitialMessage(token, beaconInfo):
-      let isPrimaryDevice = token == beaconInfo.uuid
+      let isPrimaryDevice = (token == beaconInfo.uuid)
       if isPrimaryDevice {
-        let advertiser = BeaconAdvertiser(
-          uuid: token,
-          identifier: beaconInfo.identifier,
-          params: beaconInfo.params)
-        state = .pendingAdvertising(token, advertiser, .idle)
-        advertiser.startAdvertising { [weak self] advertiser, advertisingState in
+        advertise(with: beaconInfo, token: token) { [weak self] advertiser, advertisingState in
           switch advertisingState {
           case .advertising:
             self?.state = .authenticatedPrimary(token, advertiser)
@@ -108,12 +102,9 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
           }
         }
       } else {
-        let monitor = BeaconMonitor(
-          uuid: beaconInfo.uuid,
-          identifier: beaconInfo.identifier,
-          params: beaconInfo.params)
-        state = .pendingImmediatePing(token, monitor, .unknown)
-        monitor.startMonitoring(
+        monitor(
+          for: beaconInfo,
+          token: token,
           onProximityUpdate: { [weak self] monitor, proximity in
             self?.handleProximityUpdate(
               to: proximity,
@@ -134,7 +125,9 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       switch command {
       case .restart:
         state = .opening
-      case .retry:
+      case .retryOrRestart:
+        state = previous ?? .opening
+      case .retryOrClose:
         state = previous ?? .closed
       case .close:
         state = .closed
@@ -147,6 +140,35 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
          .authenticatedPrimary:
       break
     }
+  }
+  
+  private func advertise(
+    with beaconInfo: BeaconInfo,
+    token: SessionToken,
+    onStateChange: @escaping (BeaconAdvertiser, BeaconAdvertisingState) -> Void)
+  {
+    let advertiser = BeaconAdvertiser(
+      uuid: token,
+      identifier: beaconInfo.identifier,
+      params: beaconInfo.params)
+    state = .pendingAdvertising(token, advertiser, .idle)
+    advertiser.startAdvertising(onStateChange: onStateChange)
+  }
+  
+  private func monitor(
+    for beaconInfo: BeaconInfo,
+    token: SessionToken,
+    onProximityUpdate: @escaping (BeaconMonitor, CLProximity) -> Void,
+    onError: @escaping (Error) -> Void)
+  {
+    let monitor = BeaconMonitor(
+      uuid: beaconInfo.uuid,
+      identifier: beaconInfo.identifier,
+      params: beaconInfo.params)
+    state = .pendingImmediatePing(token, monitor, .unknown)
+    monitor.startMonitoring(
+      onProximityUpdate: onProximityUpdate,
+      onError: onError)
   }
   
   private func handleProximityUpdate(
@@ -256,7 +278,8 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
 
 public enum ErrorRecoveryCommand {
   case restart
-  case retry
+  case retryOrRestart
+  case retryOrClose
   case close
 }
 
@@ -266,5 +289,7 @@ public enum CarrotSessionError: Error {
   case failureWithoutError
   case notAuthorized
 }
+
+// MARK: - SessionToken
 
 public typealias SessionToken = UUID

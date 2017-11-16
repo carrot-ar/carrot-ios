@@ -15,6 +15,12 @@ struct ReservedSendable {
   var endpoint: ReservedEndpoint
   var message: ReservedMessage
   
+  init(token: SessionToken, endpoint: ReservedEndpoint, message: ReservedMessage) {
+    self.token = token
+    self.message = message
+    self.endpoint = endpoint
+  }
+  
   init(token: SessionToken, message: ReservedMessage) {
     self.token = token
     self.message = message
@@ -23,6 +29,8 @@ struct ReservedSendable {
       endpoint = .transform
     case .beacon:
       endpoint = .beacon
+    case .none:
+      fatalError("ERROR: Cannot infer the endpoint for ReservedMessage.none.")
     }
   }
 }
@@ -48,7 +56,7 @@ extension ReservedSendable: Codable {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     token = try values.decode(SessionToken.self, forKey: .token)
     endpoint = try values.decode(ReservedEndpoint.self, forKey: .endpoint)
-    message = try values.decode(ReservedMessage.self, forKey: .message)
+    message = (try? values.decode(ReservedMessage.self, forKey: .message)) ?? .none
   }
   
   func encode(to encoder: Encoder) throws {

@@ -62,6 +62,12 @@ class CarrotTests: XCTestCase {
     XCTAssertNoThrow(try JSONDecoder().decode(ReservedSendable.self, from: data(from: dict)))
   }
   
+  func testReservedSendableNoPayloadDecoding() {
+    let dict = ["session_token": token.uuidString,
+                "endpoint": "carrot_transform"] as [String: Any]
+    XCTAssertNoThrow(try JSONDecoder().decode(ReservedSendable.self, from: data(from: dict)))
+  }
+  
   func testReservedSendableEncoding() {
     let sendable = ReservedSendable(token: token, message: .transform(Location3D(x: 1, y: 2, z: 1)))
     XCTAssertNoThrow(try JSONEncoder().encode(sendable))

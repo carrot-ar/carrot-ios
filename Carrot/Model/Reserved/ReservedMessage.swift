@@ -12,6 +12,7 @@ import Parrot
 // MARK: - ReservedMessage
 
 enum ReservedMessage {
+  case none
   case beacon(BeaconInfo)
   case transform(Location3D)
 }
@@ -39,7 +40,11 @@ extension ReservedMessage: Codable {
       self = .transform(location)
       return
     }
-    throw CodingError.decoding("Decoding Failed. \(dump(values))")
+    if values.allKeys.isEmpty {
+      self = .none
+      return
+    }
+    throw CodingError.decoding("Decoding failed: \(dump(values))")
   }
   
   func encode(to encoder: Encoder) throws {
@@ -49,6 +54,8 @@ extension ReservedMessage: Codable {
       try container.encode(beaconInfo, forKey: .object)
     case let .transform(location):
       try container.encode(location, forKey: .offset)
+    case .none:
+      break
     }
   }
 }

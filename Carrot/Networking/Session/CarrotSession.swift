@@ -235,7 +235,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
         switch reservedSendable.message {
         case let .beacon(beaconInfo):
           state = .receivedInitialMessage(reservedSendable.token, beaconInfo)
-        case .transform:
+        case .transform, .none:
           break
         }
       } catch {

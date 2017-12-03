@@ -26,10 +26,6 @@ extension ReservedMessage: Codable {
     case object = "params"
   }
   
-  enum CodingError: Error {
-    case decoding(String)
-  }
-  
   init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     if let beaconInfo = try? values.decode(BeaconInfo.self, forKey: .object) {
@@ -40,11 +36,7 @@ extension ReservedMessage: Codable {
       self = .transform(location)
       return
     }
-    if values.allKeys.isEmpty {
-      self = .none
-      return
-    }
-    throw CodingError.decoding("Decoding failed: \(dump(values))")
+    self = .none
   }
   
   func encode(to encoder: Encoder) throws {

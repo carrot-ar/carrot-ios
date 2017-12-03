@@ -62,6 +62,22 @@ class CarrotTests: XCTestCase {
     XCTAssertNoThrow(try JSONDecoder().decode(ReservedSendable.self, from: data(from: dict)))
   }
   
+  func testReservedSendableDecodingExampleFromServer() {
+    let dict = [
+      "session_token": "E628E5F8-C36C-496A-93FC-0C247A3E6E5F",
+      "endpoint": "carrot_transform",
+      "payload": [
+        "params": [
+          "uuid": "E628E5F8-C36C-496A-93FC-0C247A3E6E5F",
+          "identifier": "com.Carrot.Beacon"
+        ]
+      ]
+    ] as [String: Any]
+    XCTAssertNoThrow(try JSONDecoder().decode(ReservedSendable.self, from: data(from: dict)))
+    let decoded = try! JSONDecoder().decode(ReservedSendable.self, from: data(from: dict))
+    XCTAssertEqual(decoded.token.uuidString, "E628E5F8-C36C-496A-93FC-0C247A3E6E5F")
+  }
+  
   func testReservedSendableNoPayloadDecoding() {
     let dict = ["session_token": token.uuidString,
                 "endpoint": "carrot_transform"] as [String: Any]

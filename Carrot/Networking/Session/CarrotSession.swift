@@ -263,8 +263,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     switch endpoint {
     case .transform:
       guard let transform = currentTransform() else { return nil }
-      let location = Location3D(transform: transform)
-      let message = ReservedMessage.transform(location)
+      let message = ReservedMessage.transform(transform)
       return ReservedSendable(
         token: token,
         message: message)

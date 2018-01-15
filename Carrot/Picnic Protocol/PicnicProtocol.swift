@@ -121,18 +121,11 @@ public class PicnicProtocol: SessionDriver {
     }
     switch state {
     case .pendingToken:
-      do {
-        let reservedSendable = try JSONDecoder().decode(ReservedSendable.self, from: data)
-        switch reservedSendable.message {
-        case let .beacon(beaconInfo):
-          updateState(.receivedInitialMessage(reservedSendable.token, beaconInfo))
-        case .transform, .none:
-          break
-        }
-      } catch {
-        // Fail silently if the server sends us something we aren't expecting?
-        // Aka a non-reserved message.
-        assert(false, "[ERROR]: \(error)")
+      switch reservedSendable.message {
+      case let .beacon(beaconInfo):
+        updateState(.receivedInitialMessage(reservedSendable.token, beaconInfo))
+      case .transform, .none:
+        break
       }
     case .opening,
          .closing,

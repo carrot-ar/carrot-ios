@@ -8,9 +8,10 @@
 
 import Foundation
 
-import XCTest
 @testable import Carrot
 @testable import Parrot
+import simd
+import XCTest
 
 struct A: Codable {
   var foo: String
@@ -29,10 +30,11 @@ class CarrotTests: XCTestCase {
       "session_token": token.uuidString,
       "endpoint": "test_endpoint",
       "payload": [
-        "offset": [
-          "x": 0,
-          "y": 0,
-          "z": 0
+        "transform": [
+          "c0": [1, 2, 3, 4],
+          "c1": [1, 2, 3, 4],
+          "c2": [1, 2, 3, 4],
+          "c3": [1, 2, 3, 4]
         ],
         "params": [
           "foo": "bar"
@@ -43,7 +45,7 @@ class CarrotTests: XCTestCase {
   }
   
   func testSendableEncoding() {
-    let sendable = Sendable(token: token, endpoint: "foo", message: Message(location: nil, object: A(foo: "bar")))
+    let sendable = Sendable(token: token, endpoint: "foo", message: Message(transform: nil, object: A(foo: "bar")))
     XCTAssertNoThrow(try JSONEncoder().encode(sendable))
   }
   
@@ -85,12 +87,12 @@ class CarrotTests: XCTestCase {
   }
   
   func testReservedSendableEncoding() {
-    let sendable = ReservedSendable(token: token, message: .transform(Location3D(x: 1, y: 2, z: 1)))
+    let sendable = ReservedSendable(token: token, message: .transform(matrix_identity_float4x4))
     XCTAssertNoThrow(try JSONEncoder().encode(sendable))
   }
   
   func testReservedSendableEndpoint() {
-    var sendable = ReservedSendable(token: token, message: .transform(Location3D(x: 1, y: 2, z: 1)))
+    var sendable = ReservedSendable(token: token, message: .transform(matrix_identity_float4x4))
     switch sendable.endpoint {
     case .transform:
       break

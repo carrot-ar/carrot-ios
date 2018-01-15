@@ -8,7 +8,6 @@
 
 import CoreLocation
 import Foundation
-import Parrot
 import simd
 
 // MARK: - CustomCarrotSession

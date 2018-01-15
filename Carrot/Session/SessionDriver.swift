@@ -21,6 +21,7 @@ public protocol SessionDriver {
     from state: State,
     with updateState: @escaping (State) -> Void)
   
+  /// Handle receiving any incoming data from the WebSocket that arrives while in an unauthenticated state.
   func didReceive(
     data: Data,
     in state: State,

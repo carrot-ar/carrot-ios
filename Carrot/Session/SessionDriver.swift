@@ -26,18 +26,3 @@ public protocol SessionDriver {
     in state: State,
     updateState: @escaping (State) -> Void)
 }
-
-public protocol DriverState {
-  static var `default`: Self { get }
-
-  var token: SessionToken? { get }
-  var isAuthenticated: Bool { get }
-}
-
-public enum MessageResult<T: Codable> {
-  case success(Message<T>, Endpoint?)
-  case error(Error)
-}
-
-public typealias SessionToken = UUID
-public typealias Endpoint = String

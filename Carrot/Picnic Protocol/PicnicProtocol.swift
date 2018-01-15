@@ -44,7 +44,7 @@ public class PicnicProtocol: SessionDriver {
   }
   
   public func socketDidFail(with error: Error?, state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
-    updateState(.failed(on: state, error ?? CarrotSessionError.failureWithoutError))
+    updateState(.failed(on: state, error ?? PicnicProtocolError.failureWithoutError))
   }
   
   public func updateState(
@@ -180,7 +180,7 @@ public class PicnicProtocol: SessionDriver {
     switch proximity {
     case .immediate:
       guard let transform = currentTransform() else {
-        updateState(.failed(on: state, CarrotSessionError.noTransform))
+        updateState(.failed(on: state, PicnicProtocolError.noTransform))
         return
       }
       updateState(.authenticatedSecondary(token))
@@ -218,4 +218,11 @@ public class PicnicProtocol: SessionDriver {
       return nil
     }
   }
+}
+
+// MARK: - PicnicProtocolError
+
+enum PicnicProtocolError: Error {
+  case failureWithoutError
+  case noTransform
 }

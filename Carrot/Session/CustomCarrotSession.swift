@@ -119,7 +119,11 @@ public class CustomCarrotSession<Driver: SessionDriver, Object: Codable>: Socket
 // MARK: - CarrotSessionError
 
 public enum CarrotSessionError: Error {
-  case failureWithoutError
-  case noTransform
   case notAuthenticated
 }
+
+// MARK: - Typealiases
+
+public typealias SessionToken = UUID
+public typealias Endpoint = String
+

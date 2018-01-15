@@ -8,10 +8,10 @@
 
 import Foundation
 
-import XCTest
 @testable import Carrot
 @testable import Parrot
 import simd
+import XCTest
 
 struct A: Codable {
   var foo: String

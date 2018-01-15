@@ -1,5 +1,5 @@
 //
-//  CarrotSessionState.swift
+//  PicnicProtocolState.swift
 //  Carrot
 //
 //  Created by Gonzalo Nunez on 11/13/17.
@@ -12,7 +12,7 @@ import Parrot
 
 // MARK: - CarrotSessionState
 
-public enum CarrotSessionState {
+public enum PicnicProtocolState {
   case opening
   case closing
   case closed
@@ -22,7 +22,14 @@ public enum CarrotSessionState {
   case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
   case authenticatedSecondary(SessionToken)
   case authenticatedPrimary(SessionToken, BeaconAdvertiser)
-  indirect case failed(on: CarrotSessionState?, Error)
+  indirect case failed(on: PicnicProtocolState?, Error)
+}
+
+extension PicnicProtocolState: DriverState {
+  
+  public static var `default`: PicnicProtocolState {
+    return .closed
+  }
   
   public var token: SessionToken? {
     switch self {
@@ -59,4 +66,3 @@ public enum CarrotSessionState {
     }
   }
 }
-

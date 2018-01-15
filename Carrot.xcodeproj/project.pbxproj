@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		2FA76354DC71098126952398 /* Pods_Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */; };
+		AB33D3AA200D4A2C00D431F8 /* SessionDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB33D3A9200D4A2C00D431F8 /* SessionDriver.swift */; };
+		AB33D3AC200D4C4900D431F8 /* PicnicProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB33D3AB200D4C4900D431F8 /* PicnicProtocol.swift */; };
+		AB33D3AE200D4CE100D431F8 /* PicnicProtocolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB33D3AD200D4CE100D431F8 /* PicnicProtocolState.swift */; };
+		AB33D3B0200D65E300D431F8 /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB33D3AF200D65E300D431F8 /* CarrotSession.swift */; };
 		AB35DE381F9E7A6F00A4F179 /* MatrixUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */; };
-		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
+		AB4E9CB31F941B480071B69F /* CustomCarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CustomCarrotSession.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
 		AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB962CC41FB3BFB900F82AB5 /* Message.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
-		ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */; };
 		ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */; };
 		ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */; };
 		ABE625551FBB93AA00636BE3 /* CarrotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625541FBB93AA00636BE3 /* CarrotTests.swift */; };
@@ -36,16 +38,18 @@
 /* Begin PBXFileReference section */
 		03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
 		51C6DB63C0C501B75B99C35C /* Pods-CarrotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarrotTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests.release.xcconfig"; sourceTree = "<group>"; };
+		AB33D3A9200D4A2C00D431F8 /* SessionDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDriver.swift; sourceTree = "<group>"; };
+		AB33D3AB200D4C4900D431F8 /* PicnicProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicnicProtocol.swift; sourceTree = "<group>"; };
+		AB33D3AD200D4CE100D431F8 /* PicnicProtocolState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicnicProtocolState.swift; sourceTree = "<group>"; };
+		AB33D3AF200D65E300D431F8 /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
 		AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixUtils.swift; sourceTree = "<group>"; };
-		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
+		AB4E9CB21F941B480071B69F /* CustomCarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCarrotSession.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
 		AB7931CF1F91101900F17E85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		AB962CC41FB3BFB900F82AB5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
-		ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSessionState.swift; sourceTree = "<group>"; };
 		ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedMessage.swift; sourceTree = "<group>"; };
 		ABE625521FBB8B3900636BE3 /* ReservedSendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedSendable.swift; sourceTree = "<group>"; };
 		ABE625541FBB93AA00636BE3 /* CarrotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotTests.swift; sourceTree = "<group>"; };
@@ -123,7 +127,7 @@
 			children = (
 				AB7931CE1F91101900F17E85 /* Carrot.h */,
 				AB7931CF1F91101900F17E85 /* Info.plist */,
-				ABE6254C1FBAA96100636BE3 /* Model */,
+				ABE6254C1FBAA96100636BE3 /* Messaging */,
 				AB7931DC1F91364300F17E85 /* Networking */,
 				AB7931DB1F91363200F17E85 /* Utils */,
 			);
@@ -134,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */,
-				AB7931D81F91265B00F17E85 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -151,20 +154,23 @@
 		ABE625491FBAA8C900636BE3 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				AB4E9CB21F941B480071B69F /* CarrotSession.swift */,
-				ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */,
+				AB33D3AF200D65E300D431F8 /* CarrotSession.swift */,
+				AB4E9CB21F941B480071B69F /* CustomCarrotSession.swift */,
+				AB33D3AB200D4C4900D431F8 /* PicnicProtocol.swift */,
+				AB33D3AD200D4CE100D431F8 /* PicnicProtocolState.swift */,
+				AB33D3A9200D4A2C00D431F8 /* SessionDriver.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
 		};
-		ABE6254C1FBAA96100636BE3 /* Model */ = {
+		ABE6254C1FBAA96100636BE3 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
 				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
 				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
 				ABE6254F1FBB8B1700636BE3 /* Reserved */,
 			);
-			path = Model;
+			path = Messaging;
 			sourceTree = "<group>";
 		};
 		ABE6254F1FBB8B1700636BE3 /* Reserved */ = {
@@ -389,14 +395,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */,
+				AB4E9CB31F941B480071B69F /* CustomCarrotSession.swift in Sources */,
+				AB33D3B0200D65E300D431F8 /* CarrotSession.swift in Sources */,
 				AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
-				ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */,
+				AB33D3AA200D4A2C00D431F8 /* SessionDriver.swift in Sources */,
+				AB33D3AC200D4C4900D431F8 /* PicnicProtocol.swift in Sources */,
 				ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */,
+				AB33D3AE200D4CE100D431F8 /* PicnicProtocolState.swift in Sources */,
 				AB35DE381F9E7A6F00A4F179 /* MatrixUtils.swift in Sources */,
 				ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */,
-				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

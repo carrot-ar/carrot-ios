@@ -22,7 +22,7 @@ public enum CarrotSessionState {
   case pendingAdvertising(SessionToken, BeaconAdvertiser, BeaconAdvertisingState)
   case authenticatedSecondary(SessionToken)
   case authenticatedPrimary(SessionToken, BeaconAdvertiser)
-  indirect case failed(on: CarrotSessionState?, previous: CarrotSessionState?, Error)
+  indirect case failed(on: CarrotSessionState?, Error)
   
   public var token: SessionToken? {
     switch self {
@@ -38,7 +38,7 @@ public enum CarrotSessionState {
       return token
     case let .authenticatedPrimary(token, _):
       return token
-    case let .failed(state, _, _):
+    case let .failed(state, _):
       return state?.token ?? nil
     }
   }

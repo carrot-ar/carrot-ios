@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2FA76354DC71098126952398 /* Pods_Carrot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA217DA9AD53FDC83B6023AC /* Pods_Carrot.framework */; };
-		AB35DE381F9E7A6F00A4F179 /* MatrixUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */; };
+		AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */; };
 		AB4E9CB31F941B480071B69F /* CarrotSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4E9CB21F941B480071B69F /* CarrotSession.swift */; };
 		AB7931D01F91101900F17E85 /* Carrot.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7931CE1F91101900F17E85 /* Carrot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB7931D91F91265B00F17E85 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931D81F91265B00F17E85 /* Utils.swift */; };
 		AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7931DD1F913E9E00F17E85 /* Socket.swift */; };
 		AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB962CC41FB3BFB900F82AB5 /* Message.swift */; };
+		ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A0D1F96AF0D0014FEE9 /* Location.swift */; };
 		ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC28A111F97E8060014FEE9 /* Sendable.swift */; };
 		ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */; };
 		ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */; };
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		03789F1DCECC230268DAE601 /* Pods-Carrot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Carrot.release.xcconfig"; path = "Pods/Target Support Files/Pods-Carrot/Pods-Carrot.release.xcconfig"; sourceTree = "<group>"; };
 		51C6DB63C0C501B75B99C35C /* Pods-CarrotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarrotTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarrotTests/Pods-CarrotTests.release.xcconfig"; sourceTree = "<group>"; };
-		AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixUtils.swift; sourceTree = "<group>"; };
+		AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix_Float4x4+Conveniences.swift"; sourceTree = "<group>"; };
 		AB4E9CB21F941B480071B69F /* CarrotSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSession.swift; sourceTree = "<group>"; };
 		AB7931CB1F91101900F17E85 /* Carrot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Carrot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7931CE1F91101900F17E85 /* Carrot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Carrot.h; sourceTree = "<group>"; };
@@ -44,6 +45,7 @@
 		AB7931D81F91265B00F17E85 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		AB7931DD1F913E9E00F17E85 /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		AB962CC41FB3BFB900F82AB5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		ABC28A0D1F96AF0D0014FEE9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		ABC28A111F97E8060014FEE9 /* Sendable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sendable.swift; sourceTree = "<group>"; };
 		ABE6254A1FBAA8E500636BE3 /* CarrotSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotSessionState.swift; sourceTree = "<group>"; };
 		ABE625501FBB8B3100636BE3 /* ReservedMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservedMessage.swift; sourceTree = "<group>"; };
@@ -133,7 +135,7 @@
 		AB7931DB1F91363200F17E85 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				AB35DE371F9E7A6F00A4F179 /* MatrixUtils.swift */,
+				AB35DE371F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift */,
 				AB7931D81F91265B00F17E85 /* Utils.swift */,
 			);
 			path = Utils;
@@ -162,6 +164,7 @@
 			children = (
 				ABC28A111F97E8060014FEE9 /* Sendable.swift */,
 				AB962CC41FB3BFB900F82AB5 /* Message.swift */,
+				ABC28A0D1F96AF0D0014FEE9 /* Location.swift */,
 				ABE6254F1FBB8B1700636BE3 /* Reserved */,
 			);
 			path = Model;
@@ -393,8 +396,9 @@
 				AB962CC51FB3BFB900F82AB5 /* Message.swift in Sources */,
 				ABC28A121F97E8060014FEE9 /* Sendable.swift in Sources */,
 				ABE6254B1FBAA8E500636BE3 /* CarrotSessionState.swift in Sources */,
+				ABC28A0E1F96AF0D0014FEE9 /* Location.swift in Sources */,
 				ABE625511FBB8B3100636BE3 /* ReservedMessage.swift in Sources */,
-				AB35DE381F9E7A6F00A4F179 /* MatrixUtils.swift in Sources */,
+				AB35DE381F9E7A6F00A4F179 /* Matrix_Float4x4+Conveniences.swift in Sources */,
 				ABE625531FBB8B3900636BE3 /* ReservedSendable.swift in Sources */,
 				AB7931D91F91265B00F17E85 /* Utils.swift in Sources */,
 				AB7931DE1F913E9E00F17E85 /* Socket.swift in Sources */,

@@ -8,13 +8,14 @@
 
 import Foundation
 import Parrot
+import simd
 
 // MARK: - ReservedMessage
 
 enum ReservedMessage {
   case none
   case beacon(BeaconInfo)
-  case transform(Location3D)
+  case transform(matrix_float4x4)
 }
 
 // MARK: - Codable
@@ -22,7 +23,7 @@ enum ReservedMessage {
 extension ReservedMessage: Codable {
   
   enum CodingKeys: String, CodingKey {
-    case offset
+    case transform
     case object = "params"
   }
   
@@ -32,8 +33,8 @@ extension ReservedMessage: Codable {
       self = .beacon(beaconInfo)
       return
     }
-    if let location = try? values.decode(Location3D.self, forKey: .offset) {
-      self = .transform(location)
+    if let transform = try? values.decode(matrix_float4x4.self, forKey: .transform) {
+      self = .transform(transform)
       return
     }
     self = .none
@@ -44,8 +45,8 @@ extension ReservedMessage: Codable {
     switch self {
     case let .beacon(beaconInfo):
       try container.encode(beaconInfo, forKey: .object)
-    case let .transform(location):
-      try container.encode(location, forKey: .offset)
+    case let .transform(transform):
+      try container.encode(transform, forKey: .transform)
     case .none:
       break
     }

@@ -7,16 +7,15 @@
 //
 
 import Foundation
-import simd
 
 // MARK: - Message
 
 public struct Message<T: Codable> {
-  public var transform: matrix_float4x4?
+  public var location: Location3D?
   public var object: T
   
-  public init(transform: matrix_float4x4?, object: T) {
-    self.transform = transform
+  public init(location: Location3D?, object: T) {
+    self.location = location
     self.object = object
   }
 }
@@ -26,19 +25,19 @@ public struct Message<T: Codable> {
 extension Message: Codable {
   
   enum CodingKeys: String, CodingKey {
-    case transform
+    case offset
     case object = "params"
   }
   
  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    transform = try values.decode(matrix_float4x4?.self, forKey: .transform)
+    location = try values.decode(Location3D?.self, forKey: .offset)
     object = try values.decode(T.self, forKey: .object)
   }
   
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(transform, forKey: .transform)
+    try container.encode(location, forKey: .offset)
     try container.encode(object, forKey: .object)
   }
 }

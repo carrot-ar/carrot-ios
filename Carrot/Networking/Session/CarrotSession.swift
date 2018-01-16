@@ -21,7 +21,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     socket: Socket,
     currentTransform: @escaping () -> matrix_float4x4?,
     messageHandler: @escaping (Result<Message<T>>, String?) -> Void,
-    errorHandler: @escaping (CarrotSessionState?, Error) -> Void)
+    errorHandler: @escaping (CarrotSessionState?, Error) -> ErrorRecoveryCommand?)
   {
     self.socket = socket
     self.currentTransform = currentTransform
@@ -75,7 +75,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   private let socket: Socket
   private let currentTransform: () -> matrix_float4x4?
   private let messageHandler: (Result<Message<T>>, String?) -> Void
-  private let errorHandler: (CarrotSessionState?, Error) -> Void
+  private let errorHandler: (CarrotSessionState?, Error) -> ErrorRecoveryCommand?
   private var stateDidChange: ((CarrotSessionState) -> Void)?
   
   private func handleStateChange(previous: CarrotSessionState) {
@@ -97,6 +97,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
           case let .error(error):
             self?.state = .failed(
               on: self?.state,
+              previous: .receivedInitialMessage(token, beaconInfo),
               error)
           }
         }
@@ -114,12 +115,23 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
           onError: { [weak self] error in
             self?.state = .failed(
               on: self?.state,
+              previous: .receivedInitialMessage(token, beaconInfo),
               error)
           }
         )
       }
-    case let .failed(failedOn, error):
-      errorHandler(failedOn, error)
+    case let .failed(failedOn, previous, error):
+      guard let command = errorHandler(failedOn, error) else { return }
+      switch command {
+      case .restart:
+        state = .opening
+      case .retryOrRestart:
+        state = previous ?? .opening
+      case .retryOrClose:
+        state = previous ?? .closed
+      case .close:
+        state = .closed
+      }
     case .closed,
          .pendingToken,
          .pendingImmediatePing,
@@ -175,6 +187,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } catch {
         state = .failed(
           on: state,
+          previous: .receivedInitialMessage(token, beaconInfo),
           error)
       }
     case .near, .far, .unknown:
@@ -195,6 +208,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
   public func socketDidFail(with error: Error?) {
     state = .failed(
       on: state,
+      previous: nil,
       error ?? CarrotSessionError.failureWithoutError)
   }
   
@@ -209,6 +223,7 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
       } catch {
         state = .failed(
           on: state,
+          previous: nil,
           error)
       }
       return
@@ -224,7 +239,6 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
           break
         }
       } catch {
-        // Fail silently if the server sends us something we aren't expecting, aka a non-reserved message
         assert(false, "[ERROR]: \(error)")
       }
     case .authenticatedPrimary, .authenticatedSecondary:
@@ -249,15 +263,24 @@ public final class CarrotSession<T: Codable>: SocketDelegate {
     switch endpoint {
     case .transform:
       guard let transform = currentTransform() else { return nil }
-      let message = ReservedMessage.transform(transform)
+      let location = Location3D(transform: transform)
+      let message = ReservedMessage.transform(location)
       return ReservedSendable(
         token: token,
         message: message)
     case .beacon:
-      // FIXME: Become the primary device, aka call advertise(_:, _:, _:). There's nothing to send back though.
       return nil
     }
   }
+}
+
+// MARK: - ErrorRecoveryCommand
+
+public enum ErrorRecoveryCommand {
+  case restart
+  case retryOrRestart
+  case retryOrClose
+  case close
 }
 
 // MARK: - CarrotSessionError

@@ -68,7 +68,7 @@ Sessions are central to Carrot apps. A session is responsible for two things:
 
 There are two types of sessions in Carrot: `CarrotSession` and `CustomCarrotSession`, and the difference between the two lies in the underlying protocol: 
 
-|         Session        |    Protocol    |
+|         Session        |      Driver     |
 | ---------------------- | ----------------
 | `CarrotSession`        | `PicnicProtocol`
 | `CustomCarrotSession`  | Custom protocol conforming to `SessionDriver`
@@ -119,7 +119,7 @@ Opting for a `CustomCarrotSession` allows you to implement your own authenticati
 
 #### ⚠️ Warning
 
-At the time of writing, custom authentication protocols are not supported on the server-side. However, you can still use a `CustomCarrotSession` in order to implementing the Picnic Protocol in a different way or to layer other logic on top of `PicnicProtocol`.
+At the time of writing, custom authentication protocols are not supported on the server-side. However, you can still use a `CustomCarrotSession` in order to implement the Picnic Protocol in a different way or to layer other logic on top of the Picnic Protocol.
 
 #### SessionDriver
 
@@ -147,7 +147,7 @@ Conforming to `DriverState` correctly is **very important**, as it decides wheth
 
 ### Example
 
-For an concrete example of conforming to `SessionDriver`, take a look at `PicnicProtocol.swift`. It codifies the PicnicProtocol rules, standards, and state management into an object conforming to `SessionDriver` and uses `PicnicProtocolState` and its `DriverState`.
+For an concrete example of conforming to `SessionDriver`, take a look at `PicnicProtocol.swift`. It codifies the Picnic Protocol rules, standards, and state management into an object conforming to `SessionDriver` and uses `PicnicProtocolState` and its `DriverState`.
 
 ## ✉️ Messages
 

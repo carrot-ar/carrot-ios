@@ -55,7 +55,7 @@ Here are a few things we have in mind (in no particular order):
 
 ## 🥗 The Picnic Protocol
 
-TODO
+Brb, condensing an 11 page senior project report into a section of a Github README 🙃
 
 ## 🌎 Sessions
 

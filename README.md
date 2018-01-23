@@ -64,7 +64,9 @@ Sessions are central to Carrot apps. A session is responsible for two things:
 1. Managing authentication via some underlying protocol.
 2. Providing a clean interface to the WebSocket used to relay messages to/from the Carrot server.
 
-**When it comes to sessions, the word protocol is referring to a set of rules that governs the communications between computers on a network, not the Swift keyword.** There are two types of sessions in Carrot: `CarrotSession` and `CustomCarrotSession`, and the difference between the two lies in the underlying protocol: 
+**When it comes to sessions, the word protocol is referring to a set of rules that governs the communications between computers on a network, not the Swift keyword.**
+
+There are two types of sessions in Carrot: `CarrotSession` and `CustomCarrotSession`, and the difference between the two lies in the underlying protocol: 
 
 |         Session        |    Protocol    |
 | ---------------------- | ----------------
@@ -115,7 +117,7 @@ carrotSession = CarrotSession(
 
 Opting for a `CustomCarrotSession` allows you to implement your own authentication protocol. This is designed for cases where maybe the Picnic Protocol is not a good fit for your multi-device AR experience. You're free to use whatever you'd like as long it conforms to the `SessionDriver` protocol, which we'll take a closer look at now.
 
-#### ⚠️ Warning:
+#### ⚠️ Warning
 
 At the time of writing, custom authentication protocols are not supported on the server-side. However, you can still use a `CustomCarrotSession` in order to implementing the Picnic Protocol in a different way or to layer other logic on top of `PicnicProtocol`.
 

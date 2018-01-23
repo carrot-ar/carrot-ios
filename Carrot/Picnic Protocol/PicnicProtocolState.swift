@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import Parrot
 
-// MARK: - CarrotSessionState
+// MARK: - PicnicProtocolState
 
 public enum PicnicProtocolState {
   case opening

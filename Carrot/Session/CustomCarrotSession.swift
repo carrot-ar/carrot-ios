@@ -41,13 +41,13 @@ public class CustomCarrotSession<Driver: SessionDriver, Object: Codable>: Socket
   public func start(stateDidChange: @escaping (Driver.State) -> Void) {
     self.stateDidChange = stateDidChange
     socket.eventDelegate = self
-    driver.start(state: state) { [weak self] newState in
+    driver.start { [weak self] newState in
       self?.state = newState
     }
   }
   
   public func end() {
-    driver.end(state: state) { [weak self] newState in
+    driver.end { [weak self] newState in
       self?.state = newState
     }
   }
@@ -82,13 +82,13 @@ public class CustomCarrotSession<Driver: SessionDriver, Object: Codable>: Socket
   // MARK: SocketDelegate
   
   public func socketDidOpen() {
-    driver.socketDidOpen(state: state) { [weak self] newState in
+    driver.socketDidOpen { [weak self] newState in
       self?.state = newState
     }
   }
   
   public func socketDidClose(with code: Int?, reason: String?, wasClean: Bool?) {
-    driver.socketDidClose(state: state) { [weak self] newState in
+    driver.socketDidClose  { [weak self] newState in
       self?.state = newState
     }
   }
@@ -123,6 +123,4 @@ public enum CarrotSessionError: Error {
 
 // MARK: - Typealiases
 
-public typealias SessionToken = UUID
 public typealias Endpoint = String
-

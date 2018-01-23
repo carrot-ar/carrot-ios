@@ -11,10 +11,10 @@ import Foundation
 public protocol SessionDriver {
   associatedtype State: DriverState
   
-  func start(state: State, updateState: @escaping (State) -> Void)
-  func end(state: State, updateState: @escaping (State) -> Void)
-  func socketDidOpen(state: State, updateState: @escaping (State) -> Void)
-  func socketDidClose(state: State, updateState: @escaping (State) -> Void)
+  func start(updateState: @escaping (State) -> Void)
+  func end(updateState: @escaping (State) -> Void)
+  func socketDidOpen(updateState: @escaping (State) -> Void)
+  func socketDidClose(updateState: @escaping (State) -> Void)
   func socketDidFail(with error: Error?, state: State, updateState: @escaping (State) -> Void)
 
   func updateState(

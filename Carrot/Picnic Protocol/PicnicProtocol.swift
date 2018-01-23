@@ -27,23 +27,23 @@ public class PicnicProtocol: SessionDriver {
   
   public typealias State = PicnicProtocolState
   
-  public func start(state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
+  public func start(updateState: @escaping (State) -> Void) {
     updateState(.opening)
   }
   
-  public func end(state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
+  public func end(updateState: @escaping (State) -> Void) {
     updateState(.closing)
   }
   
-  public func socketDidOpen(state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
+  public func socketDidOpen(updateState: @escaping (State) -> Void) {
     updateState(.pendingToken)
   }
   
-  public func socketDidClose(state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
+  public func socketDidClose(updateState: @escaping (State) -> Void) {
     updateState(.closed)
   }
   
-  public func socketDidFail(with error: Error?, state: State, updateState: @escaping (PicnicProtocolState) -> Void) {
+  public func socketDidFail(with error: Error?, state: State, updateState: @escaping (State) -> Void) {
     updateState(.failed(on: state, error ?? PicnicProtocolError.failureWithoutError))
   }
   

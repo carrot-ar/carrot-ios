@@ -14,3 +14,5 @@ public protocol DriverState {
   var token: SessionToken? { get }
   var isAuthenticated: Bool { get }
 }
+
+public typealias SessionToken = UUID

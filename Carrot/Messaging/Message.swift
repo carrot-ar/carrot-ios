@@ -30,7 +30,7 @@ extension Message: Codable {
     case object = "params"
   }
   
- public init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     transform = try values.decode(matrix_float4x4?.self, forKey: .transform)
     object = try values.decode(T.self, forKey: .object)

@@ -27,7 +27,7 @@ public struct Location3D : Codable {
 
 extension Location3D: Equatable {
   
- init(transform: matrix_float4x4) {
+ public init(transform: matrix_float4x4) {
     let position = transform.position
     self.init(
       x: Double(position.x),

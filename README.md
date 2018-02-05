@@ -20,7 +20,7 @@ Carrot is an easy-to-use, real-time framework for building applications with mul
 | 🎙 | [Sending Messages to Carrot](#sending-messages-to-carrot)
 | 📨 | [Receiving Messages from Carrot](#receiving-messages-from-carrot)
 
-## ✨ Features
+## Features
 
 Here are some of what we think are Carrot's best features!
 
@@ -40,7 +40,7 @@ Carrot is heavily customizable thanks to `SessionDriver`. Implement your own sta
 
 Carrot allows you to take an existing AR app and make it multi-device without writing too much code, allowing you to focus on perfecting and shipping your AR experience! Initialize a session, render incoming messages, broadcast local rendering events and forget about it!
 
-## 📋 To-Do
+## To-Do
 
 First off, we'd love as much input from the community as possible! Please don't hesitate to create issues for any problems encountered and PRs to get discussions kicked off about features you'd like to see Carrot implement. It's very early on in the framework's lifespan and we'd like to take this in whatever direction the community wants 🙂
 
@@ -53,11 +53,11 @@ Here are a few things we have in mind (in no particular order):
 - [ ] Abstract away `PicnicProtocol` iBeacon functionality into a protocol
 - [ ] More flexible route, endpoint & message paradigm (something like registering callbacks instead)
 
-## 🥗 The Picnic Protocol
+## The Picnic Protocol
 
 Brb, condensing an 11 page senior project report into a section of a Github README 🙃
 
-## 🌎 Sessions
+## Sessions
 
 Sessions are central to Carrot apps. A session is responsible for two things:
 
@@ -149,7 +149,7 @@ Conforming to `DriverState` correctly is **very important**, as it decides wheth
 
 For an concrete example of conforming to `SessionDriver`, take a look at `PicnicProtocol.swift`. It codifies the Picnic Protocol rules, standards, and state management into an object conforming to `SessionDriver` and uses `PicnicProtocolState` and its `DriverState`.
 
-## ✉️ Messages
+## Messages
 
 Messages in Carrot are how information about events gets encoded and packaged for the server-side to broadcast to other clients in the same session. In Swift, they are represented by the `Message<T: Codable>` struct:
 
@@ -201,7 +201,7 @@ let message = Message(transform: anchor.transform, object: LabelEvent(text: "�
 
 Upon receiving the message, another client would be able to decode it and have all the information necessary to render the `SKLabelNode`. We'll go over both the sending and receiving of messages in the following sections.
 
-## 🎙 Sending Messages to Carrot
+## Sending Messages to Carrot
 
 Sending messages happens via `public func send(message: Message<Object>, to endpoint: Endpoint) throws`. On top of the actual `Message<Object>` itself, this method requires an `Endpoint`. This `Endpoint` is how the server-side knows what controller to route the message to. 
 
@@ -223,7 +223,7 @@ do {
 }
 ```
 
-## 📨 Receiving Messages from Carrot
+## Receiving Messages from Carrot
 
 Receiving messages happens via the `messageHandler` closure of type `(MessageResult<T>) -> Void` that you provide in the initializer of a session. Messages get passed to this closure when the underlying `SessionDriver`'s state is an authenticated one.
 

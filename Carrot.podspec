@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name               = "Carrot"
-  s.version            = "v0.1.0"
+  s.version            = "0.1.0"
   s.summary            = "Swift framework for building multi-device AR apps on iOS"
   s.description        = <<-DESC
                           Carrot is a Swift framework for multi-device AR applications. This is the iOS client-side framework that interfaces with your Carrot web app.

@@ -15,14 +15,13 @@ Pod::Spec.new do |s|
                           Carrot is a Swift framework for multi-device AR applications. This is the iOS client-side framework that interfaces with your Carrot web app.
                          DESC
 
-  s.homepage           = "https://carrot-ar.github.io/"
-  # s.screenshots      = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.homepage           = "https://github.com/carrot-ar/carrot-ios"
 
   s.license            = "BSD 3-Clause"
   s.author             = "gonzalonunez"
-  # s.social_media_url   = "http://twitter.com/gonzalo__nunez"
+  s.social_media_url   = "http://twitter.com/gonzalo__nunez"
 
-  s.platform           = :ios, '11.0'
+  s.platform           = :ios, "11.0"
   s.source             = { :git => 'https://github.com/carrot-ar/carrot-ios.git', :tag => s.version.to_s }
   s.dependency 'Parrot'
 
